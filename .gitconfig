@@ -1,0 +1,19 @@
+[github]
+  user = zenbro
+  email = capybarov@gmail.com
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+[alias]
+  s = status
+  co = checkout
+  cc = commit
+  ca = commit --amend
+  aa = add -u
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit
+  ls = log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat
+  who = shortlog -n -s --no-merges

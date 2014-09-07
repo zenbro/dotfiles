@@ -1,0 +1,7 @@
+node_modules/
+core/node_modules
+tmp/
+vendor/
+bundle/
+.git/
+*.log
