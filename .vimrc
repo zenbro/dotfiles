@@ -224,8 +224,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
   " }}}
   NeoBundle 'AndrewRadev/sideways.vim'
   " {{{
-    nnoremap <silent> <C-h> :SidewaysLeft<CR>
-    nnoremap <silent> <C-l> :SidewaysRight<CR>
+    nnoremap <Leader>h :SidewaysLeft<CR>
+    nnoremap <Leader>l :SidewaysRight<CR>
   " }}}
   NeoBundle 'nathanaelkane/vim-indent-guides'
   " {{{
@@ -574,12 +574,6 @@ endfunction " }}}
   nnoremap <Leader>sv :vs<CR> <c-w>l
   nnoremap <Leader>sw <c-w>r
   nnoremap <Leader>sq :only<cr>
-
-  " Переключение по сплитам
-  nnoremap <Leader>h <c-w>h
-  nnoremap <Leader>l <c-w>l
-  nnoremap <Leader>k <c-w>k
-  nnoremap <Leader>j <c-w>j
 
   " Открываем пустой сплит справа, если сплитов нет
   " если сплит есть, то перемещаемся на него
