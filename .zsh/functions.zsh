@@ -12,3 +12,16 @@ function zsh_stats() {
 function path() {
   echo $PATH | tr : '\n'
 }
+
+function _set_title() {
+  print -Pn '\e]1;%l@%m${1+*}\a'
+  print -Pn '\e]2;%n@%m:%~'
+  if [ -n "$1" ]; then
+    print -Pnr ' (%24>..>$1%>>)'|tr '\0-\037' '?'
+  fi
+  print -Pn "\a"
+}
+precmd_functions+=(omz_termsupport_preexec)
+
+precmd () { _set_title "$@" }
+preexec() { _set_title "$@" }

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TITLE=$(mocp -Q %title)
+if [ ${#TITLE} -gt 45 ]; then
+    echo $TITLE | head -c 42
+    echo '...'
+else
+    echo $TITLE
+fi

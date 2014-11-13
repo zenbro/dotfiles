@@ -1,0 +1,114 @@
+! Render setting for cairo -> pango -> gtk
+Xft.antialias: 1
+xft.autohint: 0
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
+! colors
+*customization: -color
+*color0:  #2e3436
+*color1:  #e91e16
+*color2:  #2db600
+*color3:  #c4a000
+*color4:  #3465a4
+*color5:  #75507b
+*color6:  #06989a
+*color7:  #d3d7cf
+*color8:  #555753
+*color9:  #ef2929
+*color10: #8ae234
+*color11: #fce94f
+*color12: #729fcf
+*color13: #ad7fa8
+*color14: #34e2e2
+*color15: #eeeeec
+
+! fonts
+URxvt*font:           xft:ubuntu mono:regular:size=12
+URxvt*boldFont:       xft:ubuntu mono:bold:size=12
+URxvt*italicFont:     xft:ubuntu mono:italic:size=12
+URxvt*boldItalicFont: xft:ubuntu mono:bold:italic:size=12
+URxvt*letterSpace: -1
+
+! transparent background
+URxvt.depth: 32
+URxvt*background: [095]#101010
+URxvt*foreground: #ffffff
+URxvt.underlineColor: #777777
+
+! dimming when losing focus
+URxvt.fading: 10
+URxvt.fadeColor: #000000
+
+! disable blinking
+URxvt*visualBell: false
+URxvt*urgentOnBell: true
+
+! scrolling
+URxvt*scrollBar:         false
+URxvt*scrollTtyOutput:   false
+URxvt*scrollTtyKeypress: true
+URxvt*scrollWithBuffer:  true
+URxvt*saveLines:         9999
+
+! extensions (using urxvt-perls)
+URxvt.perl-ext-common: default,matcher,keyboard-select
+
+! clickable urls
+URxvt.url-launcher:   /usr/bin/firefox
+URxvt.matcher.button: 1
+
+! keyboard-select
+URxvt.keysym.M-z:     perl:keyboard-select:activate
+URxvt.keysym.M-slash: perl:keyboard-select:search
+
+! keybindings
+! Normal
+URxvt*keysym.Home: \033OH
+URxvt*keysym.End:  \033OF
+URxvt*keysym.F1:   \033OP
+URxvt*keysym.F2:   \033OQ
+URxvt*keysym.F3:   \033OR
+URxvt*keysym.F4:   \033OS
+
+! Shift
+URxvt*keysym.S-Delete: \033[3;2~
+URxvt*keysym.S-Home:   \033[1;2H
+URxvt*keysym.S-End:    \033[1;2F
+
+URxvt*keysym.S-F1:  \033[1;2P
+URxvt*keysym.S-F2:  \033[1;2Q
+URxvt*keysym.S-F3:  \033[1;2R
+URxvt*keysym.S-F4:  \033[1;2S
+URxvt*keysym.S-F5:  \033[15;2~
+URxvt*keysym.S-F6:  \033[17;2~
+URxvt*keysym.S-F7:  \033[18;2~
+URxvt*keysym.S-F8:  \033[19;2~
+URxvt*keysym.S-F9:  \033[20;2~
+URxvt*keysym.S-F10: \033[21;2~
+URxvt*keysym.S-F11: \033[23;2~
+URxvt*keysym.S-F12: \033[24;2~
+
+! Alt
+URxvt*keysym.M-Insert:    \033[2;3~
+URxvt*keysym.M-Delete:    \033[3;3~
+URxvt*keysym.M-Home:      \033[1;3H
+URxvt*keysym.M-End:       \033[1;3F
+URxvt*keysym.M-Page_Up:   \033[5;3~
+URxvt*keysym.M-Page_Down: \033[6;3~
+
+URxvt*keysym.M-F1:  \033[1;3P
+URxvt*keysym.M-F2:  \033[1;3Q
+URxvt*keysym.M-F3:  \033[1;3R
+URxvt*keysym.M-F4:  \033[1;3S
+URxvt*keysym.M-F5:  \033[15;3~
+URxvt*keysym.M-F6:  \033[17;3~
+URxvt*keysym.M-F7:  \033[18;3~
+URxvt*keysym.M-F8:  \033[19;3~
+URxvt*keysym.M-F9:  \033[20;3~
+URxvt*keysym.M-F10: \033[21;3~
+URxvt*keysym.M-F11: \033[23;3~
+URxvt*keysym.M-F12: \033[24;3~

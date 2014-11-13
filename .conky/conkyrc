@@ -1,0 +1,55 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# How strict should if_up be when testing an interface for being up?
+# The value is one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, having link
+# and an assigned IP address. 
+if_up_strictness address
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# 
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+# JSON for i3bar
+
+[
+  { "full_text": "${if_match "${execi 5 mocp -Q %state}"=="PLAY"} ${execi 5 ~/.conky/song_title}${endif}", "color" : "\#beb6ec"  },
+  { "full_text": " ${exec xkb-switch | sed 's/us/en/' | tr '[a-z]' '[A-Z]'}", "color" : "\#ffffff"  },
+  { "full_text": "🔊 ${exec amixer -c 0 get Master | grep -Po '\d+%'}", "color": "\#6194df"},
+  { "full_text": " ${fs_free /}", "color": "\#48af48"  },
+  { "full_text": " ${cpu}% ${acpitemp}°" , "color": "\#da5148" },
+  { "full_text": " ${mem} / ${memmax}" , "color" : ${if_match ${memperc}<90}"\#ffae51"${else}"\#ff0000"${endif} },
+  ${if_up enp0s4}
+  { "full_text": " ${addr enp0s4}", "color": "\#fffe70" },
+  ${endif}
+  ${if_up wlp2s0}
+  { "full_text": " ${wireless_essid wlp2s0}", "color": "\#84c6ff" },
+  ${endif}
+  { "full_text": "${time %a %d.%m.%y}" , "color": "\#ffffff" },
+  { "full_text": "${time %R}" }
+], 

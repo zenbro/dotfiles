@@ -18,10 +18,10 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 " }}}
 " Plugins " {{{1
-  NeoBundle 'Shougo/neobundle.vim'
+  NeoBundleFetch 'Shougo/neobundle.vim'
   NeoBundle 'Shougo/vimproc', {
         \ 'build' : {
         \     'windows' : 'make -f make_mingw32.mak',
@@ -42,7 +42,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
     let g:unite_source_buffer_time_format = '(%d-%m-%Y %H:%M:%S) '
     let g:unite_source_file_mru_time_format = '(%d-%m-%Y %H:%M:%S) '
     let g:unite_source_directory_mru_time_format = '(%d-%m-%Y %H:%M:%S) '
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
     " https://github.com/ggreer/the_silver_searcher
     if executable('ag')
@@ -111,6 +110,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#auto_completion_start_length = 2
     let g:neocomplete#data_directory = '~/.vim/cache'
+    let g:neocomplete#force_overwrite_completefunc = 1
 
     nmap <Leader>tc :NeoCompleteToggle<CR>
 
@@ -185,27 +185,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
     let g:bufferline_fixed_index =  0
     let g:bufferline_active_buffer_left = '>'
     let g:bufferline_active_buffer_right = ''
-  " }}}
-  NeoBundle 'airblade/vim-rooter'
-  NeoBundle 'mhinz/vim-startify'
-  " {{{
-    let g:startify_session_dir = '~/.vim/session'
-    let g:startify_session_persistence = 1 " сохранять сессию на выходе
-    let g:startify_change_to_vcs_root = 1  " менять текущий каталог на корневой каталог проекта
-
-    let g:startify_list_order = [
-            \ ['   Последние файлы:'],
-            \ 'files',
-            \ ['   Сохранённые сессии:'],
-            \ 'sessions',
-            \ ]
-
-    " отображение случайного афоризма
-    let g:startify_custom_footer =
-            \ map(split(system('fortune truth life book genious time knowledge
-            \ | cowsay -f stegosaurus'), '\n'), '"   ". v:val') + ['']
-
-    map <F12> :Startify<CR>
   " }}}
   NeoBundle 'junegunn/vim-easy-align'
   " {{{
@@ -326,6 +305,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
     let g:used_javascript_libs = 'jquery,backbone,requirejs'
   "" }}}
   NeoBundle 'leshill/vim-json'
+  NeoBundle 'digitaltoad/vim-jade'
   NeoBundle 'kchmck/vim-coffee-script'
   " {{{
     let coffee_compiler = '/usr/bin/coffee'
@@ -355,47 +335,22 @@ call neobundle#rc(expand('~/.vim/bundle/'))
   NeoBundle 'tpope/vim-characterize'
   NeoBundle 'tpope/vim-speeddating'
   NeoBundle 'tpope/vim-sleuth'
-  NeoBundle 'tpope/vim-tbone'
-  " {{{
-    map <F1> :Tmux split-window -p 25<cr>
-    imap <F1> <esc>:Tmux split-window -p 25<cr>
-
-    nnoremap <leader>S :Tmux split-window<cr>
-    nnoremap <leader>V :Tmux split-window -h<cr>
-  " }}}
-  NeoBundle 'benmills/vimux'
-  " {{{
-    let g:VimuxHeight = '20'
-    nnoremap <leader>vp :VimuxPromptCommand<cr>
-    nnoremap <leader>vl :VimuxRunLastCommand<cr>
-    nnoremap <Leader>vq :VimuxCloseRunner<cr>
-    nnoremap <Leader>vs :VimuxInspectRunner<CR>
-    nnoremap <Leader>vx :VimuxInterruptRunner<cr>
-    nnoremap <Leader>vz :VimuxZoomRunner<cr>
-  " }}}
-  NeoBundle 'christoomey/vim-tmux-navigator'
-  let g:tmux_navigator_no_mappings = 1
-
-  nnoremap <silent> h :TmuxNavigateLeft<cr>
-  nnoremap <silent> j :TmuxNavigateDown<cr>
-  nnoremap <silent> k :TmuxNavigateUp<cr>
-  nnoremap <silent> l :TmuxNavigateRight<cr>
-  " {{{ NeoBundle 'edkolev/tmuxline.vim'
-  "   let g:tmuxline_powerline_separators = 0
-  "   let g:tmuxline_separators = {
-  "         \ 'left' : '▸',
-  "         \ 'left_alt': '>',
-  "         \ 'right' : '◂',
-  "         \ 'right_alt' : '<',
-  "         \ 'space' : ' '}
-  "
-  "   let g:airline#extensions#tmuxline#enabled = 1 }}}
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-indent'
   NeoBundle 'nelstrom/vim-textobj-rubyblock'
   " {{{
     runtime macros/matchit.vim
   " }}}
+  NeoBundle 'itchyny/calendar.vim'
+  NeoBundle 'xolox/vim-session'
+    let g:session_autoload = 'yes'
+    let g:session_autosave = 'yes'
+    let g:session_default_to_last = 1
+    set sessionoptions-=tabpages
+    set sessionoptions-=help
+  NeoBundle 'xolox/vim-misc'
+  NeoBundle 'xolox/vim-notes'
+    let g:notes_directories = ['~/Dropbox/notes']
   NeoBundle 'tyru/open-browser.vim'
   " {{{
     let g:netrw_nogx = 1
@@ -410,6 +365,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
   " }}}
   NeoBundle 'nanotech/jellybeans.vim', { 'autoload' :
           \ { 'unite_sources' : 'colorscheme', }}
+
+call neobundle#end()
 " }}}
 " Autoinstall Plugins {{{
   if allPluginsInstalled == 0
@@ -427,8 +384,9 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " Main settings {{{
   set gfn=Ubuntu\ Mono\ 12
 
+  set clipboard=unnamedplus
   syntax enable " подсветка синтаксиса
-  set nu " нумерация строк
+  set nu        " нумерация строк
 
   " Отключение мигания и звуков
   autocmd GUIEnter * set vb t_vb= " gVim
@@ -440,7 +398,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
   set lz                         " включает lazyredraw, даёт прирост производительности
   set backspace=indent,eol,start " с чем будет работать клавиша backspace
   set virtualedit=onemore        " возможность перемещения за конец строки
-  set clipboard=unnamed
   set undolevels=5000            " максимальное количество уровней отмены изменений
   set viminfo='1000,f1           " сохранение глобальных меток
   set fileencodings=utf-8,cp1251,koi8-r,cp866 " приоритет подбора возможных кодировок файла
@@ -450,7 +407,7 @@ call neobundle#rc(expand('~/.vim/bundle/'))
   set hidden         " сворачивать в буфер, вместо закрытия
 " }}}
 " gVim settings {{{
-  if has("gui_running")         " если запущен gvim, то...
+  if has("gui_running")       " если запущен gvim, то...
     winpos 0 0                " положение окна при запуске
     set guioptions-=T         " убрать панель инструментов
     set guioptions-=m         " убрать меню
@@ -462,9 +419,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
     set cursorline            " подсветка строки с курсором
     set linespace=0           " межстрочный интервал
     set guicursor=n:blinkon0  " отключить мигание курсора в нормальном режиме
-    autocmd FileType ruby Rvm " автоматически подключать rvm
-  else                          " если запущен vim, то...
-    set term=screen-256color
   endif
 " }}}
 " Colorscheme {{{
@@ -497,7 +451,9 @@ set autoindent      " автоматический отступ
 set smartindent     " включает умную расстановку отступов
 set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 set scrolloff=999   " держать курсор на определённом расстоянии от нижнего края
-autocmd BufRead * set tabstop=2 " размер табуляции
+
+autocmd BufRead * set tabstop=2
+autocmd BufRead * set shiftwidth=2
 " }}}
 " Folding {{{1
 set foldenable

@@ -1,10 +1,3 @@
-source ~/.zsh/aliases.zsh
-source ~/.zsh/functions.zsh
-
-for plugin in ~/.zsh/plugins/*.zsh; do
-  source $plugin
-done
-
 # History {{{
 setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
 setopt inc_append_history     # Add comamnds as they are typed, don't wait until shell exit
@@ -124,11 +117,25 @@ setopt pushd_ignore_dups
 setopt rmstarsilent
 # }}}
 
+# if [[ "$TERM" == screen* ]]; then
+#   print -Pn "\ek$1:q\e\\" #set screen hardstatus, usually truncated at 20 chars
+# elif [[ "$TERM" == xterm* ]] || [[ $TERM == rxvt* ]] || [[ $TERM == ansi ]] || [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+#   print -Pn "\e]2;$2:q\a" #set window name
+#   print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
+# fi
+
 # must be set before compinit
 fpath=(~/.zsh/plugins $fpath)
 
-autoload -U compinit; compinit
+autoload -U compinit compdef; compinit
 zmodload -i zsh/complist
+
+source ~/.zsh/aliases.zsh
+source ~/.zsh/functions.zsh
+
+for plugin in ~/.zsh/plugins/*.zsh; do
+  source $plugin
+done
 
 stty -ixon # disable CTRL-S freeze
 cd .       # gemset fix for tmux

@@ -1,0 +1,4 @@
+#!/bin/bash
+xmodmap -e "clear Lock"
+xmodmap -e "keycode 66 = Escape"
+xmodmap -e "keycode 135 = z Z Cyrillic_ya Cyrillic_YA" 
