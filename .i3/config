@@ -75,7 +75,7 @@ bindsym $mod+1 workspace 1: dev
 bindsym $mod+2 workspace 2: www
 bindsym $mod+3 workspace 3: mail
 bindsym $mod+4 workspace 4: im
-bindsym $mod+5 workspace 5 
+bindsym $mod+5 workspace 5: vbox
 bindsym $mod+6 workspace 6 
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
@@ -88,7 +88,7 @@ bindsym $mod+Shift+1 move container to workspace 1: dev
 bindsym $mod+Shift+2 move container to workspace 2: www
 bindsym $mod+Shift+3 move container to workspace 3: mail
 bindsym $mod+Shift+4 move container to workspace 4: im
-bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+5 move container to workspace 5: vbox
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
@@ -143,6 +143,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# xrandr can help
 bar {
   position top
   tray_output LVDS
@@ -185,13 +186,16 @@ assign [class="^Chromium$"]    2: www
 assign [class="^Firefox$"]     2: www
 assign [class="^Thunderbird$"] 3: mail
 assign [class="^Pidgin$"]      4: im
+assign [class="^VirtualBox$"]  5: vbox
 
 # autorun
 exec --no-startup-id feh --bg-fill Dropbox/wallpapers/wallpaper-44029.jpg
 exec --no-startup-id compton -b
 exec --no-startup-id $HOME/.i3/xmodmap_hooks
 exec --no-startup-id redshift -l 55.73:34.1
+exec --no-startup-id parcellite
 exec --no-startup-id dropboxd
 exec --no-startup-id udiskie --tray
-exec --no-startup-id parcellite
 exec --no-startup-id xautolock -time 10 -locker i3lock-wrapper
+exec --no-startup-id thunderbird
+exec --no-startup-id pidgin
