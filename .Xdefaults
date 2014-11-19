@@ -26,6 +26,8 @@ Xft.rgba: rgb
 *color14: #34e2e2
 *color15: #eeeeec
 
+URxvt*termName: xterm-256color
+
 ! fonts
 URxvt*font:           xft:ubuntu mono:regular:size=12
 URxvt*boldFont:       xft:ubuntu mono:bold:size=12
