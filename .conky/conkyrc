@@ -50,6 +50,7 @@ TEXT
   ${if_up wlp2s0}
   { "full_text": " ${wireless_essid wlp2s0}", "color": "\#84c6ff" },
   ${endif}
+  { "full_text": "${exec cat /tmp/worken_state}" , "color": "\#ffffff" },
   { "full_text": "${time %a %d.%m.%y}" , "color": "\#ffffff" },
   { "full_text": "${time %R}" }
 ], 

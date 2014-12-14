@@ -170,6 +170,8 @@ bindsym Mod4+n exec --no-startup-id liferea
 bindsym Mod4+r exec --no-startup-id urxvt -e ranger
 bindsym Mod4+t exec --no-startup-id urxvt -e vim note:todo
 bindsym Mod4+s exec --no-startup-id urxvt -e mocp
+bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
+bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
 
 # custom window settings (xprop can help)
 for_window [class="^Gvim$"]        border none
@@ -189,7 +191,7 @@ assign [class="^Pidgin$"]      4: im
 assign [class="^VirtualBox$"]  5: vbox
 
 # autorun
-exec --no-startup-id feh --bg-fill Dropbox/wallpapers/wallpaper-44029.jpg
+exec --no-startup-id feh --bg-fill Dropbox/wallpapers/tilt_shifted_milky_way.jpg
 exec --no-startup-id compton -b
 exec --no-startup-id $HOME/.i3/xmodmap_hooks
 exec --no-startup-id redshift -l 55.73:34.1

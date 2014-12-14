@@ -1,0 +1,58 @@
+#!/usr/bin/ruby
+WORK_TIME = 25 * 60
+SEGMENT_SIZE = WORK_TIME / 5
+BLINK_TIME = 3
+
+def print_state(state, blink=true)
+  x = blink ? '●' : '○'
+  case state
+  when 1 then "#{ x }○○○○"
+  when 2 then "●#{ x }○○○"
+  when 3 then "●●#{ x }○○"
+  when 4 then "●●●#{ x }○"
+  when 5 then "●●●●#{ x }"
+  else '●●●●●'
+  end
+end
+
+def current_segment(seconds)
+  seconds / SEGMENT_SIZE + 1
+end
+
+def blink?(s)
+  s % BLINK_TIME == 0
+end
+
+def start
+  save_pid
+  1.upto(WORK_TIME).each do |s|
+    IO.write '/tmp/worken_state', print_state(current_segment(s), blink?(s))
+    sleep 1
+  end
+  %x(notify-send 'Done!')
+  delete_pid
+end
+
+def stop
+  IO.write('/tmp/worken_state', print_state(0))
+end
+
+def kill
+  Process.kill('HUP', IO.read('/tmp/worken.pid').to_i) rescue nil
+  delete_pid
+end
+
+def already_running?
+  IO.read('/tmp/worken.pid') rescue nil
+end
+
+def save_pid
+  IO.write('/tmp/worken.pid', Process.pid)
+end
+
+def delete_pid
+  %x(rm /tmp/worken.pid)
+end
+
+kill if already_running?
+ARGV[0] == 'start' ? start : stop
