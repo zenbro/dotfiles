@@ -1,6 +1,5 @@
 export EDITOR=vim
 export LSCOLORS=Gxfxcxdxbxegedabagacad
-export GREP_OPTIONS='--color=auto'
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
 
 [[ -s "/etc/profile.d/autojump.zsh" ]] && source "/etc/profile.d/autojump.zsh"
