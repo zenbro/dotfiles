@@ -313,6 +313,17 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'tpope/vim-speeddating'
   NeoBundle 'tpope/vim-sleuth'
   NeoBundle 'tpope/vim-abolish'
+  NeoBundle 'gorkunov/smartgf.vim'
+  " {{{
+    let g:smartgf_create_default_mappings = 0
+    let g:smartgf_auto_refresh_ctags = 0
+
+    map <F3> :SmargfRefreshTags<CR>
+    nmap <leader>gf <Plug>(smartgf-search)
+    vmap <leader>gf <Plug>(smartgf-search)
+    nmap <leader>gF <Plug>(smartgf-search-unfiltered)
+    vmap <leader>gF <Plug>(smartgf-search-unfiltered)
+  " }}}
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-indent'
   NeoBundle 'nelstrom/vim-textobj-rubyblock'
