@@ -57,11 +57,7 @@ URxvt*scrollWithBuffer:  true
 URxvt*saveLines:         9999
 
 ! extensions (using urxvt-perls)
-URxvt.perl-ext-common: default,matcher,keyboard-select
-
-! clickable urls
-URxvt.url-launcher:   /usr/bin/firefox
-URxvt.matcher.button: 1
+URxvt.perl-ext-common: default,keyboard-select
 
 ! keyboard-select
 URxvt.keysym.M-z:     perl:keyboard-select:activate
