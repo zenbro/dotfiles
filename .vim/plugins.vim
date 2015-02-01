@@ -54,7 +54,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
       nmap <silent><buffer> ; <Plug>(unite_quick_match_default_action)
       imap <silent><buffer> ; <Plug>(unite_quick_match_default_action)
       nmap <buffer> <esc> <plug>(unite_exit)
-      nmap <buffer> Q <plug>(unite_exit)
       imap <buffer> <C-j> <Plug>(unite_select_next_line)
       imap <buffer> <C-k> <Plug>(unite_select_previous_line)
       imap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
@@ -86,7 +85,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:vimfiler_safe_mode_by_default = 0
     let g:vimfiler_force_overwrite_statusline = 0
     let g:vimfiler_time_format = '%d-%m-%Y %H:%M:%S'
-    map <F3> :VimFilerExplorer -winwidth=25 -auto-cd -toggle<cr>
+    map <F1> :VimFilerExplorer -winwidth=25 -auto-cd -toggle<cr>
     map <F2> :e .<cr>
 
     autocmd FileType vimfiler call s:vimfiler_settings()
@@ -120,6 +119,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
   " }}}
+  NeoBundle 'Shougo/context_filetype.vim'
   NeoBundle 'Shougo/neosnippet'
   " {{{
     let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
@@ -197,8 +197,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   " }}}
   NeoBundle 'AndrewRadev/sideways.vim'
   " {{{
-    nnoremap <Leader>h :SidewaysLeft<CR>
-    nnoremap <Leader>l :SidewaysRight<CR>
+    nnoremap <Leader>hh :SidewaysLeft<CR>
+    nnoremap <Leader>ll :SidewaysRight<CR>
   " }}}
   NeoBundle 'nathanaelkane/vim-indent-guides'
   " {{{
@@ -215,22 +215,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:EasyMotion_smartcase = 1
     let g:EasyMotion_off_screen_search = 0
     nmap ; <Plug>(easymotion-s2)
-  " }}}
-  NeoBundle 'bkad/CamelCaseMotion'
-  " {{{
-    map <silent> w <Plug>CamelCaseMotion_w
-    map <silent> b <Plug>CamelCaseMotion_b
-    map <silent> e <Plug>CamelCaseMotion_e
-    sunmap w
-    sunmap b
-    sunmap e
-
-    omap <silent> iw <Plug>CamelCaseMotion_iw
-    xmap <silent> iw <Plug>CamelCaseMotion_iw
-    omap <silent> ib <Plug>CamelCaseMotion_ib
-    xmap <silent> ib <Plug>CamelCaseMotion_ib
-    omap <silent> ie <Plug>CamelCaseMotion_ie
-    xmap <silent> ie <Plug>CamelCaseMotion_ie
   " }}}
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'tpope/vim-unimpaired'
@@ -291,6 +275,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_lint_info_symbol = '!'
   " }}}
   NeoBundle 'othree/html5.vim'
+  " NeoBundle 'valloric/MatchTagAlways'
   NeoBundle 'moll/vim-node'
   NeoBundle 'marijnh/tern_for_vim'
   NeoBundle 'zenbro/vim-javascript-syntax'
@@ -298,7 +283,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   "" {{{
     let g:used_javascript_libs = 'jquery,backbone,requirejs'
   "" }}}
-  NeoBundle 'StanAngeloff/php.vim'
   NeoBundle 'digitaltoad/vim-jade'
   NeoBundle 'kchmck/vim-coffee-script'
   " {{{
@@ -321,7 +305,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:ragtag_global_maps = 1
   " }}}
   NeoBundle 'tpope/vim-rails'
-  NeoBundle 'tpope/vim-rvm'
+  NeoBundle 'jbgutierrez/vim-partial'
+  " {{{
+    vmap <Leader>x :PartialExtract<cr>
+  " }}}
   NeoBundle 'sheerun/rspec.vim'
   NeoBundle 'tpope/vim-cucumber'
   NeoBundle 'tpope/vim-haml'
@@ -329,23 +316,17 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'tpope/vim-characterize'
   NeoBundle 'tpope/vim-speeddating'
   NeoBundle 'tpope/vim-sleuth'
-  NeoBundle 'tpope/vim-jdaddy'
-  NeoBundle 'jvirtanen/vim-octave'
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-indent'
   NeoBundle 'nelstrom/vim-textobj-rubyblock'
-  " {{{
-    runtime macros/matchit.vim
-  " }}}
   NeoBundle 'itchyny/calendar.vim'
   " {{{
-		let g:calendar_date_month_name=1
+    let g:calendar_date_month_name=1
   " }}}
   NeoBundle 'xolox/vim-session'
   " {{{
-    let g:session_autoload = 'yes'
     let g:session_autosave = 'yes'
-    let g:session_default_to_last = 1
+    " let g:session_default_to_last = 1
     set sessionoptions-=tabpages
     set sessionoptions-=help
   " }}}
@@ -357,12 +338,12 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'tyru/open-browser.vim'
   " {{{
     let g:netrw_nogx = 1
-    nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
   " }}}
   NeoBundle 'lyokha/vim-xkbswitch'
   " {{{
     let g:XkbSwitchEnabled = 1
+    let g:XkbSwitchIMappings = ['ru']
     let g:XkbSwitchNLayout = 'us'
     let g:XkbSwitchILayout = 'us'
   " }}}
@@ -378,5 +359,7 @@ call neobundle#end()
     :NeoBundleInstall
   endif
 " }}}
+" can be called only after neobundle#end
+call unite#custom#source('file,file/new,buffer,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

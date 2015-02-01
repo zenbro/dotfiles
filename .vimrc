@@ -1,21 +1,24 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 set nocompatible    " отключение режима совместимости с vi
 filetype plugin indent on
-let mapleader = "\<Space>" " по умолчанию это \
+let g:mapleader = "\<Space>" " по умолчанию это \
 
 source ~/.vim/plugins.vim
 
 " Autoreload vimrc {{{
   augroup myvimrc
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc so $MYVIMRC
+    autocmd!
+    autocmd BufWritePost .vimrc,plugins.vim so $MYVIMRC
   augroup END
 " }}}
 " Main settings {{{
-  set gfn=Ubuntu\ Mono\ 12
+  set guifont=Ubuntu\ Mono\ 12
 
   set clipboard=unnamedplus
   syntax enable " подсветка синтаксиса
-  set nu        " нумерация строк
+  set number    " нумерация строк
 
   " Отключение мигания и звуков
   autocmd GUIEnter * set vb t_vb= " gVim
@@ -24,16 +27,25 @@ source ~/.vim/plugins.vim
   " Поддержка команд при включённой русской раскладке
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
-  set lz                         " включает lazyredraw, даёт прирост производительности
+  set lazyredraw                 " прирост производительности
   set backspace=indent,eol,start " с чем будет работать клавиша backspace
   set virtualedit=onemore        " возможность перемещения за конец строки
   set undolevels=5000            " максимальное количество уровней отмены изменений
   set viminfo='1000,f1           " сохранение глобальных меток
   set fileencodings=utf-8,cp1251,koi8-r,cp866 " приоритет подбора возможных кодировок файла
-  set encoding=utf-8 " кодировка по умолчанию
   set autoread       " автоматически перезагружать файлы, изменённые извне
   set noswapfile     " отключить своп-файлы
   set hidden         " сворачивать в буфер, вместо закрытия
+  set iskeyword-=_
+
+  if v:version > 703 || v:version == 703 && has("patch541")
+    set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
+  endif
+
+  " загружать matchit.vim только если не установлена более новая версия
+  if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+    runtime! macros/matchit.vim
+  endif
 " }}}
 " gVim settings {{{
   if has("gui_running")       " если запущен gvim, то...
@@ -59,30 +71,32 @@ source ~/.vim/plugins.vim
   highlight SyntasticWargningLine guibg=#171717
 " }}}
 " Search {{{
-set ic              " игнорировать регистр при поиске
+set ignorecase      " игнорировать регистр при поиске
 set incsearch       " перескакивать на найденный текст в процессе набора
-set hls             " подсвечивать найденное
+set hlsearch        " подсвечивать найденное
 set ignorecase      " игнорировать регистр букв при поиске
 set smartcase       " включить умное распознование регистра
 set gdefault        " включает флаг g в командах замены, типа :%s/a/b/
+set showmatch
+set matchpairs+=<:>
 
 " Очистить подсветку поиска по нажатию <Esc><Esc>
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>
 " }}}
 " Indents and tabulation {{{
-set expandtab       " замена таб-символов пробелами
-set shiftwidth=2    " размер сдвига при нажатии << или >>
-set softtabstop=2   " удаление tab-символов как пробелов
+set expandtab " замена таб-символов пробелами
+set shiftwidth=2 " размер сдвига при нажатии << или >>
+set softtabstop=2 " удаление tab-символов как пробелов
+set tabstop=2
 set nowrap
-set nolbr
-set tw=0            " отключение автопереноса длинных строк
-set autoindent      " автоматический отступ
-set smartindent     " включает умную расстановку отступов
+set nolinebreak
+set tw=0 " отключение автопереноса длинных строк
+set autoindent " автоматический отступ
+set smartindent " включает умную расстановку отступов
+set smarttab
 set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
-set scrolloff=999   " держать курсор на определённом расстоянии от нижнего края
-
-autocmd BufRead * set tabstop=2
-autocmd BufRead * set shiftwidth=2
+set scrolloff=999 " держать курсор на определённом расстоянии от нижнего края
+set list
 " }}}
 " Folding {{{1
 set foldenable
@@ -103,7 +117,7 @@ endfunction " }}}
 " }}}1
 " Wildmenu {{{
   set wildmenu    " включить меню выбора
-  set wcm=<Tab>   " переключение элементов меню
+  set wildcharm=<Tab>   " переключение элементов меню
   set wildmode=list:longest,full " отображать меню в виде полного списка
 
   " Файлы, которые будут игнорироваться в wildmenu
