@@ -305,10 +305,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:ragtag_global_maps = 1
   " }}}
   NeoBundle 'tpope/vim-rails'
-  NeoBundle 'jbgutierrez/vim-partial'
-  " {{{
-    vmap <Leader>x :PartialExtract<cr>
-  " }}}
   NeoBundle 'sheerun/rspec.vim'
   NeoBundle 'tpope/vim-cucumber'
   NeoBundle 'tpope/vim-haml'
@@ -316,6 +312,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'tpope/vim-characterize'
   NeoBundle 'tpope/vim-speeddating'
   NeoBundle 'tpope/vim-sleuth'
+  NeoBundle 'tpope/vim-abolish'
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-indent'
   NeoBundle 'nelstrom/vim-textobj-rubyblock'

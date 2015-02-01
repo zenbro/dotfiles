@@ -36,7 +36,6 @@ source ~/.vim/plugins.vim
   set autoread       " автоматически перезагружать файлы, изменённые извне
   set noswapfile     " отключить своп-файлы
   set hidden         " сворачивать в буфер, вместо закрытия
-  set iskeyword-=_
 
   if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
