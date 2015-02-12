@@ -54,8 +54,9 @@ function git_prompt_string() {
 }
 
 function rvm_prompt_string() {
-  [ -f $HOME/.rvm/bin/rvm-prompt ] || return 1
-  [ -f .rvmrc ] || [ -f .ruby-version ] || [ -f .ruby-gemset ] || return 1
+  local RVM_GEMSET=$(rvm-prompt g)
+  [ -n "$RVM_GEMSET" ] || return 1
+
   local RVM_PROMPT="%{$fg_bold[blue]%}$(rvm-prompt v p g)%{$reset_color%}"
   echo "%{$fg[blue]%}[%{$reset_color%}$RVM_PROMPT%{$fg[blue]%}]%{$reset_color%}"
 }
