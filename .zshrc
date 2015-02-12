@@ -53,6 +53,13 @@ function git_prompt_string() {
   [ -n "$git_where" ] && echo "$(parse_git_state)%{$fg_bold[yellow]%}${git_where#(refs/heads/|tags/)}%{$reset_color%}"
 }
 
+function rvm_prompt_string() {
+  [ -f $HOME/.rvm/bin/rvm-prompt ] || return 1
+  [ -f .rvmrc ] || [ -f .ruby-version ] || [ -f .ruby-gemset ] || return 1
+  local RVM_PROMPT="%{$fg_bold[blue]%}$(rvm-prompt v p g)%{$reset_color%}"
+  echo "%{$fg[blue]%}[%{$reset_color%}$RVM_PROMPT%{$fg[blue]%}]%{$reset_color%}"
+}
+
 if [[ $USER == 'root' ]]; then
   PROMPT_SIGN='#'
 else
@@ -60,7 +67,7 @@ else
 fi
 
 PROMPT="%{$fg[black]%}%{$bg[white]%} %~ %{$reset_color%} %{$fg_bold[red]%}${PROMPT_SIGN} %{$reset_color%}"
-RPROMPT='$(git_prompt_string)'
+RPROMPT='$(git_prompt_string) $(rvm_prompt_string)'
 # }}}
 # Completion {{{
 unsetopt menu_complete # do not autoselect the first completion entry
@@ -111,18 +118,10 @@ bindkey "^B"      backward-char                        # ctrl-b
 # }}}
 # Misc {{{
 setopt auto_cd
-setopt auto_name_dirs
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt rmstarsilent
 # }}}
-
-# if [[ "$TERM" == screen* ]]; then
-#   print -Pn "\ek$1:q\e\\" #set screen hardstatus, usually truncated at 20 chars
-# elif [[ "$TERM" == xterm* ]] || [[ $TERM == rxvt* ]] || [[ $TERM == ansi ]] || [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-#   print -Pn "\e]2;$2:q\a" #set window name
-#   print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
-# fi
 
 # must be set before compinit
 fpath=(~/.zsh/plugins $fpath)
