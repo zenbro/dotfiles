@@ -76,12 +76,15 @@ bindsym $mod+2 workspace 2: www
 bindsym $mod+3 workspace 3: mail
 bindsym $mod+4 workspace 4: im
 bindsym $mod+5 workspace 5: vbox
-bindsym $mod+6 workspace 6 
+bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 0: etc
 bindsym $mod+grave workspace 0: etc
+bindsym $mod+F1 workspace F1: dev/test
+bindsym $mod+F2 workspace F2: dev/www
+bindsym $mod+F3 workspace F3: dev/log
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1: dev
@@ -95,6 +98,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 0: etc
 bindsym $mod+Shift+grave move container to workspace 0: etc
+bindsym $mod+Shift+F1 move container to workspace F1: dev/test
+bindsym $mod+Shift+F2 move container to workspace F2: dev/www
+bindsym $mod+Shift+F3 move container to workspace F3: dev/log
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -180,15 +186,16 @@ for_window [class="^Chromium$"]    border none
 for_window [class="^Firefox$"]     border none
 for_window [class="^Thunderbird$"] border none
 for_window [class="^Liferea"]      border none
+for_window [class="^Zathura"]      border none
 
 # workspace assignment
 assign [class="^Gvim$"]        1: dev
 assign [class="^Dwb$"]         2: www
-assign [class="^Chromium$"]    2: www
 assign [class="^Firefox$"]     2: www
 assign [class="^Thunderbird$"] 3: mail
 assign [class="^Pidgin$"]      4: im
 assign [class="^VirtualBox$"]  5: vbox
+assign [class="^Chromium$"]    F2: dev/www
 
 # autorun
 exec --no-startup-id feh --bg-fill Dropbox/wallpapers/tilt_shifted_milky_way.jpg
