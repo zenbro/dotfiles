@@ -279,7 +279,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_breakpoint = 0
     let g:pymode_options_max_line_length = 0
     let g:pymode_lint_ignore = 'E501'
-    let g:pymode_python = 'python2'
     let g:pymode_virtualenv = 1
 
     let g:pymode_lint_todo_symbol = 'DO'
