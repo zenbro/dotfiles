@@ -77,7 +77,6 @@ set ignorecase      " игнорировать регистр букв при п
 set smartcase       " включить умное распознование регистра
 set gdefault        " включает флаг g в командах замены, типа :%s/a/b/
 set showmatch
-set matchpairs+=<:>
 
 " Очистить подсветку поиска по нажатию <Esc><Esc>
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>

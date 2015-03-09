@@ -61,13 +61,14 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
     nnoremap <silent> <leader><space> :<C-u>Unite -toggle -start-insert buffer file_rec/async:!<CR>
     nnoremap <silent> <leader>o :<C-u>Unite outline -start-insert<cr>
-    nnoremap <silent> <leader>. :<C-u>Unite -no-quit -keep-focus grep:%<cr>
-    nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -keep-focus grep:.<cr>
-    nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
     nnoremap <silent> <leader>b :<C-u>Unite buffer -start-insert<cr>
     nnoremap <silent> <leader>y :<C-u>Unite history/yank<cr>
     nnoremap <silent> <leader>m :<C-u>Unite mark<cr>
     nnoremap <silent> <leader>p :<C-u>Unite -start-insert file_rec/git<cr>
+    nnoremap <silent> <leader>. :<C-u>Unite -no-quit -keep-focus grep:%<cr>
+    nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -keep-focus grep:.<cr>
+    nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
+    nnoremap <silent> K :<C-u>UniteWithCursorWord -no-quit -keep-focus grep:.<cr>
     " Unite plugins {{{
     NeoBundleLazy 'Shougo/unite-outline', {'autoload':{'unite_sources':'outline'}}
     NeoBundleLazy 'ujihisa/unite-colorscheme', {'autoload':{'unite_sources':'colorscheme'}}
@@ -158,27 +159,38 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     set laststatus=2 " всегда отображать строку статуса
     set showcmd      " отображать вводимую команду
 
+    " tabline
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#show_buffers = 1
+    let g:airline#extensions#tabline#show_tabs = 0
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    let g:airline#extensions#tabline#fnamecollapse = 1
+    let g:airline#extensions#tabline#show_close_button = 0
+    let g:airline#extensions#tabline#show_tab_type = 0
+    let g:airline#extensions#tabline#buffer_min_count = 2
+
+    nmap <leader>1 <Plug>AirlineSelectTab1
+    nmap <leader>2 <Plug>AirlineSelectTab2
+    nmap <leader>3 <Plug>AirlineSelectTab3
+    nmap <leader>4 <Plug>AirlineSelectTab4
+    nmap <leader>5 <Plug>AirlineSelectTab5
+    nmap <leader>6 <Plug>AirlineSelectTab6
+    nmap <leader>7 <Plug>AirlineSelectTab7
+    nmap <leader>8 <Plug>AirlineSelectTab8
+    nmap <leader>9 <Plug>AirlineSelectTab9
+
     let g:airline_left_sep          = '▸'
     let g:airline_right_sep         = '◂'
     let g:airline_theme             = 'jellybeans'
     let g:airline_section_z         = '%2p%% %2l/%L:%2v'
-    let g:airline_enable_syntastic  = 0
+    let g:airline_exclude_preview = 0
 
+    let g:airline#extensions#syntastic#enabled = 0
     let g:airline#extensions#whitespace#enabled = 0
     let g:airline#extensions#whitespace#symbol = '!'
     let g:airline#extensions#whitespace#checks = ['trailing']
     let g:airline#extensions#whitespace#trailing_format = '%s'
     nnoremap <silent> <Leader>tw ::AirlineToggleWhitespace<CR>
-  " }}}
-  NeoBundle 'bling/vim-bufferline'
-  " {{{
-    let g:airline#extensions#bufferline#enabled = 0
-    let g:bufferline_echo = 1
-    let g:bufferline_rotate = 1
-    let g:bufferline_show_bufnr = 0
-    let g:bufferline_fixed_index =  0
-    let g:bufferline_active_buffer_left = '>'
-    let g:bufferline_active_buffer_right = ''
   " }}}
   NeoBundle 'junegunn/vim-easy-align'
   " {{{
@@ -267,6 +279,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_breakpoint = 0
     let g:pymode_options_max_line_length = 0
     let g:pymode_lint_ignore = 'E501'
+    let g:pymode_python = 'python2'
+    let g:pymode_virtualenv = 1
 
     let g:pymode_lint_todo_symbol = 'DO'
     let g:pymode_lint_comment_symbol = ':('
@@ -275,7 +289,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_lint_info_symbol = '!'
   " }}}
   NeoBundle 'othree/html5.vim'
-  " NeoBundle 'valloric/MatchTagAlways'
   NeoBundle 'moll/vim-node'
   NeoBundle 'marijnh/tern_for_vim'
   NeoBundle 'zenbro/vim-javascript-syntax'
@@ -306,24 +319,21 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   " }}}
   NeoBundle 'tpope/vim-rails'
   NeoBundle 'sheerun/rspec.vim'
-  NeoBundle 'tpope/vim-cucumber'
+  NeoBundle 'thoughtbot/vim-rspec'
+  " {{{
+    let g:rspec_command = 'Dispatch bundle exec rspec {spec}'
+    map <Leader>rt :call RunCurrentSpecFile()<CR>
+    map <Leader>rs :call RunNearestSpec()<CR>
+    map <Leader>rl :call RunLastSpec()<CR>
+    map <Leader>ra :call RunAllSpecs()<CR>
+  " }}}
   NeoBundle 'tpope/vim-haml'
   NeoBundle 'tpope/vim-eunuch'
   NeoBundle 'tpope/vim-characterize'
   NeoBundle 'tpope/vim-speeddating'
   NeoBundle 'tpope/vim-sleuth'
   NeoBundle 'tpope/vim-abolish'
-  NeoBundle 'gorkunov/smartgf.vim'
-  " {{{
-    let g:smartgf_create_default_mappings = 0
-    let g:smartgf_auto_refresh_ctags = 0
-
-    map <F3> :SmargfRefreshTags<CR>
-    nmap <leader>gf <Plug>(smartgf-search)
-    vmap <leader>gf <Plug>(smartgf-search)
-    nmap <leader>gF <Plug>(smartgf-search-unfiltered)
-    vmap <leader>gF <Plug>(smartgf-search-unfiltered)
-  " }}}
+  NeoBundle 'tpope/vim-dispatch'
   NeoBundle 'kana/vim-textobj-user'
   NeoBundle 'kana/vim-textobj-indent'
   NeoBundle 'nelstrom/vim-textobj-rubyblock'
