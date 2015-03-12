@@ -13,6 +13,10 @@ function path() {
   echo $PATH | tr : '\n'
 }
 
+function activate() {
+  source ./bin/activate
+}
+
 function _set_title() {
   print -Pn '\e]1;%l@%m${1+*}\a'
   print -Pn '\e]2;%n@%m:%~'

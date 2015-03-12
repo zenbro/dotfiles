@@ -61,6 +61,12 @@ function rvm_prompt_string() {
   echo "%{$fg[blue]%}[%{$reset_color%}$RVM_PROMPT%{$fg[blue]%}]%{$reset_color%}"
 }
 
+function virtualenv_prompt_string() {
+  [ $VIRTUAL_ENV ] || return 1
+  local VENV_PROMPT="%{$fg_bold[blue]%}$(basename $VIRTUAL_ENV)%{$reset_color%}"
+  echo "%{$fg[blue]%}[%{$reset_color%}$VENV_PROMPT%{$fg[blue]%}]%{$reset_color%}"
+}
+
 if [[ $USER == 'root' ]]; then
   PROMPT_SIGN='#'
 else
@@ -68,7 +74,7 @@ else
 fi
 
 PROMPT="%{$fg[black]%}%{$bg[white]%} %~ %{$reset_color%} %{$fg_bold[red]%}${PROMPT_SIGN} %{$reset_color%}"
-RPROMPT='$(git_prompt_string) $(rvm_prompt_string)'
+RPROMPT='$(git_prompt_string) $(rvm_prompt_string)$(virtualenv_prompt_string)'
 # }}}
 # Completion {{{
 unsetopt menu_complete # do not autoselect the first completion entry
