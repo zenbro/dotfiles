@@ -227,7 +227,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:indent_guides_default_mapping = 0
     let g:indent_guides_enable_on_vim_startup = 1 " включён по умолчанию
     let g:indent_guides_start_level = 2           " с какого уровня начинать подсвечивать
-    let g:indent_guides_exclude_filetypes = ['help', 'startify', 'unite', 'vimfiler', 'vimshell']
+    let g:indent_guides_exclude_filetypes = ['help', 'startify', 'unite', 'vimfiler', 'rogue']
 
     nmap <silent> <Leader>ti <Plug>IndentGuidesToggle
   " }}}
@@ -364,6 +364,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:XkbSwitchILayout = 'us'
   " }}}
   NeoBundle 'katono/rogue.vim'
+  " {{{
+    let g:rogue#name = 'zenbro'
+    let g:rogue#directory = expand($HOME.'/.vim/rogue')
+  " }}}
   NeoBundle 'nanotech/jellybeans.vim', { 'autoload' :
           \ { 'unite_sources' : 'colorscheme', }}
 
