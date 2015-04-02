@@ -36,6 +36,7 @@ source ~/.vim/plugins.vim
   set autoread       " автоматически перезагружать файлы, изменённые извне
   set noswapfile     " отключить своп-файлы
   set hidden         " сворачивать в буфер, вместо закрытия
+  set shortmess+=I   " отключить приветствие
 
   if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
@@ -55,6 +56,7 @@ source ~/.vim/plugins.vim
     set guioptions-=L         " убрать левый скроллбар у сплита
     set guioptions-=r         " убрать правый скроллбар
     set guioptions-=R         " убрать правый скроллбар у сплита
+    set guioptions-=e         " убрать GUI-табы
     set mousehide             " не показывать курсор во время печати
     set cursorline            " подсветка строки с курсором
     set linespace=0           " межстрочный интервал
@@ -233,4 +235,5 @@ endfunction " }}}
     endif
   endfunction " }}}
 " }}}1
+au BufRead,BufNewFile *.rabl setf ruby
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

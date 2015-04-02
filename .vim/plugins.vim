@@ -135,6 +135,16 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     \: "\<TAB>"
   " }}}
   NeoBundle 'honza/vim-snippets'
+  NeoBundle 'mhinz/vim-startify'
+  " {{{
+    let g:startify_list_order = ['sessions']
+    let g:startify_session_persistence = 1
+    let g:startify_session_delete_buffers = 1
+    let g:startify_change_to_dir = 1
+    let g:startify_change_to_vcs_root = 1
+    let g:startify_custom_footer =
+      \ map(split(system('fortune | cowsay -f stegosaurus'), '\n'), '"   ". v:val') + ['','']
+  " }}}
   NeoBundle 'scrooloose/syntastic'
   " {{{
     nnoremap <Leader>te :SyntasticToggleMode<CR>
@@ -183,7 +193,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:airline_right_sep         = '◂'
     let g:airline_theme             = 'jellybeans'
     let g:airline_section_z         = '%2p%% %2l/%L:%2v'
-    let g:airline_exclude_preview = 0
+    let g:airline_exclude_preview = 1
 
     let g:airline#extensions#syntastic#enabled = 0
     let g:airline#extensions#whitespace#enabled = 0
@@ -278,7 +288,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_folding = 0
     let g:pymode_breakpoint = 0
     let g:pymode_options_max_line_length = 0
-    let g:pymode_lint_ignore = 'E501'
+    let g:pymode_lint_ignore = 'E501,C901'
     let g:pymode_virtualenv = 1
 
     let g:pymode_lint_todo_symbol = 'DO'
@@ -296,6 +306,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:used_javascript_libs = 'jquery,backbone,requirejs'
   "" }}}
   NeoBundle 'digitaltoad/vim-jade'
+  NeoBundle 'briancollins/vim-jst'
   NeoBundle 'kchmck/vim-coffee-script'
   " {{{
     let coffee_compiler = '/usr/bin/coffee'
@@ -339,18 +350,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   NeoBundle 'itchyny/calendar.vim'
   " {{{
     let g:calendar_date_month_name=1
-  " }}}
-  NeoBundle 'xolox/vim-session'
-  " {{{
-    let g:session_autosave = 'yes'
-    " let g:session_default_to_last = 1
-    set sessionoptions-=tabpages
-    set sessionoptions-=help
-  " }}}
-  NeoBundle 'xolox/vim-misc'
-  NeoBundle 'xolox/vim-notes'
-  " {{{
-    let g:notes_directories = ['~/Dropbox/notes']
   " }}}
   NeoBundle 'tyru/open-browser.vim'
   " {{{
