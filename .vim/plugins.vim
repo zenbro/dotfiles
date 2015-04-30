@@ -381,6 +381,7 @@ call neobundle#end()
   endif
 " }}}
 " can be called only after neobundle#end
-call unite#custom#source('file,file/new,buffer,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+call unite#custom#source('buffer,file,file/new,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+call unite#custom#source('buffer,file,file/new,file_rec/async', 'sorters', 'sorter_rank')
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
