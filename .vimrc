@@ -1,42 +1,28 @@
 scriptencoding utf-8
-set encoding=utf-8
-
-set nocompatible    " отключение режима совместимости с vi
-filetype plugin indent on
-let g:mapleader = "\<Space>" " по умолчанию это \
 
 source ~/.vim/plugins.vim
 
-" Autoreload vimrc {{{
-  augroup myvimrc
-    autocmd!
-    autocmd BufWritePost .vimrc,plugins.vim so $MYVIMRC
-  augroup END
-" }}}
 " Main settings {{{
-  set guifont=Ubuntu\ Mono\ 12
-
-  set clipboard=unnamedplus
-  syntax enable " подсветка синтаксиса
+  set encoding=utf-8
+  set nocompatible " отключение режима совместимости с vi
+  set clipboard=unnamed,unnamedplus
   set number    " нумерация строк
-
-  " Отключение мигания и звуков
-  autocmd GUIEnter * set vb t_vb= " gVim
-  autocmd VimEnter * set vb t_vb= " vim
+  set guifont=Ubuntu\ Mono\ 12
+  syntax enable " подсветка синтаксиса
 
   " Поддержка команд при включённой русской раскладке
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
-  set lazyredraw                 " прирост производительности
-  set backspace=indent,eol,start " с чем будет работать клавиша backspace
-  set virtualedit=onemore        " возможность перемещения за конец строки
-  set undolevels=5000            " максимальное количество уровней отмены изменений
-  set viminfo='1000,f1           " сохранение глобальных меток
+  set lazyredraw                              " прирост производительности
+  set backspace=indent,eol,start              " с чем будет работать клавиша backspace
+  set virtualedit=onemore                     " возможность перемещения за конец строки
+  set undolevels=5000                         " максимальное количество уровней отмены изменений
+  set viminfo='1000,f1                        " сохранение глобальных меток
   set fileencodings=utf-8,cp1251,koi8-r,cp866 " приоритет подбора возможных кодировок файла
-  set autoread       " автоматически перезагружать файлы, изменённые извне
-  set noswapfile     " отключить своп-файлы
-  set hidden         " сворачивать в буфер, вместо закрытия
-  set shortmess+=I   " отключить приветствие
+  set autoread                                " автоматически перезагружать файлы, изменённые извне
+  set noswapfile                              " отключить своп-файлы
+  set hidden                                  " сворачивать в буфер, вместо закрытия
+  set shortmess+=I                            " отключить приветствие
 
   if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
@@ -84,15 +70,15 @@ set showmatch
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>
 " }}}
 " Indents and tabulation {{{
-set expandtab " замена таб-символов пробелами
-set shiftwidth=2 " размер сдвига при нажатии << или >>
+set expandtab     " замена таб-символов пробелами
+set shiftwidth=2  " размер сдвига при нажатии << или >>
 set softtabstop=2 " удаление tab-символов как пробелов
 set tabstop=2
 set nowrap
 set nolinebreak
-set tw=0 " отключение автопереноса длинных строк
-set autoindent " автоматический отступ
-set smartindent " включает умную расстановку отступов
+set tw=0          " отключение автопереноса длинных строк
+set autoindent    " автоматический отступ
+set smartindent   " включает умную расстановку отступов
 set smarttab
 set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 set scrolloff=999 " держать курсор на определённом расстоянии от нижнего края
@@ -132,6 +118,8 @@ endfunction " }}}
   endif
 " }}}
 " Key mappings {{{1
+  let g:mapleader = "\<Space>" " по умолчанию это \
+
   nnoremap <Leader>vi :tabedit $MYVIMRC<CR>
   nnoremap <Leader>tl :set list! list?<CR>
   nnoremap <Leader>tt :set expandtab! expandtab?<CR>
@@ -146,10 +134,6 @@ endfunction " }}}
 
   " Y копирует от курсора и до конца строки
   nnoremap Y y$
-
-  " Перемещение курсора в режиме вставки
-  inoremap <C-h> <left>
-  inoremap <C-l> <right>
 
   " Если строка длинная и включён автоматический перенос то
   " перемещаемся на следующую/предыдущую псевдостроку с помощью j и k
@@ -234,6 +218,19 @@ endfunction " }}}
       endif
     endif
   endfunction " }}}
-" }}}1
-au BufRead,BufNewFile *.rabl setf ruby
+" }}}
+" Autocommands {{{
+  augroup myvimrc
+    autocmd!
+    autocmd BufWritePost .vimrc,plugins.vim so $MYVIMRC
+  augroup END
+
+  " Отключение мигания и звуков
+  autocmd GUIEnter * set vb t_vb= " gVim
+  autocmd VimEnter * set vb t_vb= " vim
+
+  " Rabl support
+  autocmd BufRead,BufNewFile *.rabl setf ruby
+" }}}
+
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

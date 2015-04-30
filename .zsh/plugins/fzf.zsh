@@ -40,6 +40,16 @@ fkill() {
   fi
 }
 
+# v - open files in ~/.viminfo
+v() {
+  local file
+  file=$(grep '^>' ~/.viminfo | cut -c3- |
+          while read line; do
+            [ -f "${line/\~/$HOME}" ] && echo $line
+          done | fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && vim ${file//\~/$HOME}
+}
+
 # fbr - checkout git branch
 fbr() {
   local branches branch
@@ -103,5 +113,10 @@ frb() {
 
 # fh - repeat history
 fh() {
+  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# fhe - repeat history with edit
+fhe() {
   print -z $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
