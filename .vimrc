@@ -1,13 +1,15 @@
 scriptencoding utf-8
+set encoding=utf-8
+set nocompatible " отключение режима совместимости с vi
+
+let g:mapleader = "\<Space>" " по умолчанию это \
 
 source ~/.vim/plugins.vim
 
 " Main settings {{{
-  set encoding=utf-8
-  set nocompatible " отключение режима совместимости с vi
+  set guifont=Ubuntu\ Mono\ 12
   set clipboard=unnamed,unnamedplus
   set number    " нумерация строк
-  set guifont=Ubuntu\ Mono\ 12
   syntax enable " подсветка синтаксиса
 
   " Поддержка команд при включённой русской раскладке
@@ -118,8 +120,6 @@ endfunction " }}}
   endif
 " }}}
 " Key mappings {{{1
-  let g:mapleader = "\<Space>" " по умолчанию это \
-
   nnoremap <Leader>vi :tabedit $MYVIMRC<CR>
   nnoremap <Leader>tl :set list! list?<CR>
   nnoremap <Leader>tt :set expandtab! expandtab?<CR>

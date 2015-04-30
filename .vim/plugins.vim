@@ -337,6 +337,10 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:junkfile#directory = $HOME . '/.vim/cache/junkfile'
   " }}}
+  Plug 'junegunn/vim-peekaboo'
+  " {{{
+    let g:peekaboo_delay = 400
+  " }}}
 
 " Misc
 " ====
