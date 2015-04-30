@@ -298,9 +298,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     let g:pymode_lint_info_symbol = '!'
   " }}}
   NeoBundle 'othree/html5.vim'
+  NeoBundle 'ap/vim-css-color'
   NeoBundle 'moll/vim-node'
   NeoBundle 'marijnh/tern_for_vim'
-  NeoBundle 'zenbro/vim-javascript-syntax'
+  NeoBundle 'othree/yajs.vim'
   NeoBundle 'othree/javascript-libraries-syntax.vim'
   "" {{{
     let g:used_javascript_libs = 'jquery,backbone,requirejs'
