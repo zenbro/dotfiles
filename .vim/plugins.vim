@@ -81,7 +81,7 @@ call plug#begin('~/.vim/plugged')
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#auto_completion_start_length = 2
-    let g:neocomplete#data_directory = '~/.vim/cache'
+    let g:neocomplete#data_directory = $HOME . '/.vim/cache'
     let g:neocomplete#force_overwrite_completefunc = 1
 
     nmap <Leader>tc :NeoCompleteToggle<CR>
@@ -176,6 +176,10 @@ call plug#begin('~/.vim/plugged')
     endfunction
   " }}}
   Plug 'Shougo/neomru.vim'
+  " {{{
+    let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
+    let g:neomru#directory_mru_path = $HOME . '/.vim/cache/neomru/directory'
+  " }}}
 
 " Text Navigation
 " ===============
@@ -209,7 +213,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'AndrewRadev/switch.vim'
   " {{{
-    nnoremap <silent> - :Switch<CR>
+    let g:switch_mapping = '-'
   " }}}
   Plug 'AndrewRadev/sideways.vim'
   " {{{

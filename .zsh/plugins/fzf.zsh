@@ -9,6 +9,13 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
+# fea - search hidden files and open matching in vim
+fea() {
+  local file
+  file=$(ag -l --hidden -g "" | fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
 # fd - cd to selected directory
 fd() {
   local dir
@@ -21,6 +28,13 @@ fd() {
 fda() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# fdv - cd to most recent used directory by vim
+fdv() {
+  local dir
+  dir=$(cat ~/.vim/cache/neomru/directory | sed '1d' | fzf --query="$1" --select-1 --exit-0)
+  cd "$dir"
 }
 
 # cdf - cd into the directory of the selected file
@@ -43,11 +57,8 @@ fkill() {
 # v - open files in ~/.viminfo
 v() {
   local file
-  file=$(grep '^>' ~/.viminfo | cut -c3- |
-          while read line; do
-            [ -f "${line/\~/$HOME}" ] && echo $line
-          done | fzf --query="$1" --select-1 --exit-0)
-  [ -n "$file" ] && vim ${file//\~/$HOME}
+  file=$(cat ~/.vim/cache/neomru/file | sed '1d' | fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && vim $file
 }
 
 # fbr - checkout git branch
