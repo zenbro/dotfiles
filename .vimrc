@@ -187,8 +187,8 @@ endfunction " }}}
     endif
   endfunction " }}}
 
-  command! Q call DeleteEmptyBuffers()
-  function! DeleteEmptyBuffers() " {{{
+  command! Q call DeleteEmptyBuffer()
+  function! DeleteEmptyBuffer() " {{{
     let [i, n; empty] = [1, bufnr('$')]
     while i <= n
       if bufexists(i) && bufname(i) == ''
@@ -200,6 +200,15 @@ endfunction " }}}
       exe 'bdelete' join(empty)
     endif
   endfunction " }}}
+
+  nnoremap <silent> <Leader>dh :call DeleteHiddenBuffers()<CR>
+  function! DeleteHiddenBuffers()
+      let tpbl=[]
+      call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+      for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+          silent execute 'bwipeout' buf
+      endfor
+  endfunction
 
   nnoremap <silent> <Leader>tn :call ToggleWrap()<CR>
   function! ToggleWrap() " {{{
