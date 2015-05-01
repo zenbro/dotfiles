@@ -159,7 +159,6 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
     nnoremap <silent> K :<C-u>UniteWithCursorWord -no-quit -keep-focus grep:.<cr>
   " }}}
-  Plug 'Shougo/unite-outline'
   Plug 'Shougo/vimfiler.vim'
   " {{{
     let g:vimfiler_data_directory = $HOME . '/.vim/cache/vimfiler'
@@ -180,6 +179,7 @@ call plug#begin('~/.vim/plugged')
 
 " Text Navigation
 " ===============
+  Plug 'Shougo/unite-outline'
   Plug 'Lokaltog/vim-easymotion'
   " {{{
     let g:EasyMotion_do_mapping = 0
@@ -188,6 +188,9 @@ call plug#begin('~/.vim/plugged')
     nmap ; <Plug>(easymotion-s2)
   " }}}
   Plug 'rhysd/clever-f.vim'
+  " {{{
+    let g:clever_f_across_no_line = 1
+  " }}}
 
 " Text Manipulation
 " =================
