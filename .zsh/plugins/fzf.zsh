@@ -30,13 +30,6 @@ fda() {
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-# fdv - cd to most recent used directory by vim
-fdv() {
-  local dir
-  dir=$(cat ~/.vim/cache/neomru/directory | sed '1d' | fzf --query="$1" --select-1 --exit-0)
-  cd "$dir"
-}
-
 # cdf - cd into the directory of the selected file
 cdf() {
    local file
@@ -59,6 +52,13 @@ v() {
   local file
   file=$(cat ~/.vim/cache/neomru/file | sed '1d' | fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && vim $file
+}
+
+# vd - cd to most recent used directory by vim
+vd() {
+  local dir
+  dir=$(cat ~/.vim/cache/neomru/directory | sed '1d' | fzf --query="$1" --select-1 --exit-0)
+  cd "$dir"
 }
 
 # fbr - checkout git branch
