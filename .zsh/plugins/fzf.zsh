@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 # https://github.com/junegunn/fzf/wiki/examples
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
@@ -20,8 +21,7 @@ fea() {
 fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+        -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # fda - including hidden directories
@@ -50,15 +50,16 @@ fkill() {
 # v - open files in ~/.viminfo
 v() {
   local file
-  file=$(cat ~/.vim/cache/neomru/file | sed '1d' | fzf --query="$1" --select-1 --exit-0)
+  file=$(sed '1d' $HOME/.vim/cache/neomru/file |
+          fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && vim $file
 }
 
 # vd - cd to most recent used directory by vim
 vd() {
   local dir
-  dir=$(cat ~/.vim/cache/neomru/directory | sed '1d' | fzf --query="$1" --select-1 --exit-0)
-  cd "$dir"
+  dir=$(sed '1d' $HOME/.vim/cache/neomru/directory |
+        fzf --query="$1" --select-1 --exit-0) && cd "$dir"
 }
 
 # fbr - checkout git branch
