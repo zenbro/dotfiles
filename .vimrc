@@ -58,6 +58,9 @@ source ~/.vim/plugins.vim
   highlight SyntasticErrorLine guibg=#0D0D0D ctermbg=232
   highlight SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
   highlight SyntasticWargningLine guibg=#171717
+
+  highlight ColorColumn ctermbg=52 guibg=#251515
+  call matchadd('ColorColumn', '\%81v', 100)
 " }}}
 " Search {{{
 set ignorecase      " игнорировать регистр при поиске

@@ -96,12 +96,17 @@ call plug#begin('~/.vim/plugged')
     imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
   " }}}
   Plug 'Shougo/neosnippet'
   " {{{
-    let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets,~/.vim/snippets'
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    let g:neosnippet#disable_runtime_snippets = { '_' : 1, }
+    let g:neosnippet#snippets_directory = '~/.vim/plugged/vim-snippets/snippets,~/.vim/snippets'
+    let g:neosnippet#data_directory = $HOME . '/.vim/cache/neosnippet'
+
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
 
     imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -109,8 +114,12 @@ call plug#begin('~/.vim/plugged')
     smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)"
     \: "\<TAB>"
+
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
   " }}}
-  Plug 'honza/vim-snippets'
+  Plug 'Shougo/neosnippet-snippets'
 
 " File Navigation
 " ===============
@@ -347,6 +356,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-peekaboo'
   " {{{
     let g:peekaboo_delay = 400
+  " }}}
+  Plug 'mbbill/undotree'
+  " {{{
+    if has("persistent_undo")
+      set undodir=$HOME.'/.vim/cache/undodir'
+      set undofile
+    endif
+
+    nnoremap <F3> :UndotreeToggle<CR>
   " }}}
 
 " Misc
