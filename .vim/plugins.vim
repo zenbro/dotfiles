@@ -96,12 +96,10 @@ call plug#begin('~/.vim/plugged')
     imap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     smap <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
   " }}}
   Plug 'Shougo/neosnippet'
   " {{{
-    let g:neosnippet#snippets_directory = '~/.vim/plugged/vim-snippets/snippets,~/.vim/snippets'
+    let g:neosnippet#snippets_directory = '~/.vim/snippets'
     let g:neosnippet#data_directory = $HOME . '/.vim/cache/neosnippet'
 
     if has('conceal')
