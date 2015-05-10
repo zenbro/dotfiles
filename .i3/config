@@ -203,7 +203,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id $HOME/.i3/xmodmap_hooks
 exec --no-startup-id redshift -l 55.73:34.1
 exec --no-startup-id parcellite
-exec --no-startup-id dropboxd
+exec --no-startup-id dropbox
 exec --no-startup-id udiskie --tray
 exec --no-startup-id xautolock -time 10 -locker i3lock-wrapper
 exec --no-startup-id thunderbird
