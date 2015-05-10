@@ -47,6 +47,20 @@ fkill() {
   fi
 }
 
+# fstart - start systemd unit
+fstart() {
+  unit=$(systemctl list-unit-files | grep disabled |
+    awk '{print $1}' | grep service | fzf)
+  sudo systemctl start $unit
+}
+
+# fstop - stop systemd unit
+fstop() {
+  unit=$(systemctl list-units | grep running |
+    awk '{print $1}' | grep service | fzf)
+  sudo systemctl stop $unit
+}
+
 # v - open files in ~/.viminfo
 v() {
   local file
