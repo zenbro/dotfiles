@@ -1,3 +1,4 @@
+alias vi='vim'
 alias sy='systemctl'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -GFhl'
@@ -15,4 +16,5 @@ alias gita='git add . && git commit --amend'
 alias gitd='git diff HEAD~'
 
 alias lg='nocorrect lg'
-alias vlog='vim <(journalctl --merge -b)'
+alias vlog='vim +"normal G" <(journalctl --merge -b --no-pager)'
+alias vimprove='vim +Goyo $HOME/Dropbox/notes/improve.txt'

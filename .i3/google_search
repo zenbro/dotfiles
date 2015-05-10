@@ -1,0 +1,15 @@
+#!/bin/bash
+
+URL='https://google.ru/search?q='
+case "$1" in
+  'clipboard')
+    QUERY=$(xclip -o | dmenu -i -p "Search:" -fn "-xos4-terminus-medium-r-*-*-14-*" -b -l 1)
+    ;;
+  *)
+    QUERY=$(echo '' | dmenu -i -p "Search:" -fn "-xos4-terminus-medium-r-*-*-14-*" -b)
+esac
+
+if [ -n "$QUERY" ]; then
+  xdg-open "${URL}${QUERY}" 2> /dev/null
+  exec i3-msg [class="^Firefox$"] focus
+fi

@@ -2,6 +2,8 @@ scriptencoding utf-8
 set encoding=utf-8
 set nocompatible " отключение режима совместимости с vi
 
+filetype plugin indent on
+
 let g:mapleader = "\<Space>" " по умолчанию это \
 
 source ~/.vim/plugins.vim
@@ -81,10 +83,11 @@ set softtabstop=2 " удаление tab-символов как пробело�
 set tabstop=2
 set nowrap
 set nolinebreak
-set tw=0          " отключение автопереноса длинных строк
+set textwidth=0          " отключение автопереноса длинных строк
 set autoindent    " автоматический отступ
 set smartindent   " включает умную расстановку отступов
 set smarttab
+set shiftround    " отступы с помощью >> всегда кратны двум
 set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 set scrolloff=999 " держать курсор на определённом расстоянии от нижнего края
 set list
@@ -218,15 +221,15 @@ endfunction " }}}
     if exists("g:toggle_wrap")
       unlet g:toggle_wrap
       set nowrap
-      set nolbr
-      set tw=0
+      set nolinebreak
+      set textwidth=0
     else
       let g:toggle_wrap = 1
-      set wrap              " включить перенос длинных строк
-      set lbr               " включить перенос целых слов
-      set tw=85             " максимальная длина строки
-      if has("linebreak")   " если встретился перенос строки, то
-        let &sbr = nr2char(8618).' '  " показать ↪ в начале следующей строки
+      set wrap                       " включить перенос длинных строк
+      set linebreak                  " включить перенос целых слов
+      set textwidth=85               " максимальная длина строки
+      if has("linebreak")            " если встретился перенос строки, то
+        let &sbr = nr2char(8618).' ' " показать ↪ в начале следующей строки
       endif
     endif
   endfunction " }}}
@@ -243,6 +246,9 @@ endfunction " }}}
 
   " Rabl support
   autocmd BufRead,BufNewFile *.rabl setf ruby
+
+  " Make ?s part of words
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
 " }}}
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

@@ -232,6 +232,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
+  Plug 'junegunn/vim-after-object'
+  " {{{
+    autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ', '*', ',', '.')
+  " }}}
 
 " Languages
 " =========
@@ -339,6 +343,7 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:netrw_nogx = 1
     vmap gx <Plug>(openbrowser-smart-search)
+    nmap gx <Plug>(openbrowser-search)
   " }}}
   Plug 'xuhdev/SingleCompile'
   " {{{
@@ -385,12 +390,18 @@ call plug#begin('~/.vim/plugged')
     function! s:goyo_enter()
       set nolist
       set nocursorline
+      set wrap
+      set linebreak
+      set textwidth=80
       Limelight
     endfunction
 
     function! s:goyo_leave()
       set list
       set cursorline
+      set nowrap
+      set nolinebreak
+      set textwidth=0
       Limelight!
     endfunction
   " }}}

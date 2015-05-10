@@ -52,7 +52,7 @@ fstart() {
   unit=$(systemctl list-unit-files | grep disabled |
     awk '{print $1}' | grep service | fzf)
   [ -n "$unit" ] && sudo systemctl start $unit &&
-    journalctl -u $unit --since "10 sec ago" | cat
+    journalctl -u $unit --since "10 sec ago" --no-pager
 }
 
 # fstop - stop systemd unit
@@ -60,7 +60,7 @@ fstop() {
   unit=$(systemctl list-units | grep running |
     awk '{print $1}' | grep service | fzf)
   [ -n "$unit" ] && sudo systemctl stop $unit &&
-    journalctl -u $unit --since "10 sec ago" | cat
+    journalctl -u $unit --since "10 sec ago" --no-pager
 }
 
 # fpaci - install new package

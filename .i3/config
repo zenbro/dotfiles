@@ -10,7 +10,6 @@ font pango:Terminus 12px
 floating_modifier $mod
 
 focus_follows_mouse yes
-
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -178,6 +177,10 @@ bindsym Mod4+t exec --no-startup-id urxvt -e vim note:todo
 bindsym Mod4+s exec --no-startup-id urxvt -e mocp
 bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
 bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
+
+# google search and jump to firefox
+bindsym $mod+g exec --no-startup-id ~/.i3/google_search
+bindsym $mod+Shift+g exec --no-startup-id ~/.i3/google_search clipboard
 
 # custom window settings (xprop can help)
 for_window [class="^Gvim$"]        border none
