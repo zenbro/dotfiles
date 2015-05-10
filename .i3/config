@@ -161,8 +161,8 @@ bar {
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5dB+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5dB-
 bindsym XF86AudioMute        exec --no-startup-id amixer -q set Master 0%
-bindsym XF86ScreenSaver      exec --no-startup-id i3lock-wrapper
-bindsym $mod+Control+l       exec --no-startup-id i3lock-wrapper
+bindsym XF86ScreenSaver      exec --no-startup-id ~/.i3/i3lock-wrapper
+bindsym $mod+Control+l       exec --no-startup-id ~/.i3/i3lock-wrapper
 
 # hotkeys
 bindsym Print  exec --no-startup-id scrot -q 100 -e 'feh $f'
