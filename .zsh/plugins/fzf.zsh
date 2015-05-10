@@ -51,14 +51,16 @@ fkill() {
 fstart() {
   unit=$(systemctl list-unit-files | grep disabled |
     awk '{print $1}' | grep service | fzf)
-  sudo systemctl start $unit
+  [ -n "$unit" ] && sudo systemctl start $unit &&
+    journalctl -u $unit --since "10 sec ago" | cat
 }
 
 # fstop - stop systemd unit
 fstop() {
   unit=$(systemctl list-units | grep running |
     awk '{print $1}' | grep service | fzf)
-  sudo systemctl stop $unit
+  [ -n "$unit" ] && sudo systemctl stop $unit &&
+    journalctl -u $unit --since "10 sec ago" | cat
 }
 
 # fpaci - install new package
@@ -76,7 +78,7 @@ fpacd() {
 # fpacs - get information about package
 fpacs() {
   package=$(pacman -Ssq | fzf)
-  [ -n "$package" ] && pacman -Ss $package
+  [ -n "$package" ] && pacman -Ss "^$package$"
 }
 
 # v - open files in ~/.viminfo

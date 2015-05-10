@@ -12,3 +12,4 @@ alias update_node_bin='n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; 
 alias github="git config --local user.name 'zenbro'; git config --local user.email 'capybarov@gmail.com'"
 
 alias lg='nocorrect lg'
+alias vlog='vim <(journalctl --merge -b)'
