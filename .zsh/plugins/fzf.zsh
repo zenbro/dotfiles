@@ -61,6 +61,24 @@ fstop() {
   sudo systemctl stop $unit
 }
 
+# fpaci - install new package
+fpaci() {
+  package=$(pacman -Ssq | fzf)
+  [ -n "$package" ] && sudo pacman -S $package
+}
+
+# fpacd - completely uninstall package
+fpacd() {
+  package=$(pacman -Qqe | fzf)
+  [ -n "$package" ] && sudo pacman -Rscn $package
+}
+
+# fpacs - get information about package
+fpacs() {
+  package=$(pacman -Ssq | fzf)
+  [ -n "$package" ] && pacman -Ss $package
+}
+
 # v - open files in ~/.viminfo
 v() {
   local file
