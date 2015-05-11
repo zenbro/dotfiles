@@ -63,25 +63,25 @@ fstop() {
     journalctl -u $unit --since "10 sec ago" --no-pager
 }
 
-# fpaci - install new package
-fpaci() {
+# finstall - install new package
+finstall() {
   package=$(pacman -Ssq | fzf)
   [ -n "$package" ] && sudo pacman -S $package
 }
 
-# fpacd - completely uninstall package
-fpacd() {
+# fdelete - completely uninstall package
+fdelete() {
   package=$(pacman -Qqe | fzf)
   [ -n "$package" ] && sudo pacman -Rscn $package
 }
 
-# fpacs - get information about package
-fpacs() {
+# fsearch - get information about package
+fsearch() {
   package=$(pacman -Ssq | fzf)
   [ -n "$package" ] && pacman -Ss "^$package$"
 }
 
-# v - open files in ~/.viminfo
+# v - search in most recent used files by vim
 v() {
   local file
   file=$(sed '1d' $HOME/.vim/cache/neomru/file |

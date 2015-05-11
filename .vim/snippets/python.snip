@@ -1,0 +1,13 @@
+snippet     model
+abbr        class Name(models.Model):
+options     head
+  class ${1:Name}(models.Model):
+      ${2:# TODO}
+
+snippet     mfk
+abbr        models.ForeignKey(Name)
+  models.ForeignKey(${1:Name})
+
+snippet     mpsi
+abbr        models.PositiveSmallIntegerField(Name)
+  models.PositiveSmallIntegerField(${1:#:u'Description'}, default=0)

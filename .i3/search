@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL='https://google.ru/search?q='
+URL='https://duckduckgo.com/?q='
 case "$1" in
   'clipboard')
     QUERY=$(xclip -o | dmenu -i -p "Search:" -fn "-xos4-terminus-medium-r-*-*-14-*" -b -l 1)
