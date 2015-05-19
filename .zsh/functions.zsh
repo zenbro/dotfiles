@@ -13,6 +13,11 @@ function path() {
   echo $PATH | tr : '\n'
 }
 
+function h() {
+  script=$(ls $HOME/.helpers/ 2> /dev/null | fzf)
+  [ -n "$script" ] && $HOME/.helpers/$script
+}
+
 function activate() {
   PROMPT_BACKUP=$PROMPT
   source ./bin/activate

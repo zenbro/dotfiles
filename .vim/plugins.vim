@@ -65,7 +65,7 @@ call plug#begin('~/.vim/plugged')
     let g:startify_change_to_dir = 1
     let g:startify_change_to_vcs_root = 1
     let g:startify_custom_footer =
-      \ map(split(system('fortune | cowsay -f stegosaurus'), '\n'), '"   ". v:val') + ['','']
+      \ map(split(system('fortune.rb'), '\n'), '"   ". v:val') + ['','']
   " }}}
   Plug 'kshenoy/vim-signature'
   " {{{
@@ -381,7 +381,7 @@ call plug#begin('~/.vim/plugged')
     let g:rogue#name = 'zenbro'
     let g:rogue#directory = expand($HOME.'/.vim/rogue')
   " }}}
-  Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
+  Plug 'junegunn/limelight.vim'
   Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
   " {{{
     autocmd User GoyoEnter call s:goyo_enter()
