@@ -346,6 +346,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-dispatch'
   Plug 'tyru/open-browser.vim'
   " {{{
+    let g:openbrowser_default_search = 'duckduckgo'
     let g:netrw_nogx = 1
     vmap gx <Plug>(openbrowser-smart-search)
     nmap gx <Plug>(openbrowser-search)
