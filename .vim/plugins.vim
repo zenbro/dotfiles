@@ -260,9 +260,8 @@ call plug#begin('~/.vim/plugged')
     let g:ragtag_global_maps = 1
   " }}}
   Plug 'tpope/vim-rails'
-"  " {{{
-"    let erlang_show_errors = 0
-"  " }}}
+  Plug 'tpope/vim-rake'
+  Plug 'tpope/vim-bundler'
   Plug 'klen/python-mode'
   " {{{
     let g:pymode_run = 0
@@ -303,6 +302,9 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'tpope/vim-haml'
   Plug 'jimenezrick/vimerl'
+  " {{{
+    let erlang_show_errors = 0
+  " }}}
 
 " Git
 " ===
@@ -339,6 +341,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-characterize'
   Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-projectionist'
+  Plug 'tpope/vim-scriptease'
+  Plug 'tpope/vim-dispatch'
   Plug 'tyru/open-browser.vim'
   " {{{
     let g:netrw_nogx = 1

@@ -250,5 +250,4 @@ endfunction " }}}
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
 " }}}
-
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
