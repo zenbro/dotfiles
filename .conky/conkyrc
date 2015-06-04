@@ -38,7 +38,7 @@ TEXT
 # JSON for i3bar
 
 [
-  { "full_text": "${if_match "${execi 5 mocp -Q %state}"=="PLAY"} ${execi 5 ~/.conky/song_title}${endif}", "color" : "\#beb6ec"  },
+# { "full_text": "${if_match "${execi 5 mocp -Q %state}"=="PLAY"} ${execi 5 ~/.conky/song_title}${endif}", "color" : "\#beb6ec"  },
   { "full_text": " ${exec xkb-switch | sed 's/us/en/' | tr '[a-z]' '[A-Z]'}", "color" : "\#ffffff"  },
   { "full_text": "🔊 ${exec amixer -c 0 get Master | grep -Po '\d+%'}", "color": "\#6194df"},
   { "full_text": " ${fs_free /}", "color": "\#48af48"  },

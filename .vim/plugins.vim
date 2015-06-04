@@ -260,6 +260,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rake'
   Plug 'tpope/vim-bundler'
+  Plug 'tpope/vim-liquid'
   Plug 'klen/python-mode'
   " {{{
     let g:pymode_run = 0
@@ -275,6 +276,8 @@ call plug#begin('~/.vim/plugged')
     let g:pymode_lint_visual_symbol = 'RR'
     let g:pymode_lint_error_symbol = '✘'
     let g:pymode_lint_info_symbol = '!'
+
+    autocmd FileType python setlocal completeopt-=preview
   " }}}
   Plug 'othree/html5.vim'
   Plug 'othree/yajs.vim'

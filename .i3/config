@@ -179,8 +179,7 @@ bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
 bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
 
 # duckduckgo search and jump to firefox
-bindsym $mod+g exec --no-startup-id ~/.i3/search
-bindsym $mod+Shift+g exec --no-startup-id ~/.i3/search clipboard
+bindsym $mod+g exec --no-startup-id ~/.i3/dmenu_search.sh
 
 # custom window settings (xprop can help)
 for_window [class="^Gvim$"]        border none
@@ -203,7 +202,7 @@ assign [class="^Chromium$"]    F2: dev/www
 assign [class="^Owa-devdocs"]  F4: dev/doc
 
 # autorun
-exec --no-startup-id feh --bg-fill Dropbox/wallpapers/tilt_shifted_milky_way.jpg
+exec --no-startup-id feh --bg-fill $HOME/.wallpaper
 exec --no-startup-id compton -b
 exec --no-startup-id $HOME/.i3/xmodmap_hooks
 exec --no-startup-id redshift -l 55.73:34.1
