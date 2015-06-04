@@ -17,9 +17,6 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -51,7 +48,7 @@ bindsym $mod+semicolon split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym $mod+Shift+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -171,7 +168,7 @@ bindsym Print  exec --no-startup-id scrot -q 100 -e 'feh $f'
 bindsym Mod4+v exec --no-startup-id gvim
 bindsym Mod4+c exec --no-startup-id chromium
 bindsym Mod4+f exec --no-startup-id firefox
-bindsym Mod4+d exec --no-startup-id dwb
+bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
 bindsym Mod4+m exec --no-startup-id thunderbird
 bindsym Mod4+p exec --no-startup-id pidgin
 bindsym Mod4+n exec --no-startup-id liferea
@@ -193,6 +190,7 @@ for_window [class="^Firefox$"]     border none
 for_window [class="^Thunderbird$"] border none
 for_window [class="^Liferea"]      border none
 for_window [class="^Zathura"]      border none
+for_window [class="^Owa-devdocs"]  border none
 
 # workspace assignment
 assign [class="^Gvim$"]        1: dev
@@ -202,6 +200,7 @@ assign [class="^Thunderbird$"] 3: mail
 assign [class="^Pidgin$"]      4: im
 assign [class="^VirtualBox$"]  5: vbox
 assign [class="^Chromium$"]    F2: dev/www
+assign [class="^Owa-devdocs"]  F4: dev/doc
 
 # autorun
 exec --no-startup-id feh --bg-fill Dropbox/wallpapers/tilt_shifted_milky_way.jpg

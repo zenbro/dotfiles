@@ -10,7 +10,8 @@ source ~/.vim/plugins.vim
 
 " Main settings {{{
   set guifont=Ubuntu\ Mono\ 12
-  set clipboard=unnamed,unnamedplus
+  set clipboard=unnamedplus
+
   set number    " нумерация строк
   syntax enable " подсветка синтаксиса
 
@@ -47,6 +48,7 @@ source ~/.vim/plugins.vim
     set guioptions-=r         " убрать правый скроллбар
     set guioptions-=R         " убрать правый скроллбар у сплита
     set guioptions-=e         " убрать GUI-табы
+    set guioptions-=a         " отключить автоматическое копирование при выделении текста
     set mousehide             " не показывать курсор во время печати
     set cursorline            " подсветка строки с курсором
     set linespace=0           " межстрочный интервал
@@ -61,8 +63,8 @@ source ~/.vim/plugins.vim
   highlight SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
   highlight SyntasticWargningLine guibg=#171717
 
-  highlight ColorColumn ctermbg=52 guibg=#251515
-  call matchadd('ColorColumn', '\%81v', 100)
+  highlight ColorColumn ctermbg=232 guibg=#131313
+  set colorcolumn=80
 " }}}
 " Search {{{
 set ignorecase      " игнорировать регистр при поиске
@@ -217,6 +219,10 @@ endfunction " }}}
   endfunction
 
   nnoremap <silent> <Leader>tn :call ToggleWrap()<CR>
+
+  function! InsertLineNumbers()
+    :%s/^/\=printf('%-3d', line('.'))
+  endfunction
   function! ToggleWrap() " {{{
     if exists("g:toggle_wrap")
       unlet g:toggle_wrap
@@ -237,7 +243,7 @@ endfunction " }}}
 " Autocommands {{{
   augroup myvimrc
     autocmd!
-    autocmd BufWritePost .vimrc,plugins.vim so $MYVIMRC
+    autocmd BufWritePost .vimrc,plugins.vim source $MYVIMRC | call airline#load_theme() | call airline#update_statusline()
   augroup END
 
   " Отключение мигания и звуков

@@ -229,13 +229,10 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-abolish'
+  Plug 'ConradIrwin/vim-bracketed-paste'
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  Plug 'junegunn/vim-after-object'
-  " {{{
-    autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ', '*', ',', '.')
-  " }}}
 
 " Languages
 " =========
@@ -256,6 +253,7 @@ call plug#begin('~/.vim/plugged')
     let g:user_emmet_expandabbr_key = '<c-e>'
   " }}}
   Plug 'tpope/vim-ragtag'
+  Plug 'vim-ruby/vim-ruby'
   " {{{
     let g:ragtag_global_maps = 1
   " }}}
