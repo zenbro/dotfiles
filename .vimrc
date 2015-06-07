@@ -1,6 +1,6 @@
-scriptencoding utf-8
 set encoding=utf-8
 set nocompatible " отключение режима совместимости с vi
+scriptencoding utf-8
 
 filetype plugin indent on
 
@@ -29,7 +29,7 @@ source ~/.vim/plugins.vim
   set hidden                                  " сворачивать в буфер, вместо закрытия
   set shortmess+=I                            " отключить приветствие
 
-  if v:version > 703 || v:version == 703 && has("patch541")
+  if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
   endif
 
@@ -39,7 +39,7 @@ source ~/.vim/plugins.vim
   endif
 " }}}
 " gVim settings {{{
-  if has("gui_running")       " если запущен gvim, то...
+  if has('gui_running')       " если запущен gvim, то...
     winpos 0 0                " положение окна при запуске
     set guioptions-=T         " убрать панель инструментов
     set guioptions-=m         " убрать меню

@@ -54,6 +54,7 @@ call plug#begin('~/.vim/plugged')
     let g:indent_guides_enable_on_vim_startup = 1 " включён по умолчанию
     let g:indent_guides_start_level = 2           " с какого уровня начинать подсвечивать
     let g:indent_guides_exclude_filetypes = ['help', 'startify', 'unite', 'vimfiler', 'rogue']
+    autocmd User Startified setlocal colorcolumn=0
 
     nmap <silent> <Leader>ti <Plug>IndentGuidesToggle
   " }}}
@@ -66,6 +67,7 @@ call plug#begin('~/.vim/plugged')
     let g:startify_change_to_vcs_root = 1
     let g:startify_custom_footer =
       \ map(split(system('fortune.rb'), '\n'), '"   ". v:val') + ['','']
+    nnoremap <F12> :Startify<CR>
   " }}}
   Plug 'kshenoy/vim-signature'
   " {{{
@@ -182,6 +184,10 @@ call plug#begin('~/.vim/plugged')
       setlocal nonumber
     endfunction
   " }}}
+  Plug 'Shougo/neossh.vim'
+  " {{{
+    nnoremap <F3> :Unite ssh://
+  " }}}
   Plug 'Shougo/neomru.vim'
   " {{{
     let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
@@ -247,6 +253,7 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_error_symbol        = '✘' " заменить символ ошибок
     let g:syntastic_warning_symbol      = '!' " заменить символ предупреждений
     let g:syntastic_ignore_files = ['\.py$']  " использовать только python-mode
+    let g:syntastic_vim_checkers = ['vint']
   " }}}
   Plug 'mattn/emmet-vim'
   " {{{
@@ -374,7 +381,7 @@ call plug#begin('~/.vim/plugged')
       set undofile
     endif
 
-    nnoremap <F3> :UndotreeToggle<CR>
+    nnoremap <F11> :UndotreeToggle<CR>
   " }}}
 
 " Misc
@@ -389,6 +396,10 @@ call plug#begin('~/.vim/plugged')
     let g:rogue#directory = expand($HOME.'/.vim/rogue')
   " }}}
   Plug 'junegunn/limelight.vim'
+  let g:limelight_default_coefficient = 0.7
+  let g:limelight_conceal_ctermfg = 240
+  nmap <silent> gl :Limelight!!<CR>
+  xmap gl <Plug>(Limelight)
   Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
   " {{{
     autocmd User GoyoEnter call s:goyo_enter()
@@ -418,5 +429,6 @@ call plug#end()
 " can be called only after plugins init
 call unite#custom#source('buffer,file,file/new,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
 call unite#custom#source('buffer,file,file/new,file_rec/async', 'sorters', 'sorter_rank')
+call unite#custom#source('ssh', 'sorters', 'sorter_reverse')
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
