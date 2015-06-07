@@ -64,7 +64,7 @@ source ~/.vim/plugins.vim
   highlight SyntasticWargningLine guibg=#171717
 
   highlight ColorColumn ctermbg=232 guibg=#131313
-  set colorcolumn=80
+  set colorcolumn=79
 " }}}
 " Search {{{
 set ignorecase      " игнорировать регистр при поиске

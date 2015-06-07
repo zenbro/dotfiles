@@ -1,0 +1,22 @@
+set defsearch=duckduckgo
+set status=input,location,bookmark,history,tabcount,position,ssl
+set gui=none,tabs
+set tabnumbers=true
+set hintchars="sadfjklewcmpgh"
+set hintmatching=fuzzy
+
+nnoremap J gT
+nnoremap K gt
+nnoremap d <C-d>
+nnoremap x :bd<CR>
+nnoremap u <C-u>
+nnoremap <S-x> :undo<CR>
+nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+
+command kindle :javascript openURL('http://fivefilters.org/kindle-it/send.php?url=' + encodeURI(liberator.modules.buffer.URL))
+
+highlight PromptText color: white; background: teal;
+highlight StatusLine color: #eaeaea; background: #212121; font-weight: normal;
+highlight CmdLine background: #212121; color: #eaea81; transition: all 0.25s; 
+highlight Hint font-family: Ubuntu; font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; 
+" vim: set sw=2 ts=2 et ft=vim

@@ -193,6 +193,7 @@ call plug#begin('~/.vim/plugged')
     let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
     let g:neomru#directory_mru_path = $HOME . '/.vim/cache/neomru/directory'
   " }}}
+  Plug 'zenbro/mirror.vim'
 
 " Text Navigation
 " ===============
@@ -365,6 +366,8 @@ call plug#begin('~/.vim/plugged')
     map <s-F5> :SCCompileRunAF
     map <F5> :SCCompileRun<CR>
     map <F6> :SCViewResult<CR>
+
+    autocmd FileType vim nnoremap <F5> :source %<CR>
   " }}}
   Plug 'Shougo/junkfile.vim'
   " {{{
@@ -397,7 +400,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'junegunn/limelight.vim'
   let g:limelight_default_coefficient = 0.7
-  let g:limelight_conceal_ctermfg = 240
+  let g:limelight_conceal_ctermfg = 238
   nmap <silent> gl :Limelight!!<CR>
   xmap gl <Plug>(Limelight)
   Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
