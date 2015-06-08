@@ -10,7 +10,7 @@ source ~/.vim/plugins.vim
 
 " Main settings {{{
   set guifont=Ubuntu\ Mono\ 12
-  set clipboard=unnamedplus
+  set clipboard=unnamed,unnamedplus
 
   set number    " нумерация строк
   syntax enable " подсветка синтаксиса
