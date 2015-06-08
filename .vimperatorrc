@@ -12,6 +12,7 @@ nnoremap x :bd<CR>
 nnoremap u <C-u>
 nnoremap <S-x> :undo<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+nnoremap \\ :set gui=invnavigation<CR>
 
 command kindle :javascript openURL('http://fivefilters.org/kindle-it/send.php?url=' + encodeURI(liberator.modules.buffer.URL))
 
