@@ -199,7 +199,7 @@ endfunction " }}}
   function! DeleteEmptyBuffer() " {{{
     let [i, n; empty] = [1, bufnr('$')]
     while i <= n
-      if bufexists(i) && bufname(i) == ''
+      if bufexists(i) && empty(bufname(i))
         call add(empty, i)
       endif
       let i += 1
@@ -221,7 +221,7 @@ endfunction " }}}
   nnoremap <silent> <Leader>tn :call ToggleWrap()<CR>
 
   function! InsertLineNumbers()
-    :%s/^/\=printf('%-3d', line('.'))
+    execute ':%s/^/\=' . printf('%-3d', line('.'))
   endfunction
   function! ToggleWrap() " {{{
     if exists("g:toggle_wrap")
@@ -247,13 +247,21 @@ endfunction " }}}
   augroup END
 
   " Отключение мигания и звуков
-  autocmd GUIEnter * set vb t_vb= " gVim
-  autocmd VimEnter * set vb t_vb= " vim
+  augroup vim_enter
+    autocmd!
+    autocmd GUIEnter * set vb t_vb= " gVim
+    autocmd VimEnter * set vb t_vb= " vim
+  augroup END
 
-  " Rabl support
-  autocmd BufRead,BufNewFile *.rabl setf ruby
+  augroup file_type_specific
+    autocmd!
+    " Rabl support
+    autocmd BufRead,BufNewFile *.rabl setfiletype ruby
 
-  " Make ?s part of words
-  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+    " Make ?s part of words
+    autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+
+    autocmd FileType json setlocal concealcursor=
+  augroup END
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
