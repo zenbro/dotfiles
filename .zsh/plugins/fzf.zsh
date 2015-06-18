@@ -10,6 +10,21 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
+# search 'cap deploy' in history and run it with notify-send at the end
+deploy() {
+  cmd=$(ag --nonumbers --nocolor ';cap.*deploy' $HOME/.zsh_history |
+        ag -v 'deploy:' |
+        colrm 1 15 |
+        awk '!x[$0]++' |
+        fzf --query="$1" --select-1 --exit-0)
+  environment=$(echo $cmd | sed -e 's/cap \(.*\) deploy.*$/\1/')
+  project=$(basename $PWD)
+  if [ -n "$cmd" ]; then
+    echo "Deploying $project to $environment..."
+    eval $cmd && notify-send -u low "$project has been deployed to the $environment"
+  fi
+}
+
 # fea - search hidden files and open matching in vim
 fea() {
   local file
