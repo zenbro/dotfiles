@@ -168,26 +168,6 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
     nnoremap <silent> K :<C-u>UniteWithCursorWord -no-quit -keep-focus grep:.<cr>
   " }}}
-  Plug 'Shougo/vimfiler.vim'
-  " {{{
-    let g:vimfiler_data_directory = $HOME . '/.vim/cache/vimfiler'
-    let g:vimfiler_as_default_explorer = 1
-    let g:vimfiler_safe_mode_by_default = 0
-    let g:vimfiler_force_overwrite_statusline = 0
-    let g:vimfiler_time_format = '%d-%m-%Y %H:%M:%S'
-    map <F1> :VimFilerExplorer -winwidth=25 -auto-cd -toggle<cr>
-    map <F2> :e .<cr>
-
-    autocmd FileType vimfiler call s:vimfiler_settings()
-    function! s:vimfiler_settings()
-      nmap <buffer> s <Plug>(vimfiler_toggle_mark_current_line)
-      setlocal nonumber
-    endfunction
-  " }}}
-  Plug 'Shougo/neossh.vim'
-  " {{{
-    nnoremap <F3> :Unite ssh://
-  " }}}
   Plug 'Shougo/neomru.vim'
   " {{{
     let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
@@ -313,6 +293,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'jimenezrick/vimerl'
   " {{{
     let erlang_show_errors = 0
+  " }}}
+  Plug 'lervag/vimtex'
+  " {{{
+    let g:vimtex_view_method = 'zathura'
+    augroup latex
+      autocmd!
+      autocmd FileType tex nnoremap <F4> :VimtexView<CR>
+      autocmd FileType tex nnoremap <F5> :VimtexCompile<CR>
+      autocmd FileType tex nnoremap <F6> :VimtexErrors<CR>
+
+    augroup END
   " }}}
 
 " Git

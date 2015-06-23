@@ -240,6 +240,23 @@ endfunction " }}}
     endif
   endfunction " }}}
 " }}}
+" Netrw {{{
+  map <F1> :Explore<CR>
+  map <F2> :edit .<CR>
+
+  function! NetrwCustomSettings()
+    setlocal nolist
+    map <buffer> <F1> :Rexplore<CR>
+    map <buffer> <F2> :Rexplore<CR>
+    nmap <buffer> l <CR>
+    nmap <buffer> h -
+  endfunction
+
+  augroup EnterNetrw
+    autocmd!
+    autocmd FileType netrw call NetrwCustomSettings()
+  augroup END
+" }}}
 " Autocommands {{{
   augroup myvimrc
     autocmd!
@@ -263,5 +280,6 @@ endfunction " }}}
 
     autocmd FileType json setlocal concealcursor=
   augroup END
+
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
