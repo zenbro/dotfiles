@@ -244,12 +244,17 @@ endfunction " }}}
   map <F1> :Explore<CR>
   map <F2> :edit .<CR>
 
+  let g:netrw_list_hide= netrw_gitignore#Hide() . ',\(^\|\s\s\)\zs\.\S\+'
+  let g:netrw_hide = 1 " show not-hidden files by default
+
   function! NetrwCustomSettings()
     setlocal nolist
     map <buffer> <F1> :Rexplore<CR>
     map <buffer> <F2> :Rexplore<CR>
     nmap <buffer> l <CR>
     nmap <buffer> h -
+    nnoremap <buffer> ~ :edit ~/<CR>
+    nnoremap <buffer> <silent> q :Rexplore<CR>
   endfunction
 
   augroup EnterNetrw

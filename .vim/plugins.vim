@@ -174,6 +174,7 @@ call plug#begin('~/.vim/plugged')
     let g:neomru#directory_mru_path = $HOME . '/.vim/cache/neomru/directory'
   " }}}
   Plug 'zenbro/mirror.vim'
+  Plug 'kopischke/vim-fetch'
 
 " Text Navigation
 " ===============
@@ -417,6 +418,7 @@ call plug#begin('~/.vim/plugged')
       Limelight!
     endfunction
   " }}}
+  Plug 'junegunn/vader.vim'
 
 call plug#end()
 
