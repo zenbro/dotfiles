@@ -316,14 +316,22 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <leader>gD :Gdiff<CR>
     nnoremap <silent> <leader>gc :Gcommit<CR>
     nnoremap <silent> <leader>gb :Gblame<CR>
-    nnoremap <silent> <leader>gr :Gread<CR>
     nnoremap <silent> <leader>ge :Gedit<CR>
     nnoremap <silent> <leader>gi :Git add -p %<CR>
+    function! ReviewLastCommit()
+      if exists('b:git_dir')
+        Gtabedit HEAD^{}
+        nnoremap <buffer> <silent> q :<C-U>bdelete<CR>
+      else
+        echo 'No git a git repository:' expand('%:p')
+      endif
+    endfunction
+    map <silent> <F10> :call ReviewLastCommit()<CR>
   " }}}
   Plug 'gregsexton/gitv'
   " {{{
     let g:Gitv_OpenHorizontal = 1
-    nnoremap <silent> <leader>gv :Gitv<CR>
+    map <silent> <F9> :Gitv<CR>
   " }}}
   Plug 'airblade/vim-gitgutter'
   " {{{
