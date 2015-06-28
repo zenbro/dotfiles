@@ -172,6 +172,7 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
     let g:neomru#directory_mru_path = $HOME . '/.vim/cache/neomru/directory'
+    let g:neomru#directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)|\(^fugitive\)'
   " }}}
   Plug 'zenbro/mirror.vim'
   Plug 'kopischke/vim-fetch'
@@ -311,13 +312,19 @@ call plug#begin('~/.vim/plugged')
 " ===
   Plug 'tpope/vim-fugitive'
   " {{{
+    " Fix broken syntax highlight in gitcommit files
+    " (https://github.com/tpope/vim-git/issues/12)
+    let g:fugitive_git_executable = 'LANG=en_US.UTF-8 git'
+
     nnoremap <silent> <leader>gs :Gstatus<CR>
-    nnoremap <silent> <leader>gd :Gvdiff<CR>
-    nnoremap <silent> <leader>gD :Gdiff<CR>
+    nnoremap <silent> <leader>gd :Gdiff<CR>
     nnoremap <silent> <leader>gc :Gcommit<CR>
     nnoremap <silent> <leader>gb :Gblame<CR>
     nnoremap <silent> <leader>ge :Gedit<CR>
-    nnoremap <silent> <leader>gi :Git add -p %<CR>
+    nnoremap <silent> <leader>gw :Gwrite<CR>
+    nnoremap <silent> <leader>gW :Gwrite!<CR>
+    nnoremap <silent> <leader>gq :Gwq<CR>
+    nnoremap <silent> <leader>gQ :Gwq!<CR>
     function! ReviewLastCommit()
       if exists('b:git_dir')
         Gtabedit HEAD^{}
@@ -327,6 +334,12 @@ call plug#begin('~/.vim/plugged')
       endif
     endfunction
     map <silent> <F10> :call ReviewLastCommit()<CR>
+
+    augroup fugitiveSettings
+      autocmd!
+      autocmd FileType gitcommit setlocal nolist
+      autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+    augroup END
   " }}}
   Plug 'gregsexton/gitv'
   " {{{
@@ -335,6 +348,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'airblade/vim-gitgutter'
   " {{{
+    let g:gitgutter_map_keys = 0
     let g:gitgutter_max_signs = 250
     let g:gitgutter_realtime = 0
     nmap <silent> ]h :GitGutterNextHunk<CR>
@@ -431,8 +445,9 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " can be called only after plugins init
-call unite#custom#source('buffer,file,file/new,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
-call unite#custom#source('buffer,file,file/new,file_rec/async', 'sorters', 'sorter_rank')
-call unite#custom#source('ssh', 'sorters', 'sorter_reverse')
+call unite#custom#source('buffer,file,file/new,file_rec/async,outline',
+      \ 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+call unite#custom#source('buffer,file,file/new,file_rec/async',
+      \ 'sorters', 'sorter_rank')
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

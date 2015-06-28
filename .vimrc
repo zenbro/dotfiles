@@ -28,6 +28,8 @@ source ~/.vim/plugins.vim
   set noswapfile                              " отключить своп-файлы
   set hidden                                  " сворачивать в буфер, вместо закрытия
   set shortmess+=I                            " отключить приветствие
+  set cursorline                              " подсветка строки с курсором
+  set diffopt=filler,vertical
 
   if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
@@ -50,9 +52,12 @@ source ~/.vim/plugins.vim
     set guioptions-=e         " убрать GUI-табы
     set guioptions-=a         " отключить автоматическое копирование при выделении текста
     set mousehide             " не показывать курсор во время печати
-    set cursorline            " подсветка строки с курсором
     set linespace=0           " межстрочный интервал
     set guicursor=n:blinkon0  " отключить мигание курсора в нормальном режиме
+  else
+    " :help i_CTRL-V
+    map Oa <C-Up>
+    map Ob <C-Down>
   endif
 " }}}
 " Colorscheme {{{
@@ -118,13 +123,7 @@ endfunction " }}}
 
   " Файлы, которые будут игнорироваться в wildmenu
   if has("wildignore")
-    set wildignore+=*.a,*.o,*.pyc
-    set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-    set wildignore+=*.avi,*.mp4,*.mp3,*.ogg
-    set wildignore+=*.zip,*.rar,*.tar,*.iso,*.7z,*.bz2
-    set wildignore+=*.pdf,*.djvu,*.doc,*.odt,*.xsl,*.rtf
-    set wildignore+=.DS_Store,.git,.hg,.svn
-    set wildignore+=*~,*.swp,*.tmp
+    set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
   endif
 " }}}
 " Key mappings {{{1
@@ -165,6 +164,10 @@ endfunction " }}}
   nnoremap <Leader>sv :vs<CR> <c-w>l
   nnoremap <Leader>sw <c-w>r
   nnoremap <Leader>sq :only<cr>
+  nnoremap <C-h> <C-W>h
+  nnoremap <C-j> <C-W>j
+  nnoremap <C-k> <C-W>k
+  nnoremap <C-l> <C-W>l
 
   " Открываем пустой сплит справа, если сплитов нет
   " если сплит есть, то перемещаемся на него
@@ -209,6 +212,13 @@ endfunction " }}}
     endif
   endfunction " }}}
 
+  " Bubble single lines (using unimpaired.vim)
+  nmap <C-Up> [e
+  nmap <C-Down> ]e
+  " Bubble multiple lines
+  vmap <C-Up> [egv
+  vmap <C-Down> ]egv
+
   nnoremap <silent> <Leader>dh :call DeleteHiddenBuffers()<CR>
   function! DeleteHiddenBuffers()
       let tpbl=[]
@@ -219,10 +229,6 @@ endfunction " }}}
   endfunction
 
   nnoremap <silent> <Leader>tn :call ToggleWrap()<CR>
-
-  function! InsertLineNumbers()
-    execute ':%s/^/\=' . printf('%-3d', line('.'))
-  endfunction
   function! ToggleWrap() " {{{
     if exists("g:toggle_wrap")
       unlet g:toggle_wrap
@@ -263,11 +269,6 @@ endfunction " }}}
   augroup END
 " }}}
 " Autocommands {{{
-  augroup myvimrc
-    autocmd!
-    autocmd BufWritePost .vimrc,plugins.vim source $MYVIMRC | call airline#load_theme() | call airline#update_statusline()
-  augroup END
-
   " Отключение мигания и звуков
   augroup vim_enter
     autocmd!
