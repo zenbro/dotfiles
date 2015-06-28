@@ -170,18 +170,6 @@ endfunction " }}}
   nnoremap <C-k> <C-W>k
   nnoremap <C-l> <C-W>l
 
-  " Открываем пустой сплит справа, если сплитов нет
-  " если сплит есть, то перемещаемся на него
-  nnoremap <silent><Tab> :call MoveOrOpenSplit()<CR>
-  function! MoveOrOpenSplit() " {{{
-    let curNr = winnr()
-    wincmd w
-    if winnr() == curNr
-      exe 'vsplit'
-      wincmd w
-    endif
-  endfunction " }}}
-
   nnoremap <silent> Q :call CloseSplitOrDeleteBuffer()<CR>
   nnoremap <silent> Й :call CloseSplitOrDeleteBuffer()<CR>
   function! CloseSplitOrDeleteBuffer() " {{{

@@ -72,7 +72,30 @@ call plug#begin('~/.vim/plugged')
   Plug 'kshenoy/vim-signature'
   " {{{
     let g:SignatureMarkerTextHL = 'Typedef'
-    nnoremap <Leader>tm :SignatureToggle<CR>
+    nnoremap <silent> com :SignatureToggle<CR>
+    let g:SignatureMap = {
+      \ 'Leader'             :  "m",
+      \ 'PlaceNextMark'      :  "m,",
+      \ 'ToggleMarkAtLine'   :  "m.",
+      \ 'PurgeMarksAtLine'   :  "m-",
+      \ 'DeleteMark'         :  "dm",
+      \ 'PurgeMarks'         :  "m<Space>",
+      \ 'PurgeMarkers'       :  "m<BS>",
+      \ 'GotoNextLineAlpha'  :  "",
+      \ 'GotoPrevLineAlpha'  :  "",
+      \ 'GotoNextSpotAlpha'  :  "",
+      \ 'GotoPrevSpotAlpha'  :  "",
+      \ 'GotoNextLineByPos'  :  "]'",
+      \ 'GotoPrevLineByPos'  :  "['",
+      \ 'GotoNextSpotByPos'  :  "]`",
+      \ 'GotoPrevSpotByPos'  :  "[`",
+      \ 'GotoNextMarker'     :  "[+",
+      \ 'GotoPrevMarker'     :  "[-",
+      \ 'GotoNextMarkerAny'  :  "]=",
+      \ 'GotoPrevMarkerAny'  :  "[=",
+      \ 'ListLocalMarks'     :  "m/",
+      \ 'ListLocalMarkers'   :  "m?"
+      \ }
   " }}}
   Plug 'tpope/vim-sleuth'
 
