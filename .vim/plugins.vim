@@ -172,7 +172,6 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:neomru#file_mru_path = $HOME . '/.vim/cache/neomru/file'
     let g:neomru#directory_mru_path = $HOME . '/.vim/cache/neomru/directory'
-    let g:neomru#directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/temp/\|/tmp/\|\%(/private\)\=/var/folders/\)|\(^fugitive\)'
   " }}}
   Plug 'zenbro/mirror.vim'
   Plug 'kopischke/vim-fetch'
@@ -321,6 +320,10 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <leader>gc :Gcommit<CR>
     nnoremap <silent> <leader>gb :Gblame<CR>
     nnoremap <silent> <leader>ge :Gedit<CR>
+    nnoremap <silent> <leader>gE :Gedit<space>
+    nnoremap <silent> <leader>gl :Glog<space>
+    nnoremap <silent> <leader>gr :Gread<CR>
+    nnoremap <silent> <leader>gR :Gread<space>
     nnoremap <silent> <leader>gw :Gwrite<CR>
     nnoremap <silent> <leader>gW :Gwrite!<CR>
     nnoremap <silent> <leader>gq :Gwq<CR>

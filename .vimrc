@@ -132,6 +132,7 @@ endfunction " }}}
   nnoremap <Leader>tt :set expandtab! expandtab?<CR>
   nnoremap <Leader>tp :set paste! paste?<CR>
   nnoremap <leader>w :w<CR>
+  map <silent> <F8> :copen<CR>
 
   " Удалить все лишние пробелы в конце каждой строки
   nnoremap <Leader>dw :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
@@ -148,12 +149,12 @@ endfunction " }}}
   noremap k gk
 
   " Когда перемещаемся по результатам поиска, то держим их центре экрана
-  nmap n nzz
-  nmap N Nzz
-  nmap * *zz
-  nmap # #zz
-  nmap g* g*zz
-  nmap g# g#zz
+  nnoremap n nzz
+  nnoremap N Nzz
+  nnoremap * *zz
+  nnoremap # #zz
+  nnoremap g* g*zz
+  nnoremap g# g#zz
 
   " Создаем пустой сплит относительно текущего
   nnoremap <Leader>sh :leftabove  vnew<CR>
@@ -270,13 +271,13 @@ endfunction " }}}
 " }}}
 " Autocommands {{{
   " Отключение мигания и звуков
-  augroup vim_enter
+  augroup vimEnter
     autocmd!
     autocmd GUIEnter * set vb t_vb= " gVim
     autocmd VimEnter * set vb t_vb= " vim
   augroup END
 
-  augroup file_type_specific
+  augroup fileTypeSpecific
     autocmd!
     " Rabl support
     autocmd BufRead,BufNewFile *.rabl setfiletype ruby
@@ -287,5 +288,10 @@ endfunction " }}}
     autocmd FileType json setlocal concealcursor=
   augroup END
 
+  augroup quickFixSettings
+    autocmd!
+    autocmd FileType qf nnoremap <buffer> <silent> q :cclose<CR> |
+          \ map <buffer> <silent> <F8> :cclose<CR>
+  augroup END
 " }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
