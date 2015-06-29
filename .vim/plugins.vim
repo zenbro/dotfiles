@@ -72,7 +72,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'kshenoy/vim-signature'
   " {{{
     let g:SignatureMarkerTextHL = 'Typedef'
-    nnoremap <silent> com :SignatureToggle<CR>
     let g:SignatureMap = {
       \ 'Leader'             :  "m",
       \ 'PlaceNextMark'      :  "m,",
@@ -98,6 +97,13 @@ call plug#begin('~/.vim/plugged')
       \ }
   " }}}
   Plug 'tpope/vim-sleuth'
+  Plug 'junegunn/limelight.vim'
+  " {{{
+    let g:limelight_default_coefficient = 0.7
+    let g:limelight_conceal_ctermfg = 238
+    nmap <silent> gl :Limelight!!<CR>
+    xmap gl <Plug>(Limelight)
+  " }}}
 
 " Completion
 " ==========
@@ -240,10 +246,41 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-abolish'
-  Plug 'ConradIrwin/vim-bracketed-paste'
+
+" Text Objects
   Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-textobj-indent'
   Plug 'nelstrom/vim-textobj-rubyblock'
+
+" Writing
+" =======
+  Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+  Plug 'reedes/vim-colors-pencil'
+  Plug 'reedes/vim-pencil'
+  Plug 'reedes/vim-wordy'
+  Plug 'reedes/vim-litecorrect'
+  " {{{
+    function! EnterWritingMode()
+      set background=light
+      set colorcolumn=0
+      let g:pencil_terminal_italics = 1
+      let g:airline_section_x = '%{PencilMode()}'
+      colorscheme pencil
+      AirlineTheme pencil
+      Pencil
+      call litecorrect#init()
+      redraw
+    endfunction
+
+    function! LeaveWritingMode()
+      set background=light
+      set colorcolumn=79
+      colorscheme jellybeans
+      AirlineTheme jellybeans
+      NoPencil
+      redraw
+    endfunction
+  " }}}
 
 " Languages
 " =========
@@ -259,6 +296,13 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_warning_symbol      = '!' " заменить символ предупреждений
     let g:syntastic_ignore_files = ['\.py$']  " использовать только python-mode
     let g:syntastic_vim_checkers = ['vint']
+  " }}}
+  Plug 'xolox/vim-easytags'
+  " {{{
+    let g:easytags_async = 1
+    let g:easytags_dynamic_files = 1
+    let g:easytags_auto_update = 0
+    let g:easytags_auto_highlight = 0
   " }}}
   Plug 'mattn/emmet-vim'
   " {{{
@@ -294,11 +338,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'othree/html5.vim'
   Plug 'othree/yajs.vim'
   Plug 'othree/javascript-libraries-syntax.vim'
+  " {{{
+   let g:used_javascript_libs = 'jquery'
+  " }}}
   Plug 'ap/vim-css-color'
   Plug 'moll/vim-node'
-  " {{{
-   let g:used_javascript_libs = 'jquery,backbone,requirejs'
-  " }}}
   Plug 'digitaltoad/vim-jade'
   Plug 'briancollins/vim-jst'
   Plug 'kchmck/vim-coffee-script'
@@ -309,9 +353,12 @@ call plug#begin('~/.vim/plugged')
     let coffee_watch_vert   = 1
     let coffee_run_vert     = 1
 
-    autocmd FileType coffee nmap <leader>js :CoffeeCompile<CR>
-    autocmd FileType coffee nmap <leader>cw :CoffeeWatch<CR>
-    autocmd FileType coffee nmap <leader>cl :CoffeeLint<CR>
+    augroup enterCoffeeScript
+      autocmd!
+      autocmd FileType coffee nnoremap <leader>js :CoffeeCompile<CR>
+      autocmd FileType coffee nnoremap <leader>cw :CoffeeWatch<CR>
+      autocmd FileType coffee nnoremap <leader>cl :CoffeeLint<CR>
+    augroup END
   " }}}
   Plug 'tpope/vim-haml'
   Plug 'jimenezrick/vimerl'
@@ -386,13 +433,13 @@ call plug#begin('~/.vim/plugged')
 
 " Utility
 " =======
-  Plug 'Shougo/vimproc', { 'do' : 'make' }
   Plug 'tpope/vim-characterize'
   Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-scriptease'
   Plug 'tpope/vim-dispatch'
+  Plug 'Shougo/vimproc', { 'do' : 'make' }
   Plug 'tyru/open-browser.vim'
   " {{{
     let g:openbrowser_default_search = 'duckduckgo'
@@ -419,7 +466,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'mbbill/undotree'
   " {{{
-    if has("persistent_undo")
+    if has('persistent_undo')
       set undodir=$HOME.'/.vim/cache/undodir'
       set undofile
     endif
@@ -431,42 +478,14 @@ call plug#begin('~/.vim/plugged')
 " ====
   Plug 'itchyny/calendar.vim', { 'on': 'Calendar' }
   " {{{
-    let g:calendar_date_month_name=1
+    let g:calendar_date_month_name = 1
   " }}}
   Plug 'katono/rogue.vim', { 'on': 'Rogue' }
   " {{{
     let g:rogue#name = 'zenbro'
     let g:rogue#directory = expand($HOME.'/.vim/rogue')
   " }}}
-  Plug 'junegunn/limelight.vim'
-  let g:limelight_default_coefficient = 0.7
-  let g:limelight_conceal_ctermfg = 238
-  nmap <silent> gl :Limelight!!<CR>
-  xmap gl <Plug>(Limelight)
-  Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-  " {{{
-    autocmd User GoyoEnter call s:goyo_enter()
-    autocmd User GoyoLeave call s:goyo_leave()
-
-    function! s:goyo_enter()
-      set nolist
-      set nocursorline
-      set wrap
-      set linebreak
-      set textwidth=80
-      Limelight
-    endfunction
-
-    function! s:goyo_leave()
-      set list
-      set cursorline
-      set nowrap
-      set nolinebreak
-      set textwidth=0
-      Limelight!
-    endfunction
-  " }}}
-  Plug 'junegunn/vader.vim'
+  Plug 'xolox/vim-misc'
 
 call plug#end()
 

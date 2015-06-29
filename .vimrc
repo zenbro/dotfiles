@@ -30,6 +30,8 @@ source ~/.vim/plugins.vim
   set shortmess+=I                            " отключить приветствие
   set cursorline                              " подсветка строки с курсором
   set diffopt=filler,vertical
+  set foldmethod=manual
+  set tags=./tags
 
   if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк
@@ -90,7 +92,7 @@ set softtabstop=2 " удаление tab-символов как пробело�
 set tabstop=2
 set nowrap
 set nolinebreak
-set textwidth=0          " отключение автопереноса длинных строк
+set textwidth=0   " отключение автопереноса длинных строк
 set autoindent    " автоматический отступ
 set smartindent   " включает умную расстановку отступов
 set smarttab
@@ -99,38 +101,22 @@ set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
 set scrolloff=999 " держать курсор на определённом расстоянии от нижнего края
 set list
 " }}}
-" Folding {{{1
-set foldenable
-set foldmethod=manual
-
-" Toggle folding
-nnoremap \ za
-vnoremap \ za
-
-nmap <leader>tf :call ToggleFolding()<CR>
-function! ToggleFolding() " {{{
-  if &fdc==1
-    set fdc=0
-  else
-    set fdc=1
-  endif
-endfunction " }}}
-" }}}1
 " Wildmenu {{{
   set wildmenu    " включить меню выбора
   set wildcharm=<Tab>   " переключение элементов меню
   set wildmode=list:longest,full " отображать меню в виде полного списка
 
   " Файлы, которые будут игнорироваться в wildmenu
-  if has("wildignore")
+  if has('wildignore')
     set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
   endif
 " }}}
 " Key mappings {{{1
+  " Toggle setting (:h unimpaired-toggling)
+  nnoremap cof :set foldenable! foldenable?<CR>
+  nnoremap coe :set expandtab! expandtab?<CR>
+
   nnoremap <Leader>vi :tabedit $MYVIMRC<CR>
-  nnoremap <Leader>tl :set list! list?<CR>
-  nnoremap <Leader>tt :set expandtab! expandtab?<CR>
-  nnoremap <Leader>tp :set paste! paste?<CR>
   nnoremap <leader>w :w<CR>
   map <silent> <F8> :copen<CR>
 
@@ -161,8 +147,8 @@ endfunction " }}}
   nnoremap <Leader>sl :rightbelow vnew<CR>
   nnoremap <Leader>sk :leftabove  new<CR>
   nnoremap <Leader>sj :rightbelow new<CR>
-  nnoremap <Leader>ss :sp<CR> <c-w>j
-  nnoremap <Leader>sv :vs<CR> <c-w>l
+  nnoremap <Leader>ss :split<CR> <c-w>j
+  nnoremap <Leader>sv :vsplit<CR> <c-w>l
   nnoremap <Leader>sw <c-w>r
   nnoremap <Leader>sq :only<cr>
   nnoremap <C-h> <C-W>h
@@ -228,7 +214,7 @@ endfunction " }}}
       let g:toggle_wrap = 1
       set wrap                       " включить перенос длинных строк
       set linebreak                  " включить перенос целых слов
-      set textwidth=85               " максимальная длина строки
+      set textwidth=79               " максимальная длина строки
       if has("linebreak")            " если встретился перенос строки, то
         let &sbr = nr2char(8618).' ' " показать ↪ в начале следующей строки
       endif
@@ -272,7 +258,6 @@ endfunction " }}}
 
     " Make ?s part of words
     autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
-
     autocmd FileType json setlocal concealcursor=
   augroup END
 
