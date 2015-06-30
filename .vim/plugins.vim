@@ -411,6 +411,7 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <leader>gW :Gwrite!<CR>
     nnoremap <silent> <leader>gq :Gwq<CR>
     nnoremap <silent> <leader>gQ :Gwq!<CR>
+
     function! ReviewLastCommit()
       if exists('b:git_dir')
         Gtabedit HEAD^{}
@@ -419,7 +420,7 @@ call plug#begin('~/.vim/plugged')
         echo 'No git a git repository:' expand('%:p')
       endif
     endfunction
-    map <silent> <F10> :call ReviewLastCommit()<CR>
+    nnoremap <silent> <leader>g` :call ReviewLastCommit()<CR>
 
     augroup fugitiveSettings
       autocmd!
@@ -430,7 +431,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'gregsexton/gitv'
   " {{{
     let g:Gitv_OpenHorizontal = 1
-    map <silent> <F9> :Gitv<CR>
+    nnoremap <silent> <leader>gv :Gitv<CR>
+  " }}}
+  Plug 'idanarye/vim-merginal'
+  " {{{
+    nnoremap <leader>gm :MerginalToggle<CR>
   " }}}
   Plug 'airblade/vim-gitgutter'
   " {{{
@@ -439,9 +444,9 @@ call plug#begin('~/.vim/plugged')
     let g:gitgutter_realtime = 0
     nmap <silent> ]h :GitGutterNextHunk<CR>
     nmap <silent> [h :GitGutterPrevHunk<CR>
-    nmap <silent> <Leader>gu :GitGutterRevertHunk<CR>
-    nmap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
-    nmap <silent> <Leader>tg :GitGutterToggle<CR>
+    nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
+    nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
+    nnoremap cog :GitGutterToggle<CR>
   " }}}
 
 " Utility
