@@ -313,6 +313,19 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:ragtag_global_maps = 1
   " }}}
+  Plug 'hwartig/vim-seeing-is-believing'
+  " {{{
+    augroup seeingIsBelievingSettings
+      autocmd!
+      autocmd FileType ruby nmap <buffer> gZ <Plug>(seeing-is-believing-run)
+
+      autocmd FileType ruby nmap <buffer> gz <Plug>(seeing-is-believing-mark)
+      autocmd FileType ruby xmap <buffer> gz <Plug>(seeing-is-believing-mark)
+      autocmd FileType ruby imap <buffer> gz <Plug>(seeing-is-believing-mark)
+
+      autocmd FileType ruby nmap <buffer> <Enter> gzgZ
+    augroup END
+  " }}}
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rake'
   Plug 'tpope/vim-bundler'
@@ -365,6 +378,7 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let erlang_show_errors = 0
   " }}}
+  Plug 'elixir-lang/vim-elixir'
   Plug 'lervag/vimtex'
   " {{{
     let g:vimtex_view_method = 'zathura'
@@ -373,7 +387,6 @@ call plug#begin('~/.vim/plugged')
       autocmd FileType tex nnoremap <F4> :VimtexView<CR>
       autocmd FileType tex nnoremap <F5> :VimtexCompile<CR>
       autocmd FileType tex nnoremap <F6> :VimtexErrors<CR>
-
     augroup END
   " }}}
 
@@ -449,12 +462,9 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'xuhdev/SingleCompile'
   " {{{
-    map <F4> :SCChooseCompiler<CR>
-    map <s-F5> :SCCompileRunAF
+    map <s-F5> :SCChooseCompiler<CR>
     map <F5> :SCCompileRun<CR>
     map <F6> :SCViewResult<CR>
-
-    autocmd FileType vim nnoremap <F5> :source %<CR>
   " }}}
   Plug 'Shougo/junkfile.vim'
   " {{{
