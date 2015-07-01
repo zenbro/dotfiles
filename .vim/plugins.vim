@@ -296,6 +296,7 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_warning_symbol      = '!' " заменить символ предупреждений
     let g:syntastic_ignore_files = ['\.py$']  " использовать только python-mode
     let g:syntastic_vim_checkers = ['vint']
+    let g:syntastic_sh_checkers = ['shellcheck']
   " }}}
   Plug 'xolox/vim-easytags'
   " {{{
