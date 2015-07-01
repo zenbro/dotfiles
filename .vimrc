@@ -32,6 +32,7 @@ source ~/.vim/plugins.vim
   set diffopt=filler,vertical
   set foldmethod=manual
   set tags=./tags
+  set ttyfast
 
   if v:version > 703 || v:version == 703 && has('patch541')
     set formatoptions+=j " удалять символ комментария при соединении двух закомментированных строк

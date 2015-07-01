@@ -449,6 +449,7 @@ call plug#begin('~/.vim/plugged')
     nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
     nnoremap cog :GitGutterToggle<CR>
   " }}}
+  Plug 'esneider/YUNOcommit.vim'
 
 " Utility
 " =======
