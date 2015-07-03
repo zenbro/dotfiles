@@ -5,4 +5,6 @@ export EDITOR=vim
 export LSCOLORS=Gxfxcxdxbxegedabagacad
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
 eval $(keychain --eval --quiet --quick --noask --agents ssh id_rsa)

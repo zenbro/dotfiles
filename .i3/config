@@ -83,6 +83,7 @@ bindsym $mod+F1 workspace F1: dev/test
 bindsym $mod+F2 workspace F2: dev/www
 bindsym $mod+F3 workspace F3: dev/log
 bindsym $mod+F4 workspace F4: dev/doc
+bindsym $mod+BackSpace workspace ...in process
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1: dev
@@ -100,6 +101,7 @@ bindsym $mod+Shift+F1 move container to workspace F1: dev/test
 bindsym $mod+Shift+F2 move container to workspace F2: dev/www
 bindsym $mod+Shift+F3 move container to workspace F3: dev/log
 bindsym $mod+Shift+F4 move container to workspace F4: dev/doc
+bindsym $mod+Shift+BackSpace move container to workspace ...in process
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
