@@ -300,9 +300,18 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_elixir_checkers = ['elixir']
     let g:syntastic_enable_elixir_checker = 1
 
+    function! RubocopAutoCorrection()
+      echo 'Starting rubocop autocorrection...'
+      cexpr system('rubocop -D -f emacs -a ' . expand(@%))
+      edit
+      SyntasticCheck rubocop
+      copen
+    endfunction
+
     augroup SyntasticCustomCheckers
       autocmd!
       autocmd FileType ruby nnoremap <leader>` :SyntasticCheck rubocop<CR>
+      autocmd FileType ruby nnoremap <leader>! :call RubocopAutoCorrection()<CR>
       autocmd FileType sh nnoremap <leader>` :SyntasticCheck shellcheck<CR>
     augroup END
   " }}}
