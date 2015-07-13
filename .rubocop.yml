@@ -1,0 +1,13 @@
+Metrics/LineLength:
+  Description: Limit lines to 80 characters.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
+  Enabled: false
+
+Style/Documentation:
+  Description: Document classes and non-namespace modules.
+  Enabled: false
+
+Style/AsciiComments:
+  Description: Use only ascii symbols in comments.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#english-comments
+  Enabled: false
