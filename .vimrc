@@ -228,6 +228,7 @@ set list
 
   let g:netrw_list_hide= netrw_gitignore#Hide() . ',\(^\|\s\s\)\zs\.\S\+'
   let g:netrw_hide = 1 " show not-hidden files by default
+  let g:netrw_banner = 0
 
   function! NetrwCustomSettings()
     setlocal nolist

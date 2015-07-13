@@ -21,3 +21,4 @@ alias github="git config --local user.name 'zenbro'; git config --local user.ema
 alias lg='nocorrect lg'
 alias vlog='vim +"normal G" <(journalctl --merge -b --no-pager)'
 alias vimprove='vim +Goyo $HOME/Dropbox/notes/improve.txt'
+alias pacaur4="pacaur --domain aur4.archlinux.org"
