@@ -287,17 +287,19 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/syntastic'
   " {{{
     nnoremap <Leader>te :SyntasticToggleMode<CR>
-    let g:syntastic_enable_signs        = 1   " включить пометки об ошибках на полях
-    let g:syntastic_enable_highlighting = 1   " включить подсветку ошибок
-    let g:syntastic_cpp_check_header    = 1   " включить подсветку в файлах C++
-    let g:syntastic_enable_balloons     = 1   " включить всплывающие подсказки
-    let g:syntastic_echo_current_error  = 1   " выводить в строке статуса текущую ошибку
-    let g:syntastic_check_on_wq         = 0   " не проверять синтаксис при закрытии файла
-    let g:syntastic_error_symbol        = '✘' " заменить символ ошибок
-    let g:syntastic_warning_symbol      = '!' " заменить символ предупреждений
-    let g:syntastic_ignore_files = ['\.py$']  " использовать только python-mode
-    let g:syntastic_vim_checkers = ['vint']
-    let g:syntastic_elixir_checkers = ['elixir']
+    let g:syntastic_enable_signs          = 1         " включить пометки об ошибках на полях
+    let g:syntastic_enable_highlighting   = 1         " включить подсветку ошибок
+    let g:syntastic_cpp_check_header      = 1         " включить подсветку в файлах C++
+    let g:syntastic_enable_balloons       = 1         " включить всплывающие подсказки
+    let g:syntastic_echo_current_error    = 1         " выводить в строке статуса текущую ошибку
+    let g:syntastic_check_on_wq           = 0         " не проверять синтаксис при закрытии файла
+    let g:syntastic_error_symbol          = '✘'       " заменить символ ошибок
+    let g:syntastic_warning_symbol        = '!'       " заменить символ предупреждений
+    let g:syntastic_style_error_symbol    = ':('      " заменить символ стилистических ошибок
+    let g:syntastic_style_warning_symbol  = ':('      " заменить символ стилистических предупреждений
+    let g:syntastic_ignore_files          = ['\.py$'] " использовать только python-mode
+    let g:syntastic_vim_checkers          = ['vint']
+    let g:syntastic_elixir_checkers       = ['elixir']
     let g:syntastic_enable_elixir_checker = 1
 
     function! RubocopAutoCorrection()
