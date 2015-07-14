@@ -81,19 +81,16 @@ fstop() {
 # finstall - install new package
 finstall() {
   package=$(pacman -Ssq | fzf)
-  [ -n "$package" ] && sudo pacman -S $package
+  if [ -n "$package" ]; then
+    pacman -Ss "^$package$"
+    sudo pacman -S $package
+  fi
 }
 
 # fdelete - completely uninstall package
 fdelete() {
   package=$(pacman -Qqe | fzf)
   [ -n "$package" ] && sudo pacman -Rscn $package
-}
-
-# fsearch - get information about package
-fsearch() {
-  package=$(pacman -Ssq | fzf)
-  [ -n "$package" ] && pacman -Ss "^$package$"
 }
 
 # v - search in most recent used files by vim

@@ -35,8 +35,9 @@ call plug#begin('~/.vim/plugged')
    nmap <leader>8 <Plug>AirlineSelectTab8
    nmap <leader>9 <Plug>AirlineSelectTab9
 
-   let g:airline_left_sep          = '▸'
-   let g:airline_right_sep         = '◂'
+   let g:airline_left_sep = '▓▒░'
+   let g:airline_right_sep = '░▒▓'
+
    let g:airline_theme             = 'jellybeans'
    let g:airline_section_z         = '%2p%% %2l/%L:%2v'
    let g:airline_exclude_preview = 1
@@ -287,6 +288,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/syntastic'
   " {{{
     nnoremap <Leader>te :SyntasticToggleMode<CR>
+    nnoremap <leader>~ :SyntasticReset<CR>
     let g:syntastic_enable_signs          = 1         " включить пометки об ошибках на полях
     let g:syntastic_enable_highlighting   = 1         " включить подсветку ошибок
     let g:syntastic_cpp_check_header      = 1         " включить подсветку в файлах C++
@@ -302,13 +304,18 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_elixir_checkers       = ['elixir']
     let g:syntastic_enable_elixir_checker = 1
 
-    function! RubocopAutoCorrection()
-      echo 'Starting rubocop autocorrection...'
-      cexpr system('rubocop -D -f emacs -a ' . expand(@%))
-      edit
-      SyntasticCheck rubocop
-      copen
-    endfunction
+    " Rubocop Settings {{{
+      let g:syntastic_ruby_rubocop_exec = '~/.rubocop.sh'
+      let g:syntastic_ruby_rubocop_args = '--display-cop-names --rails'
+
+      function! RubocopAutoCorrection()
+        echo 'Starting rubocop autocorrection...'
+        cexpr system('rubocop -D -R -f emacs -a ' . expand(@%))
+        edit
+        SyntasticCheck rubocop
+        copen
+      endfunction
+    " }}}
 
     augroup SyntasticCustomCheckers
       autocmd!
