@@ -292,7 +292,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/syntastic'
   " {{{
     nnoremap <Leader>te :SyntasticToggleMode<CR>
-    nnoremap <leader>~ :SyntasticReset<CR>
+    nnoremap <Leader>~ :SyntasticReset<CR>
     let g:syntastic_enable_signs          = 1         " включить пометки об ошибках на полях
     let g:syntastic_enable_highlighting   = 1         " включить подсветку ошибок
     let g:syntastic_cpp_check_header      = 1         " включить подсветку в файлах C++

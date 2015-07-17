@@ -11,3 +11,16 @@ Style/AsciiComments:
   Description: Use only ascii symbols in comments.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#english-comments
   Enabled: false
+
+Style/AlignParameters:
+  Description: Align the parameters of a method call if they span more than one line.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-double-indent
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+  SupportedStyles:
+  - with_first_parameter
+  - with_fixed_indentation
+
+Lint/Eval:
+  Description: The use of eval represents a serious security risk.
+  Enabled: false

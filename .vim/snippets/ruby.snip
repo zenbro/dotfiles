@@ -80,7 +80,6 @@ abbr        when .. then
 options     head
   when ${1:condition} then ${0:TARGET}
 
-
 snippet     ea
 abbr        each { .. }
 options     word
@@ -107,10 +106,18 @@ options     word
 
 snippet     proc
 abbr        proc { .. }
+  proc { ${0} }
+
+snippet     proca
+abbr        proc { |args| .. }
   proc { |${1:args}| ${0} }
 
 snippet     lam
 abbr        lambda { .. }
+  lambda { ${0} }
+
+snippet     lama
+abbr        lambda { |args| .. }
   lambda { |${1:args}| ${0} }
 
 snippet     ->
@@ -128,6 +135,13 @@ snippet     def
 abbr        def method .. end
 options     head
   def ${1:method_name}
+    ${0:TARGET}
+  end
+
+snippet     defa
+abbr        def method(args) .. end
+options     head
+  def ${1:method_name}(${2:args})
     ${0:TARGET}
   end
 
@@ -149,6 +163,13 @@ snippet     defs
 abbr        def self.* .. end
 options     head
   def self.${1:class_method_name}
+    ${0:TARGET}
+  end
+
+snippet     defsa
+abbr        def self.*(args) .. end
+options     head
+  def self.${1:class_method_name}(${2:args})
     ${0:TARGET}
   end
 
@@ -181,7 +202,7 @@ options     head
 snippet     mod
 abbr        module .. end
 options     head
-  module ${1:MyModule}
+  module ${1:ModuleName}
     ${0:TARGET}
   end
 
@@ -195,6 +216,25 @@ options     head
   require 'pry'; binding.pry
 
 snippet     puts
+abbr        puts '*' * 80 ..
+options     head
   puts '*' * 80
   p ${1:TARGET}
   puts '*' * 80
+
+# Testing
+# ============================================================================
+snippet     as
+abbr        assert ..
+options     head
+  assert ${1:test}, '${0:Failure message.}'
+
+snippet     ase
+abbr        assert_equal ..
+options     head
+  assert_equal ${1:expected}, ${0:actual}
+
+snippet     asn
+abbr        assert_nil ..
+options     head
+  assert_nil ${0:instance}

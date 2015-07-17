@@ -172,6 +172,6 @@ for plugin in ~/.zsh/plugins/*.zsh; do
 done
 
 stty -ixon # disable CTRL-S freeze
-cd .       # gemset fix for tmux
+xset -b # disable beeps
 
 # vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
