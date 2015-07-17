@@ -114,7 +114,6 @@ call plug#begin('~/.vim/plugged')
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplete#auto_completion_start_length = 2
     let g:neocomplete#data_directory = $HOME . '/.vim/cache'
-    let g:neocomplete#force_overwrite_completefunc = 1
 
     nmap <Leader>tc :NeoCompleteToggle<CR>
     inoremap <expr><C-g> neocomplete#undo_completion()
@@ -136,10 +135,6 @@ call plug#begin('~/.vim/plugged')
     let g:neosnippet#data_directory = $HOME . '/.vim/cache/neosnippet'
     let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
-    " if has('conceal')
-    "   set conceallevel=2 concealcursor=niv
-    " endif
-
     nnoremap <leader>se :NeoSnippetEdit -split<CR>
     nnoremap <leader>sc :NeoSnippetClearMarkers<CR>
 
@@ -149,15 +144,16 @@ call plug#begin('~/.vim/plugged')
     smap <expr><TAB> neosnippet#expandable() ?
           \ "\<Plug>(neosnippet_expand)"
           \ : "\<TAB>"
+    " if there is a snippet - then jump
+    " else - redraw screen (default <C-l> behaviour in normal mode)
     imap <expr><C-l> neosnippet#jumpable() ?
           \ "\<Plug>(neosnippet_jump)"
-          \ : neocomplete#complete_common_string()
+          \ : "<ESC>:redraw!<CR>a"
     smap <expr><C-l> neosnippet#jumpable() ?
           \ "\<Plug>(neosnippet_jump)" :
           \ "\<C-l>"
     xmap <C-l> <Plug>(neosnippet_expand_target)
   " }}}
-  Plug 'Shougo/neosnippet-snippets'
 
 " File Navigation
 " ===============
