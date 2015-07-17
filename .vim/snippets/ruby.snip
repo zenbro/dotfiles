@@ -1,63 +1,200 @@
-snippet as
-  assert ${1:test}, '${2:Failure message.}'
-snippet ase
-  assert_equal ${1:expected}, ${2:actual}
-snippet asne
-  assert_not_equal ${1:unexpected}, ${2:actual}
-snippet asid
-  assert_in_delta ${1:expected_float}, ${2:actual_float}, ${3:2**-20}
-snippet asi
-  assert_includes ${1:collection}, ${2:object}
-snippet asio
-  assert_instance_of ${1:ExpectedClass}, ${2:actual_instance}
-snippet asko
-  assert_kind_of ${1:ExpectedKind}, ${2:actual_instance}
-snippet asn
-  assert_nil ${1:instance}
-snippet asnn
-  assert_not_nil ${1:instance}
-snippet asm
-  assert_match(/${1:expected_pattern}/, ${2:actual_string})
-snippet asnm
-  assert_no_match(/${1:unexpected_pattern}/, ${2:actual_string})
-snippet aso
-  assert_operator ${1:left}, :${2:operator}, ${3:right}
-snippet asr
-  assert_raise ${1:Exception} { ${0} }
-snippet asrd
-  assert_raise ${1:Exception} do
-  ${0}
- end
-snippet asnr
-  assert_nothing_raised ${1:Exception} { ${0} }
-snippet asnrd
-  assert_nothing_raised ${1:Exception} do
-  ${0}
- end
-snippet asrt
-  assert_respond_to ${1:object}, :${2:method}
-snippet ass assert_same(..)
-  assert_same ${1:expected}, ${2:actual}
-snippet ass assert_send(..)
-  assert_send [${1:object}, :${2:message}, ${3:args}]
-snippet asns
-  assert_not_same ${1:unexpected}, ${2:actual}
-snippet ast
-  assert_throws :${1:expected}, -> { ${0} }
-snippet astd
-  assert_throws :${1:expected} do
-  ${0}
- end
-snippet asnt
-  assert_nothing_thrown { ${0} }
-snippet asntd
-  assert_nothing_thrown do
-  ${0}
- end
-snippet fl
-  flunk '${1:Failure message.}'
+# Misc
+# ============================================================================
 
-snippet puts
+snippet     enc
+abbr        # encoding: utf-8
+options     head
+  # encoding: utf-8
+
+snippet     req
+abbr        require '..'
+options     head
+  require '${0}'
+
+snippet     reqr
+abbr        require_relative '..'
+options     head
+  require_relative '${0}'
+
+snippet     do
+abbr        do .. end
+  do
+    ${1:TARGET}
+  end
+
+snippet     doa
+abbr        do |arg| .. end
+  do |${1:arg}|
+    ${0:TARGET}
+  end
+
+
+# Control Structures
+# ============================================================================
+
+snippet     if
+abbr        if .. end
+options     head
+  if ${1:condition}
+    ${0:TARGET}
+  end
+
+snippet     ife
+abbr        if .. else .. end
+options     head
+  if ${1:condition}
+    ${2}
+  else
+    ${0}
+  end
+
+snippet     eif
+abbr        elsif ..
+options     head
+  elsif ${1:condition}
+    ${0}
+
+snippet     un
+abbr        unless .. end
+options     head
+  unless ${1:condition}
+    ${0:TARGET}
+  end
+
+snippet     case
+abbr        case .. end
+options     head
+  case ${1:object}
+  when ${2:condition}
+    ${0}
+  end
+
+snippet     when
+abbr        when ..
+options     head
+  when ${1:condition}
+    ${0:TARGET}
+
+snippet     whent
+abbr        when .. then
+options     head
+  when ${1:condition} then ${0:TARGET}
+
+
+snippet     ea
+abbr        each { .. }
+options     word
+  each { |${1:v}| ${0} }
+
+snippet     ead
+abbr        each do .. end
+options     word
+  each do |${1:v}|
+    ${0}
+  end
+
+snippet     map
+abbr        map { .. }
+options     word
+  map { |${1:v}| ${0} }
+
+snippet     mapd
+abbr        map do .. end
+options     word
+  map do |${1:v}|
+    ${0}
+  end
+
+snippet     proc
+abbr        proc { .. }
+  proc { |${1:args}| ${0} }
+
+snippet     lam
+abbr        lambda { .. }
+  lambda { |${1:args}| ${0} }
+
+snippet     ->
+abbr        -> { .. }
+  -> { ${0} }
+
+snippet     ->a
+abbr        ->(args) { .. }
+  ->(${1:args}) { ${0} }
+
+# Methods
+# ============================================================================
+
+snippet     def
+abbr        def method .. end
+options     head
+  def ${1:method_name}
+    ${0:TARGET}
+  end
+
+snippet     deft
+abbr        def test_.. end
+options     head
+  def test_${1:case_name}
+    ${0:TARGET}
+  end
+
+snippet     defi
+abbr        def initialize .. end
+options     head
+  def initialize(${1:args})
+    ${0:TARGET}
+  end
+
+snippet     defs
+abbr        def self.* .. end
+options     head
+  def self.${1:class_method_name}
+    ${0:TARGET}
+  end
+
+# Objects
+# ============================================================================
+
+snippet     cl
+abbr        class .. end
+options     head
+  class ${1:ClassName}
+    ${0:TARGET}
+  end
+
+snippet     cli
+abbr        class .. def initialize .. end
+options     head
+  class ${1:ClassName}
+    def initialize(${2:args})
+      ${0:TARGET}
+    end
+  end
+
+snippet     cls
+abbr        class << self .. end
+options     head
+  class << self
+    ${0:TARGET}
+  end
+
+snippet     mod
+abbr        module .. end
+options     head
+  module ${1:MyModule}
+    ${0:TARGET}
+  end
+
+
+# Debugging
+# ============================================================================
+
+snippet     pry
+abbr        binding.pry
+options     head
+  require 'pry'; binding.pry
+
+snippet     puts
   puts '*' * 80
-  p ${1:something}
+  p ${1:TARGET}
   puts '*' * 80
