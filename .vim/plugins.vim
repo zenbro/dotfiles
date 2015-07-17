@@ -117,6 +117,7 @@ call plug#begin('~/.vim/plugged')
     let g:neocomplete#force_overwrite_completefunc = 1
 
     nmap <Leader>tc :NeoCompleteToggle<CR>
+    inoremap <expr><C-g> neocomplete#undo_completion()
 
     " При нажатии Enter закрывать попап
     imap <expr><CR> pumvisible() ? "<C-r>=<SID>my_cr_function()<CR>" : "<Plug>delimitMateCR"
@@ -133,21 +134,28 @@ call plug#begin('~/.vim/plugged')
   " {{{
     let g:neosnippet#snippets_directory = '~/.vim/snippets'
     let g:neosnippet#data_directory = $HOME . '/.vim/cache/neosnippet'
+    let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
+    " if has('conceal')
+    "   set conceallevel=2 concealcursor=niv
+    " endif
 
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)"
-    \: "\<TAB>"
+    nnoremap <leader>se :NeoSnippetEdit -split<CR>
+    nnoremap <leader>sc :NeoSnippetClearMarkers<CR>
 
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand_target)
+    imap <expr><TAB> neosnippet#expandable() ?
+          \ "\<Plug>(neosnippet_expand)"
+          \ : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable() ?
+          \ "\<Plug>(neosnippet_expand)"
+          \ : "\<TAB>"
+    imap <expr><C-l> neosnippet#jumpable() ?
+          \ "\<Plug>(neosnippet_jump)"
+          \ : neocomplete#complete_common_string()
+    smap <expr><C-l> neosnippet#jumpable() ?
+          \ "\<Plug>(neosnippet_jump)" :
+          \ "\<C-l>"
+    xmap <C-l> <Plug>(neosnippet_expand_target)
   " }}}
   Plug 'Shougo/neosnippet-snippets'
 
