@@ -31,26 +31,25 @@ override_utf8_locale no
 # set to 1 to disable averaging
 cpu_avg_samples 2
 
-# 
 # Stuff after 'TEXT' will be formatted on screen
 TEXT
 
 # JSON for i3bar
 
 [
-# { "full_text": "${if_match "${execi 5 mocp -Q %state}"=="PLAY"} ${execi 5 ~/.conky/song_title}${endif}", "color" : "\#beb6ec"  },
-  { "full_text": " ${exec xkb-switch | sed 's/us/en/' | tr '[a-z]' '[A-Z]'}", "color" : "\#ffffff"  },
+  { "full_text": "${execi 5 ~/.conky/song_title}", "color": "\#beb6ec" },
+  { "full_text": " ${exec xkb-switch | sed 's/us/en/' | tr '[a-z]' '[A-Z]'}", "color": "\#ffffff"  },
   { "full_text": "🔊 ${exec amixer -c 0 get Master | grep -Po '\d+%'}", "color": "\#6194df"},
   { "full_text": " ${fs_free /}", "color": "\#48af48"  },
-  { "full_text": " ${cpu}% ${acpitemp}°" , "color": "\#da5148" },
-  { "full_text": " ${mem} / ${memmax}" , "color" : ${if_match ${memperc}<90}"\#ffae51"${else}"\#ff0000"${endif} },
+  { "full_text": " ${cpu}% ${acpitemp}°", "color": "\#da5148" },
+  { "full_text": " ${mem} / ${memmax}", "color": ${if_match ${memperc}<90}"\#ffae51"${else}"\#ff0000"${endif} },
   ${if_up enp0s4}
   { "full_text": " ${addr enp0s4}", "color": "\#fffe70" },
   ${endif}
   ${if_up wlp2s0}
   { "full_text": " ${wireless_essid wlp2s0}", "color": "\#84c6ff" },
   ${endif}
-  { "full_text": "${exec cat /tmp/worken_state 2> /dev/null}" , "color": "\#ffffff" },
-  { "full_text": "${time %a %d.%m.%y}" , "color": "\#ffffff" },
+  { "full_text": "${exec cat /tmp/worken_state 2> /dev/null}", "color": "\#ffffff" },
+  { "full_text": "${time %a %d.%m.%y}", "color": "\#ffffff" },
   { "full_text": "${time %R}" }
 ], 

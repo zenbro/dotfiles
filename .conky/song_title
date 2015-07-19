@@ -1,9 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-TITLE=$(mocp -Q %title)
-if [ ${#TITLE} -gt 45 ]; then
-    echo $TITLE | head -c 42
-    echo '...'
-else
-    echo $TITLE
+STATUS=$(playerctl status)
+if [[ "$STATUS" == 'Playing' ]]; then
+  ARTIST=$(playerctl metadata artist)
+  TITLE=$(playerctl metadata title)
+  echo "𝅘𝅥𝅮 $ARTIST - $TITLE"
 fi
