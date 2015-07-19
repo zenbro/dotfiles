@@ -41,10 +41,10 @@ options     head
     endwhile
 
 snippet     function
-abbr        func endfunc
-alias       func
+abbr        function! .. endfunction
+alias       fun
 options     head
-    function! ${1:#:func_name}(${2}) abort
+    function! ${1:#:FunctionName}(${2})
       ${0:TARGET}
     endfunction
 

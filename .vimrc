@@ -157,7 +157,7 @@ set list
   nnoremap <C-h> <C-W>h
   nnoremap <C-j> <C-W>j
   nnoremap <C-k> <C-W>k
-  nnoremap <C-l> <C-W>l
+  " <C-l> is used in neosnippet mappings
 
   nnoremap <silent> Q :call CloseSplitOrDeleteBuffer()<CR>
   nnoremap <silent> Й :call CloseSplitOrDeleteBuffer()<CR>

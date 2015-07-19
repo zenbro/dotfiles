@@ -144,8 +144,13 @@ call plug#begin('~/.vim/plugged')
     smap <expr><TAB> neosnippet#expandable() ?
           \ "\<Plug>(neosnippet_expand)"
           \ : "\<TAB>"
-    " if there is a snippet - then jump
-    " else - redraw screen (default <C-l> behaviour in normal mode)
+
+    " jump to the next snippet trigger or move to the right split
+    nmap <expr><C-l> neosnippet#jumpable() ?
+          \ ":call feedkeys('i<C-l>')<CR>"
+          \ : "\<C-w>l"
+    " jump to the next snippet trigger or redraw a screen
+    " (default <C-l> behaviour in normal mode)
     imap <expr><C-l> neosnippet#jumpable() ?
           \ "\<Plug>(neosnippet_jump)"
           \ : "<ESC>:redraw!<CR>a"
@@ -505,6 +510,7 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'Shougo/junkfile.vim'
   " {{{
+    nnoremap <leader>jo :JunkfileOpen 
     let g:junkfile#directory = $HOME . '/.vim/cache/junkfile'
   " }}}
   Plug 'junegunn/vim-peekaboo'
