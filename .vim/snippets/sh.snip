@@ -1,0 +1,26 @@
+snippet     bash
+abbr        #!/usr/bin/env bash
+options     head
+  #!/usr/bin/env bash
+
+snippet     if
+abbr        if .. fi
+options     head
+  if [[ ${1:condition} ]]; then
+    ${0:TARGET}
+  fi
+
+snippet     ife
+abbr        if .. else .. fi
+options     head
+  if [[ ${1:condition} ]]; then
+    ${2}
+  else
+    ${0}
+  fi
+
+snippet     eif
+abbr        elif ..
+options     head
+  elif [ ${1:condition} ]; then
+    ${0:TARGET}

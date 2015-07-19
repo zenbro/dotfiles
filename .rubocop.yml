@@ -21,6 +21,13 @@ Style/AlignParameters:
   - with_first_parameter
   - with_fixed_indentation
 
+Style/GlobalVars:
+  Description: Do not introduce global variables.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#instance-vars
+  Reference: http://www.zenspider.com/Languages/Ruby/QuickRef.html
+  Enabled: false
+
 Lint/Eval:
   Description: The use of eval represents a serious security risk.
   Enabled: false
+

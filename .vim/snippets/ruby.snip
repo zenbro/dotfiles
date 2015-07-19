@@ -199,6 +199,20 @@ options     head
     ${0:TARGET}
   end
 
+snippet     cl<<
+abbr        class << object .. end
+options     head
+  class << ${1:object}
+    ${0:TARGET}
+  end
+
+snippet     cl<
+abbr        class Child < Parent .. end
+options     head
+  class ${1:ChildClass} < ${2:ParentClass}
+    ${0:TARGET}
+  end
+
 snippet     mod
 abbr        module .. end
 options     head

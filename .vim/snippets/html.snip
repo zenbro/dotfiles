@@ -1,0 +1,331 @@
+# Misc
+# ============================================================================
+snippet     //
+abbr        <!-- .. -->
+	<!-- ${0:TARGET} -->
+
+snippet     nbs
+abbr        &nbsp;
+	&nbsp;
+
+snippet     left
+abbr        ←
+	&#x2190;
+
+snippet     right
+abbr        →
+	&#x2192;
+
+snippet     up
+abbr        ↑
+	&#x2191;
+
+snippet     down
+abbr        ↓
+	&#x2193;
+
+snippet     dot
+abbr        ·
+	&middot;
+
+snippet     --
+abbr        —
+	&mdash;
+
+
+# Attributes
+# ============================================================================
+snippet     attr
+abbr        attribute="property"
+	${1:attribute}="${0:property}"
+
+snippet     .
+abbr        class=".."
+	class="${0:TARGET}"
+
+snippet     #
+abbr        id=".."
+	id="${0:TARGET}"
+
+snippet     data
+abbr        data-..=".."
+	data-${1}="${0}"
+
+snippet     name
+abbr        name=".."
+	name="${0:TARGET}"
+
+snippet     value
+abbr        value=".."
+alias       val
+	value="${0:TARGET}"
+
+snippet     for
+abbr        for=".."
+	for="${0:TARGET}"
+
+snippet     type
+abbr        type=".."
+	type="${0:TARGET}"
+
+snippet     alt
+abbr        alt=".."
+	alt="${0:TARGET}"
+
+snippet     href
+abbr        href=".."
+	href="${0:TARGET}"
+
+snippet     src
+abbr        src=".."
+	src="${0:TARGET}"
+
+
+# Elements
+# ============================================================================
+
+snippet     a
+abbr        <a href=".."> .. </a>
+	<a href="${1}">${0:$1}</a>
+
+snippet     a.
+abbr        <a class=".." href=".."> .. </a>
+	<a class="${1}" href="${2}">${0:$2}</a>
+
+snippet     a#
+abbr        <a id=".." href=".."> .. </a>
+	<a id="${1}" href="${2}">${0:$2}</a>
+
+snippet     ac
+abbr        <a href="@+"> @+ </a>
+	<a href="`@+`">`@+`</a>
+
+snippet     b
+abbr        <b> .. </b>
+	<b>${0:TARGET}</b>
+
+snippet     body
+abbr        <body> .. </body>
+options     head
+	<body>
+		${0:TARGET}
+	</body>
+
+snippet     br
+abbr        <br>
+	<br>
+
+snippet     dd
+abbr        <dd> .. </dd>
+	<dd>${0:TARGET}</dd>
+
+snippet     dd.
+abbr        <dd class=".."> .. </dd>
+	<dd class="${1}">${0}</dd>
+
+snippet     dd#
+abbr        <dd id=".."> .. </dd>
+	<dd id="${1}">${0}</dd>
+
+snippet     div
+abbr        <div> .. </div>
+	<div>
+		${0:TARGET}
+	</div>
+
+snippet     div.
+abbr        <div class=".."> .. </div>
+	<div class="${1}">
+		${0:TARGET}
+	</div>
+
+snippet     div#
+abbr        <div id=".."> .. </div>
+	<div id="${1}">
+		${0:TARGET}
+	</div>
+
+snippet     em
+abbr        <em> .. </em>
+	<em>${0:TARGET}</em>
+
+snippet     head
+abbr        <head> .. </head>
+options     head
+	<head>
+		${0:TARGET}
+	</head>
+
+snippet     hr
+abbr        <hr>
+	<hr>
+
+snippet     i
+abbr        <i> .. </i>
+	<i>${0:TARGET}</i>
+
+snippet     img
+abbr        <img src="..">
+	<img src="${1}" alt="${0}">
+
+snippet     img.
+abbr        <img class=".." src="..">
+	<img class="${1}" src="${2}" alt="${0}">
+
+snippet     img#
+abbr        <img id=".." src="..">
+	<img id="${1}" src="${2}" alt="${0}">
+
+snippet     li
+abbr        <li> .. </li>
+	<li>${0:TARGET}</li>
+
+snippet     li.
+abbr        <li class=".."> .. </li>
+	<li class="${1}">${0}</li>
+
+snippet     li#
+abbr        <li id=".."> .. </li>
+	<li id="${1}">${0}</li>
+
+snippet     ol
+abbr        <ol> .. </ol>
+	<ol>
+		${0:TARGET}
+	</ol>
+
+snippet     ol.
+abbr        <ol class=".."> .. </ol>
+	<ol class="${1}">
+		${0:TARGET}
+	</ol>
+
+snippet     ol#
+abbr        <ol id=".."> .. </ol>
+	<ol id="${1}">
+		${0:TARGET}
+	</ol>
+
+snippet     p
+abbr        <p> .. </p>
+	<p>${0:TARGET}</p>
+	
+snippet     p.
+abbr        <p class=".."> .. </p>
+	<p class="${1}">${0}</p>
+
+snippet     p#
+abbr        <p id=".."> .. </p>
+	<p id="${1}">${0}</p>
+
+snippet     js
+abbr        <script> .. </script>
+options     head
+	<script type="text/javascript" charset="utf-8">
+		${0:TARGET}
+	</script>
+
+snippet     script
+abbr        <script src="...js" type="text/javascript" ..
+options     head
+	<script src="${0:TARGET}.js" type="text/javascript" charset="utf-8"></script>
+
+snippet     span
+abbr        <span> .. </span>
+	<span>${0:TARGET}</span>
+
+snippet     span.
+abbr        <span class=".."> .. </span>
+	<span class="${1}">${0}</span>
+
+snippet     span#
+abbr        <span id=".."> .. </span>
+	<span id="${1}">${0}</span>
+
+snippet     strong
+abbr        <strong> .. </strong>
+	<strong>${0:TARGET}</strong>
+
+snippet     table
+abbr        <table> .. </table>
+	<table>
+		${0:TARGET}
+	</table>
+
+snippet     table.
+abbr        <table class=".."> .. </table>
+	<table class="${1}">
+		${0:TARGET}
+	</table>
+
+snippet     table#
+abbr        <table id=".."> .. </table>
+	<table id="${1}">
+		${0:TARGET}
+	</table>
+
+snippet     tbody
+abbr        <tbody> .. </tbody>
+	<tbody>
+		${0:TARGET}
+	</tbody>
+
+snippet     td
+abbr        <td> .. </td>
+	<td>${0:TARGET}</td>
+
+snippet     td.
+abbr        <td class=".."> .. </td>
+	<td class="${1}">${0}</td>
+
+snippet     td#
+abbr        <td id=".."> .. </td>
+	<td id="${1}">${0}</td>
+
+snippet     tfoot
+abbr        <tfoot> .. </tfoot>
+	<tfoot>
+		${0:TARGET}
+	</tfoot>
+
+snippet     th
+abbr        <th> .. </th>
+	<th>${0:TARGET}</th>
+
+snippet     th.
+abbr        <th class=".."> .. </th>
+	<th class="${1}">${0}</th>
+
+snippet     th#
+abbr        <th id=".."> .. </th>
+	<th id="${1}">${0}</th>
+
+snippet     thead
+abbr        <thead> .. </thead>
+	<thead>
+		${0:TARGET}
+	</thead>
+
+snippet     tr
+abbr        <tr> .. </tr>
+	<tr>
+		${0:TARGET}
+	</tr>
+
+snippet     ul
+abbr        <ul> .. </ul>
+	<ul>
+		${0:TARGET}
+	</ul>
+
+snippet     ul.
+abbr        <ul class=".."> .. </ul>
+	<ul class="${1}">
+		${0:TARGET}
+	</ul>
+
+snippet     ul#
+abbr        <ul id=".."> .. </ul>
+	<ul id="${1}">
+		${0:TARGET}
+	</ul>
