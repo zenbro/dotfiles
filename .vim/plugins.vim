@@ -543,9 +543,10 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " can be called only after plugins init
-call unite#custom#source('buffer,file,file/new,file_rec/async,outline',
-      \ 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
 call unite#custom#source('buffer,file,file/new,file_rec/async',
+      \ 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+call unite#custom#source('buffer,file,file/new,file_rec/async,outline',
       \ 'sorters', 'sorter_rank')
+call unite#custom#source('outline', 'matchers', ['matcher_fuzzy'])
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
