@@ -16,20 +16,7 @@ abbr        require_relative '..'
 options     head
   require_relative '${0}'
 
-snippet     do
-abbr        do .. end
-  do
-    ${1:TARGET}
-  end
-
-snippet     doa
-abbr        do |arg| .. end
-  do |${1:arg}|
-    ${0:TARGET}
-  end
-
-
-# Control Structures
+# Control Flow
 # ============================================================================
 
 snippet     if
@@ -79,6 +66,19 @@ snippet     whent
 abbr        when .. then
 options     head
   when ${1:condition} then ${0:TARGET}
+
+snippet     do
+abbr        do .. end
+  do
+    ${1:TARGET}
+  end
+
+snippet     doa
+abbr        do |arg| .. end
+  do |${1:arg}|
+    ${0:TARGET}
+  end
+
 
 snippet     ea
 abbr        each { .. }
@@ -235,6 +235,16 @@ options     head
   puts '*' * 80
   p ${1:TARGET}
   puts '*' * 80
+
+snippet     bm
+abbr        Benchmark.bm(100_000) do |bm|
+options     head
+  require 'benchmark'
+  Benchmark.bm(${1:1000}) do |bm|
+    bm.report('${2:about}:') do
+      ${3}
+    end
+  end
 
 # Testing
 # ============================================================================

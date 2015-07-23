@@ -57,10 +57,13 @@ source ~/.vim/plugins.vim
     set mousehide             " не показывать курсор во время печати
     set linespace=0           " межстрочный интервал
     set guicursor=n:blinkon0  " отключить мигание курсора в нормальном режиме
+" }}}
+" Vim settings {{{
   else
     " :help i_CTRL-V
     map Oa <C-Up>
     map Ob <C-Down>
+    inoremap <C-@> <C-x><C-o>
   endif
 " }}}
 " Colorscheme {{{
@@ -72,6 +75,7 @@ source ~/.vim/plugins.vim
   highlight SyntasticWargningLine guibg=#171717
   highlight SyntasticStyleWarningSign guifg=black guibg=#bcbcbc ctermfg=16 ctermbg=250
   highlight SyntasticStyleErrorSign guifg=black guibg=#ff8700 ctermfg=16 ctermbg=208
+  highlight! link elixirAtom rubySymbol
 
   highlight ColorColumn ctermbg=232 guibg=#131313
   set colorcolumn=79
@@ -121,6 +125,9 @@ set list
 
   nnoremap <Leader>vi :tabedit $MYVIMRC<CR>
   nnoremap <leader>w :w<CR>
+
+  " Omni Completion
+  inoremap <C-Space> <C-x><C-o>
   map <silent> <F8> :copen<CR>
 
   " Удалить все лишние пробелы в конце каждой строки
@@ -190,6 +197,14 @@ set list
     endif
   endfunction " }}}
 
+  function! ChangeDirectory()
+    let current_directory = expand('%:p:h')
+    execute 'cd ' . current_directory
+    echo current_directory
+  endfunction
+
+  nnoremap <leader>cd :call ChangeDirectory()<CR>
+
   " Bubble single lines (using unimpaired.vim)
   nmap <C-Up> [e
   nmap <C-Down> ]e
@@ -228,7 +243,8 @@ set list
   map <F1> :Explore<CR>
   map <F2> :edit .<CR>
 
-  let g:netrw_list_hide= netrw_gitignore#Hide() . ',\(^\|\s\s\)\zs\.\S\+'
+  let g:netrw_liststyle = 1
+  let g:netrw_list_hide = netrw_gitignore#Hide() . ',\(^\|\s\s\)\zs\.\S\+'
   let g:netrw_hide = 1 " show not-hidden files by default
   let g:netrw_banner = 0
 

@@ -115,6 +115,24 @@ call plug#begin('~/.vim/plugged')
     let g:neocomplete#auto_completion_start_length = 2
     let g:neocomplete#data_directory = $HOME . '/.vim/cache'
 
+    let g:neocomplete#fallback_mappings =
+          \ ["\<C-x>\<C-o>", "\<C-x>\<C-n>"]
+
+    let g:neocomplete#force_omni_input_patterns = {}
+    function ToggleOmniCompletion()
+      if exists('g:omni_comlpetion_enabled')
+        unlet g:omni_comlpetion_enabled
+        let g:neocomplete#force_omni_input_patterns = {}
+        echo 'Disable omni completion'
+      else
+        let g:omni_comlpetion_enabled = 1
+        let g:neocomplete#force_omni_input_patterns.ruby =
+              \ '[^. *\t]\.\w*\|\h\w*::'
+        echo 'Enable omni completion'
+      endif
+    endfunction
+    nnoremap coo :call ToggleOmniCompletion()<CR>
+
     nmap <Leader>tc :NeoCompleteToggle<CR>
     inoremap <expr><C-g> neocomplete#undo_completion()
 
@@ -311,7 +329,7 @@ call plug#begin('~/.vim/plugged')
     let g:syntastic_ignore_files          = ['\.py$'] " использовать только python-mode
     let g:syntastic_vim_checkers          = ['vint']
     let g:syntastic_elixir_checkers       = ['elixir']
-    let g:syntastic_enable_elixir_checker = 1
+    let g:syntastic_enable_elixir_checker = 0
 
     " Rubocop Settings {{{
       let g:syntastic_ruby_rubocop_exec = '~/.rubocop.sh'
@@ -326,11 +344,20 @@ call plug#begin('~/.vim/plugged')
       endfunction
     " }}}
 
+    " Elixir Settings({{{
+      function! ElixirCheck()
+        let g:syntastic_enable_elixir_checker = 1
+        SyntasticCheck elixir
+        let g:syntastic_enable_elixir_checker = 0
+      endfunction
+    " }}}
+
     augroup SyntasticCustomCheckers
       autocmd!
       autocmd FileType ruby nnoremap <leader>` :SyntasticCheck rubocop<CR>
       autocmd FileType ruby nnoremap <leader>! :call RubocopAutoCorrection()<CR>
       autocmd FileType sh nnoremap <leader>` :SyntasticCheck shellcheck<CR>
+      autocmd FileType elixir nnoremap <leader>` :call ElixirCheck()<CR>
     augroup END
   " }}}
   Plug 'xolox/vim-easytags'
@@ -345,12 +372,27 @@ call plug#begin('~/.vim/plugged')
     let g:user_emmet_expandabbr_key = '<c-e>'
   " }}}
   Plug 'tpope/vim-ragtag'
-  Plug 'vim-ruby/vim-ruby'
   " {{{
     let g:ragtag_global_maps = 1
   " }}}
-  Plug 'hwartig/vim-seeing-is-believing'
+  Plug 'vim-ruby/vim-ruby'
   " {{{
+    function! EnableRubyCompletion()
+      if exists('b:rails_root')
+      endif
+    endfunction
+    augroup rubyCompletion
+      autocmd!
+      autocmd FileType ruby,eruby call EnableRubyCompletion()
+    augroup END
+
+    let g:rubycomplete_rails = 1
+    let g:rubycomplete_classes_in_global = 1
+    let g:rubycomplete_buffer_loading = 1
+    let g:rubycomplete_include_object = 1
+    let g:rubycomplete_include_objectspace = 1
+  " }}}
+  Plug 'hwartig/vim-seeing-is-believing'
     augroup seeingIsBelievingSettings
       autocmd!
       autocmd FileType ruby nmap <buffer> gZ <Plug>(seeing-is-believing-run)
@@ -492,6 +534,32 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-projectionist'
+  " {{{
+    let g:projectionist_heuristics = {}
+
+    " Elixir Mix
+    let g:projectionist_heuristics['mix.exs'] = {
+        \   'lib/*.ex': {
+        \     'alternate': 'test/{}_test.exs',
+        \     'type': 'lib'
+        \   },
+        \   'test/*_test.exs': {
+        \     'alternate': 'lib/{}.ex',
+        \     'type': 'test'
+        \   },
+        \   'config/*.exs': {
+        \     'type': 'config'
+        \   },
+        \   'mix.exs': {
+        \     'type': 'mix'
+        \   },
+        \   '*_test.exs': {'dispatch': 'mix test {file}'},
+        \   '*': {
+        \     'dispatch': 'mix test',
+        \     'console': 'iex'
+        \   }
+        \ }
+  " }}}
   Plug 'tpope/vim-scriptease'
   Plug 'tpope/vim-dispatch'
   Plug 'Shougo/vimproc', { 'do' : 'make' }

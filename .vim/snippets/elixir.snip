@@ -1,0 +1,173 @@
+# Misc
+# ============================================================================
+snippet     <<
+abbr        << .. >>
+options     word
+    << ${0:TARGET} >>
+
+snippet     r
+abbr        ~r{..}
+options     word
+    ~r{${0:TARGET}}
+
+snippet     puts
+abbr        IO.puts ..
+    IO.puts ${0:TARGET}
+
+snippet     inspect
+abbr        IO.inspect ..
+    IO.inspect ${0:TARGET}
+
+snippet     alias
+abbr        alias ModuleName, as: NewName
+options     head
+alias       al
+    alias ${1:ModuleName}, as: ${2:NewName}
+
+# Definitions
+# ============================================================================
+
+snippet     def
+abbr        def .. do .. end
+options     head
+    def ${1:name} do
+      ${2}
+    end
+
+snippet     defd
+abbr        def .., do:
+options     head
+    def ${1:name}(${2:args}), do: ${3}
+
+snippet     defa
+abbr        def fun(args) do .. end
+options     head
+    def ${1:name}(${2:args}) do
+      ${3}
+    end
+
+snippet     defp
+abbr        defp .. end
+options     head
+    defp ${1:name} do
+      ${2}
+    end
+
+snippet     defpd
+abbr        defp .., do:
+options     head
+    defp ${1:name}(${2:args}), do: ${3}
+
+snippet     defpa
+abbr        defp fun(args) do .. end
+options     head
+    defp ${1:name}(${2:args}) do
+      ${3}
+    end
+
+snippet     defm
+abbr        def Module
+options     head
+    defmodule ${1:ModuleName} do
+      ${2}
+    end
+
+snippet     fn
+abbr        fn(args) -> .. end
+    fn(${1:args}) -> ${2:TARGET} end
+
+# Control Flow
+# ============================================================================
+
+snippet     do
+abbr        do .. end
+    do
+      ${0:TARGET}
+    end
+
+snippet     if
+abbr        if .. do .. end
+options     head
+    if ${1:condition} do
+      ${2:TARGET}
+    end
+
+snippet     un
+abbr        unless .. do .. end
+options     head
+    unless ${1:condition} do
+      ${2:TARGET}
+    end
+
+snippet     ife
+abbr        if .. do .. else .. end
+options     head
+    if ${1:condition} do
+      ${2}
+    else
+      ${3}
+    end
+
+snippet     case
+abbr        case .. end
+options     head
+    case ${1} do
+      ${2} -> ${3}
+    end
+
+snippet     cond
+abbr        cond do .. end
+options     head
+    cond do
+      ${1} -> ${2}
+    end
+
+snippet     ->
+abbr        .. -> ..
+    ${1} -> ${2}
+
+snippet     |
+abbr        |> ..
+    |> ${0:TARGET}
+
+snippet     for
+abbr        for value <- list, .. do:
+options     head
+    for ${1:value} <- ${2:list}${3:, guards}, do: ${4:$1}
+
+# Documentation
+# ============================================================================
+
+snippet     doc
+abbr        @doc """..."""
+options     head
+    @doc """
+    ${0:TARGET}
+    """
+
+snippet     mdoc
+abbr        @moduledoc """..."""
+options     head
+    @moduledoc """
+    ${0:TARGET}
+    """
+
+# Testing
+# ============================================================================
+
+snippet     test
+abbr        test .. do .. end
+options     head
+    test "${1:test_name}" do
+      ${2}
+    end
+
+snippet     pend
+abbr        @tag :pending
+options     head
+    @tag :pending
+
+snippet     as
+abbr        assert ..
+options     head
+    assert ${0:TARGET}
