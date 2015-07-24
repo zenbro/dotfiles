@@ -360,13 +360,6 @@ call plug#begin('~/.vim/plugged')
       autocmd FileType elixir nnoremap <leader>` :call ElixirCheck()<CR>
     augroup END
   " }}}
-  Plug 'xolox/vim-easytags'
-  " {{{
-    let g:easytags_async = 1
-    let g:easytags_dynamic_files = 1
-    let g:easytags_auto_update = 0
-    let g:easytags_auto_highlight = 0
-  " }}}
   Plug 'mattn/emmet-vim'
   " {{{
     let g:user_emmet_expandabbr_key = '<c-e>'
@@ -377,31 +370,23 @@ call plug#begin('~/.vim/plugged')
   " }}}
   Plug 'vim-ruby/vim-ruby'
   " {{{
-    function! EnableRubyCompletion()
-      if exists('b:rails_root')
-      endif
-    endfunction
-    augroup rubyCompletion
-      autocmd!
-      autocmd FileType ruby,eruby call EnableRubyCompletion()
-    augroup END
-
     let g:rubycomplete_rails = 1
-    let g:rubycomplete_classes_in_global = 1
+    let g:rubycomplete_load_gemfile = 1
     let g:rubycomplete_buffer_loading = 1
+    let g:rubycomplete_classes_in_global = 1
     let g:rubycomplete_include_object = 1
     let g:rubycomplete_include_objectspace = 1
   " }}}
-  Plug 'hwartig/vim-seeing-is-believing'
+  Plug 'zenbro/vim-seeing-is-believing', { 'branch': 'great_update' }
     augroup seeingIsBelievingSettings
       autocmd!
+      autocmd FileType ruby nmap <buffer> <Enter> <Plug>(seeing-is-believing-mark-and-run)
+
+      autocmd FileType ruby vmap <buffer> gZ <Plug>(seeing-is-believing-mark-and-run)
       autocmd FileType ruby nmap <buffer> gZ <Plug>(seeing-is-believing-run)
 
       autocmd FileType ruby nmap <buffer> gz <Plug>(seeing-is-believing-mark)
       autocmd FileType ruby xmap <buffer> gz <Plug>(seeing-is-believing-mark)
-      autocmd FileType ruby imap <buffer> gz <Plug>(seeing-is-believing-mark)
-
-      autocmd FileType ruby nmap <buffer> <Enter> gzgZ
     augroup END
   " }}}
   Plug 'tpope/vim-rails'
@@ -606,7 +591,6 @@ call plug#begin('~/.vim/plugged')
     let g:rogue#name = 'zenbro'
     let g:rogue#directory = expand($HOME.'/.vim/rogue')
   " }}}
-  Plug 'xolox/vim-misc'
 
 call plug#end()
 
