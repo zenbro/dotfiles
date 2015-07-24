@@ -50,21 +50,46 @@ function parse_git_state() {
 
 function git_prompt_string() {
   local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo "$(parse_git_state)%{$fg_bold[yellow]%}${git_where#(refs/heads/|tags/)}%{$reset_color%}"
+  if [[ -n "$git_where" ]]; then
+    local GIT_PROMPT=' '
+    GIT_PROMPT+="$(parse_git_state)"
+    GIT_PROMPT+="%{$fg_bold[yellow]%}"
+    GIT_PROMPT+="${git_where#(refs/heads/|tags/)}"
+    GIT_PROMPT+="%{$reset_color%}"
+    echo "$GIT_PROMPT"
+  fi
 }
 
 function rvm_prompt_string() {
   local RVM_GEMSET=$(rvm-prompt g)
-  [ -n "$RVM_GEMSET" ] || return 1
-
-  local RVM_PROMPT="%{$fg_bold[blue]%}$(rvm-prompt v p g)%{$reset_color%}"
-  echo "%{$fg[blue]%}[%{$reset_color%}$RVM_PROMPT%{$fg[blue]%}]%{$reset_color%}"
+  if [[ -n "$RVM_GEMSET" ]]; then
+    local RVM_PROMPT=' '
+    RVM_PROMPT+="%{$fg[blue]%}[%{$reset_color%}"
+    RVM_PROMPT+="%{$fg_bold[blue]%}$(rvm-prompt v p g)%{$reset_color%}"
+    RVM_PROMPT+="%{$fg[blue]%}]%{$reset_color%}"
+    echo "$RVM_PROMPT"
+  fi
 }
 
 function virtualenv_prompt_string() {
-  [ $VIRTUAL_ENV ] || return 1
-  local VENV_PROMPT="%{$fg_bold[blue]%}$(basename $VIRTUAL_ENV)%{$reset_color%}"
-  echo "%{$fg[blue]%}[%{$reset_color%}$VENV_PROMPT%{$fg[blue]%}]%{$reset_color%}"
+  if [[ -n $VIRTUAL_ENV ]]; then
+    local VENV_PROMPT=' '
+    VENV_PROMPT+=" %{$fg[blue]%}[%{$reset_color%}"
+    VENV_PROMPT+="%{$fg_bold[blue]%}$(basename $VIRTUAL_ENV)%{$reset_color%}"
+    VENV_PROMPT+="%{$fg[blue]%}]%{$reset_color%}"
+    echo "$VENV_PROMPT"
+  fi
+}
+
+function check_last_exit_code() {
+  local LAST_EXIT_CODE=$?
+  if [[ $LAST_EXIT_CODE -ne 0 ]]; then
+    local EXIT_CODE_PROMPT=' '
+    EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$fg_bold[red]%}$LAST_EXIT_CODE%{$reset_color%}"
+    EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
+    echo "$EXIT_CODE_PROMPT"
+  fi
 }
 
 if [[ $USER == 'root' ]]; then
@@ -74,7 +99,8 @@ else
 fi
 
 PROMPT="%{$fg[black]%}%{$bg[white]%} %~ %{$reset_color%} %{$fg_bold[red]%}${PROMPT_SIGN} %{$reset_color%}"
-RPROMPT='$(git_prompt_string) $(rvm_prompt_string)$(virtualenv_prompt_string)'
+RPROMPT='$(check_last_exit_code)$(git_prompt_string)'
+RPROMPT+='$(rvm_prompt_string)$(virtualenv_prompt_string)'
 # }}}
 # Completion {{{
 unsetopt menu_complete # do not autoselect the first completion entry
