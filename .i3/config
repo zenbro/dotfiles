@@ -159,15 +159,15 @@ bar {
 }
 
 # mediakeys (xev can help)
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5dB+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5dB-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 10%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 10%-
 bindsym XF86AudioMute        exec --no-startup-id amixer -q set Master 0%
 bindsym XF86ScreenSaver      exec --no-startup-id ~/.i3/i3lock-wrapper
 bindsym $mod+Control+l       exec --no-startup-id ~/.i3/i3lock-wrapper
 
 # hotkeys
 bindsym Print  exec --no-startup-id scrot -q 100 -e 'feh $f'
-bindsym Mod4+v exec --no-startup-id gvim
+bindsym Mod4+v exec --no-startup-id urxvt -name nvim -e nvim
 bindsym Mod4+c exec --no-startup-id chromium
 bindsym Mod4+f exec --no-startup-id firefox
 bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
@@ -179,6 +179,7 @@ bindsym Mod4+t exec --no-startup-id urxvt -e vim note:todo
 bindsym Mod4+s exec --no-startup-id urxvt -e mocp
 bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
 bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
+bindsym Mod4+F12 exec --no-startup-id ~/.i3/save_song
 
 # duckduckgo search and jump to firefox
 bindsym $mod+g exec --no-startup-id ~/.i3/dmenu_search.sh
@@ -194,14 +195,17 @@ for_window [class="^Zathura"]      border none
 for_window [class="^Owa-devdocs"]  border none
 
 # workspace assignment
-assign [class="^Gvim$"]        1: dev
-assign [class="^Dwb$"]         2: www
-assign [class="^Firefox$"]     2: www
-assign [class="^Thunderbird$"] 3: mail
-assign [class="^Pidgin$"]      4: im
-assign [class="^VirtualBox$"]  5: vbox
-assign [class="^Chromium$"]    F2: dev/www
-assign [class="^Owa-devdocs"]  F4: dev/doc
+assign [class="^Gvim$"]            1: dev
+assign [class="^Dwb$"]             2: www
+assign [class="^Firefox$"]         2: www
+assign [class="^Thunderbird$"]     3: mail
+assign [class="^Pidgin$"]          4: im
+assign [class="^Skype$"]           4: im
+assign [class="^VirtualBox$"]      5: vbox
+assign [class="^Chromium$"]        F2: dev/www
+assign [class="^Owa-devdocs"]      F4: dev/doc
+assign [class="^Transmission-gtk"] ...in process
+assign [class="^URxvt$" instance="^nvim$"] 1: dev
 
 # autorun
 exec --no-startup-id feh --bg-fill $HOME/.wallpaper
@@ -214,3 +218,4 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id xautolock -time 10 -locker ~/.i3/i3lock-wrapper
 exec --no-startup-id thunderbird
 exec --no-startup-id pidgin
+exec --no-startup-id skype

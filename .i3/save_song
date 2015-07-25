@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+file=$(playerctl metadata xesam:url | ruby -ruri -ne 'puts URI.decode_www_form_component($_).sub("file://", "")')
+echo "$file" >> ~/.saved_songs
+uniq ~/.saved_songs > /tmp/saved_songs && mv /tmp/saved_songs ~/.saved_songs
+
+song_title=$(~/.conky/song_title)
+notify-send "$song_title saved!"

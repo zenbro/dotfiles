@@ -96,7 +96,7 @@ fdelete() {
 # v - search in most recent used files by vim
 v() {
   local file
-  file=$(sed '1d' $HOME/.vim/cache/neomru/file |
+  file=$(sed '1d' $HOME/.nvim/cache/neomru/file |
           fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && vim $file
 }
@@ -104,7 +104,7 @@ v() {
 # vd - cd to most recent used directory by vim
 vd() {
   local dir
-  dir=$(sed '1d' $HOME/.vim/cache/neomru/directory |
+  dir=$(sed '1d' $HOME/.nvim/cache/neomru/directory |
         fzf --query="$1" --select-1 --exit-0) && cd "$dir"
 }
 

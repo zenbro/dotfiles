@@ -1,4 +1,6 @@
-alias vi='vim'
+alias vim='nvim'
+alias vi='nvim'
+alias oldvim='/usr/bin/vim'
 alias sy='systemctl'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -GFhl'
