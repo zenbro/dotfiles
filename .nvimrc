@@ -108,6 +108,7 @@ Plug 'Shougo/deoplete.nvim'
   let g:deoplete#enable_at_startup = 1
 " }}}
 Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neosnippet'
 " {{{
   let g:neosnippet#snippets_directory = '~/.nvim/snippets'
@@ -299,6 +300,20 @@ Plug 'tpope/vim-ragtag'
   let g:ragtag_global_maps = 1
 " }}}
 Plug 'vim-ruby/vim-ruby'
+Plug 'zenbro/vim-seeing-is-believing', { 'branch': 'great_update' }
+" {{{
+  augroup seeingIsBelievingSettings
+    autocmd!
+
+    autocmd FileType ruby nmap <buffer> <Enter> <Plug>(seeing-is-believing-mark-and-run)
+
+    autocmd FileType ruby nmap <buffer> gz <Plug>(seeing-is-believing-mark)
+    autocmd FileType ruby xmap <buffer> gz <Plug>(seeing-is-believing-mark)
+    autocmd FileType ruby imap <buffer> gz <Plug>(seeing-is-believing-mark)
+
+    autocmd FileType ruby nmap <buffer> gZ <Plug>(seeing-is-believing-run)
+  augroup END
+" }}}
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
@@ -477,6 +492,7 @@ set number     " show line numbers
 set noswapfile " disable creating of *.swp files
 set hidden     " hide buffers instead of closing
 set lazyredraw " speed up on large files
+set mouse=     " disable mouse
 
 set scrolloff=999       " always keep cursor at the middle of screen
 set virtualedit=onemore " allow the cursor to move just past the end of the line
@@ -516,8 +532,7 @@ set shiftround    " round indent to multiple of 'shiftwidth' (for << and >>)
 set ignorecase " ignore case of letters
 set smartcase  " override the 'ignorecase' when there is uppercase letters
 set gdefault   " when on, the :substitute flag 'g' is default on
-
-" }}
+" }}}
 " Colors and highlightings {{{
 " ====================================================================
 colorscheme jellybeans
@@ -547,11 +562,6 @@ nnoremap <leader><Enter> :terminal<CR>
 
 " Quick way to save file
 nnoremap <leader>w :w<CR>
-
-
-" Terminal specific mappings
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
 " Y behave like D or C
 nnoremap Y y$
@@ -600,6 +610,21 @@ function! DeleteHiddenBuffers() " {{{
     silent execute 'bwipeout' buf
   endfor
 endfunction " }}}
+" }}}
+" Terminal {{{
+" ====================================================================
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
+
+function! TerminalInSplit(args)
+  botright split
+  execute 'terminal' a:args
+endfunction
+
+augroup terminalSettings
+  autocmd!
+  autocmd FileType ruby nnoremap <leader><F2> :call TerminalInSplit('pry')<CR>
+augroup END
 " }}}
 " Netrw {{{
 " ====================================================================

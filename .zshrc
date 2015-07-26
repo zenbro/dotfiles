@@ -192,11 +192,6 @@ zmodload -i zsh/complist
 
 source ~/.zsh/aliases.zsh
 source ~/.zsh/functions.zsh
-source ~/.zsh/zsh-autosuggestions/autosuggestions.zsh
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
 
 for plugin in ~/.zsh/plugins/*.zsh; do
   source $plugin
