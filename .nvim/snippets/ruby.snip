@@ -258,6 +258,11 @@ abbr        assert_equal ..
 options     head
   assert_equal ${1:expected}, ${0:actual}
 
+snippet     asem
+abbr        assert_empty ..
+options     head
+  assert_empty ${1:collection}
+
 snippet     asn
 abbr        assert_nil ..
 options     head

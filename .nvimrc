@@ -171,6 +171,7 @@ Plug 'Shougo/unite.vim'
   endfunction
 
   nnoremap <silent> <leader><space> :<C-u>Unite -toggle -smartcase -start-insert buffer file_rec/neovim:!<CR>
+  nnoremap <silent> <leader>b :<C-u>Unite buffer -start-insert<cr>
   nnoremap <silent> <leader>o :<C-u>Unite outline -start-insert<cr>
   nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -keep-focus grep:.<cr>
   nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
@@ -183,7 +184,7 @@ Plug 'Shougo/neomru.vim'
   let g:neomru#file_mru_path = $HOME . '/.nvim/cache/neomru/file'
   let g:neomru#directory_mru_path = $HOME . '/.nvim/cache/neomru/directory'
 " }}}
-Plug 'zenbro/mirror.vim', { 'branch': 'development' }
+Plug 'zenbro/mirror.vim'
 
 " Text Navigation
 " ====================================================================
@@ -621,9 +622,11 @@ function! TerminalInSplit(args)
   execute 'terminal' a:args
 endfunction
 
+nnoremap <leader><F1> :execute 'terminal ranger ' . expand('%:p:h')<CR>
+nnoremap <leader><F2> :terminal ranger<CR>
 augroup terminalSettings
   autocmd!
-  autocmd FileType ruby nnoremap <leader><F2> :call TerminalInSplit('pry')<CR>
+  autocmd FileType ruby nnoremap <leader>\ :call TerminalInSplit('pry')<CR>
 augroup END
 " }}}
 " Netrw {{{
