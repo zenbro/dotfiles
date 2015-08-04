@@ -151,15 +151,15 @@ Plug 'Shougo/unite.vim'
   let g:unite_source_rec_max_cache_files = 1000
   let g:unite_source_grep_max_candidates = 200
 
-  " if executable('ag')
-  "   let g:unite_source_grep_command = 'ag'
-  "   let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup --smart-case'
-  "   let g:unite_source_grep_recursive_opt = ''
-  "   let g:unite_source_grep_search_word_highlight = 1
-  "   " Использовать ag для поиска файлов в проекте
-  "   let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
-  " endif
-  "
+  if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup --smart-case'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_search_word_highlight = 1
+    " Использовать ag для поиска файлов в проекте
+    let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+  endif
+
   autocmd FileType unite call s:UniteSettings()
   function! s:UniteSettings()
     nmap <silent><buffer> ; <Plug>(unite_quick_match_default_action)
@@ -170,7 +170,7 @@ Plug 'Shougo/unite.vim'
     imap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
   endfunction
 
-  nnoremap <silent> <leader><space> :<C-u>Unite -toggle -smartcase -start-insert buffer file_rec/neovim:!<CR>
+  nnoremap <silent> <leader><space> :<C-u>Unite -toggle -smartcase -start-insert buffer file_rec/async:!<CR>
   nnoremap <silent> <leader>b :<C-u>Unite buffer -start-insert<cr>
   nnoremap <silent> <leader>o :<C-u>Unite outline -start-insert<cr>
   nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -keep-focus grep:.<cr>
@@ -477,9 +477,9 @@ Plug 'katono/rogue.vim', { 'on': 'Rogue' }
 " }}}
 call plug#end() " Plugins initialization finished {{{
 
-call unite#custom#source('buffer,file,file/new,file_rec/neovim',
+call unite#custom#source('buffer,file,file/new,file_rec/async',
       \ 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
-call unite#custom#source('buffer,file,file/new,file_rec/neovim,outline',
+call unite#custom#source('buffer,file,file/new,file_rec/async,outline',
       \ 'sorters', 'sorter_rank')
 call unite#custom#source('outline', 'matchers', ['matcher_fuzzy'])
 " }}}
@@ -580,6 +580,14 @@ nmap g# g#zz
 
 " Select all text
 noremap vA ggVG
+
+" Creating splits in all directions
+nnoremap <Leader>sh :leftabove  vnew<CR>
+nnoremap <Leader>sl :rightbelow vnew<CR>
+nnoremap <Leader>sk :leftabove  new<CR>
+nnoremap <Leader>sj :rightbelow new<CR>
+nnoremap <C-w>s :split<CR> <C-w>j
+nnoremap <C-w>v :vsplit<CR> <C-w>l
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
