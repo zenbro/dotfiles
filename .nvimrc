@@ -459,8 +459,14 @@ Plug 'junegunn/vim-peekaboo'
 " }}}
 Plug 'mbbill/undotree'
 " {{{
-  set undodir=$HOME.'/.nvim/cache/undodir'
   set undofile
+  " Auto create undodir if not exists
+  let undodir = expand($HOME . '/.nvim/cache/undodir')
+  if !isdirectory(undodir)
+    call mkdir(undodir, 'p')
+  endif
+  let &undodir = undodir
+
   nnoremap <F11> :UndotreeToggle<CR>
 " }}}
 
