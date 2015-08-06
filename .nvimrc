@@ -218,7 +218,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 " {{{
-  let g:switch_mapping = '-'
+  let g:switch_mapping = '\'
 " }}}
 Plug 'AndrewRadev/sideways.vim'
 " {{{
@@ -561,6 +561,10 @@ highlight! link elixirAtom rubySymbol
 nnoremap <leader>vi :tabedit $MYVIMRC<CR>
 nnoremap <leader><Enter> :terminal<CR>
 
+" Jump to beginning/end of the line
+nnoremap H ^
+nnoremap L $
+
 " Quick way to save file
 nnoremap <leader>w :w<CR>
 
@@ -622,7 +626,7 @@ endfunction " }}}
 " }}}
 " Terminal {{{
 " ====================================================================
-tnoremap <Esc> <C-\><C-n>
+tnoremap <F1> <C-\><C-n>
 tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
 function! TerminalInSplit(args)
