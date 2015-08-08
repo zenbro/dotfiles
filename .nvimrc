@@ -283,15 +283,6 @@ Plug 'scrooloose/syntastic'
 
   nnoremap <Leader>~ :SyntasticReset<CR>
 " }}}
-Plug 'janko-m/vim-test'
-" {{{
-  let test#strategy = 'neovim'
-  nnoremap <silent> <leader>tt :TestFile<CR>
-  nnoremap <silent> <leader>tf :TestNearest<CR>
-  nnoremap <silent> <leader>T :TestSuite<CR>
-  nnoremap <silent> <leader>ta :TestLast<CR>
-  nnoremap <silent> <leader>tv :TestVisit<CR>
-" }}}
 Plug 'mattn/emmet-vim'
 " {{{
   let g:user_emmet_expandabbr_key = '<c-e>'
@@ -441,6 +432,21 @@ Plug 'tpope/vim-projectionist'
 " }}}
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc', { 'do' : 'make' }
+Plug 'janko-m/vim-test'
+" {{{
+  function! TerminalSplitStrategy(cmd) abort
+    botright new | call termopen(a:cmd) | startinsert
+  endfunction
+  let g:test#custom_strategies = get(g:, 'test#custom_strategies', {})
+  let g:test#custom_strategies.terminal_split = function('TerminalSplitStrategy')
+  let test#strategy = 'terminal_split'
+
+  nnoremap <silent> <leader>rr :TestFile<CR>
+  nnoremap <silent> <leader>rf :TestNearest<CR>
+  nnoremap <silent> <leader>rs :TestSuite<CR>
+  nnoremap <silent> <leader>ra :TestLast<CR>
+  nnoremap <silent> <leader>ro :TestVisit<CR>
+" }}}
 Plug 'tyru/open-browser.vim'
 " {{{
   let g:openbrowser_default_search = 'duckduckgo'
