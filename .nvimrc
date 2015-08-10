@@ -609,17 +609,30 @@ nnoremap <Leader>kn :leftabove  new<CR>
 nnoremap <Leader>jn :rightbelow new<CR>
 
 " If split in given direction exists - jump, else create new split
-function! JumpOrOpenNewSplit(key, cmd) " {{{
+function! JumpOrOpenNewSplit(key, cmd, unite) " {{{
   let current_window = winnr()
   execute 'wincmd' a:key
   if current_window == winnr()
     execute a:cmd
+    if a:unite
+      Unite -toggle -smartcase -start-insert buffer file_rec/async:!
+    endif
+  else
+    if a:unite
+      Unite -toggle -smartcase -start-insert buffer file_rec/async:!
+    endif
   endif
 endfunction " }}}
-nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit')<CR>
-nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit')<CR>
-nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split')<CR>
-nnoremap <silent> <Leader>jj :call JumpOrOpenNewSplit('j', ':rightbelow split')<CR>
+nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 0)<CR>
+nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 0)<CR>
+nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split', 0)<CR>
+nnoremap <silent> <Leader>jj :call JumpOrOpenNewSplit('j', ':rightbelow split', 0)<CR>
+
+" Same as above, except it opens unite at the end
+nnoremap <silent> <Leader>h<Space> :call JumpOrOpenNewSplit('h', ':leftabove vsplit', 1)<CR>
+nnoremap <silent> <Leader>l<Space> :call JumpOrOpenNewSplit('l', ':rightbelow vsplit', 1)<CR>
+nnoremap <silent> <Leader>k<Space> :call JumpOrOpenNewSplit('k', ':leftabove split', 1)<CR>
+nnoremap <silent> <Leader>j<Space> :call JumpOrOpenNewSplit('j', ':rightbelow split', 1)<CR>
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
