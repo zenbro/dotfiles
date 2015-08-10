@@ -222,8 +222,8 @@ Plug 'AndrewRadev/switch.vim'
 " }}}
 Plug 'AndrewRadev/sideways.vim'
 " {{{
-  nnoremap <Leader>hh :SidewaysLeft<CR>
-  nnoremap <Leader>ll :SidewaysRight<CR>
+  nnoremap <Leader>< :SidewaysLeft<CR>
+  nnoremap <Leader>> :SidewaysRight<CR>
 " }}}
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
@@ -608,14 +608,18 @@ nnoremap <Leader>ln :rightbelow vnew<CR>
 nnoremap <Leader>kn :leftabove  new<CR>
 nnoremap <Leader>jn :rightbelow new<CR>
 
-" Creating splits buffers in all directions
-nnoremap <Leader>hs :leftabove  vsplit<CR>
-nnoremap <Leader>ls :rightbelow vsplit<CR>
-nnoremap <Leader>ks :leftabove  split<CR>
-nnoremap <Leader>js :rightbelow split<CR>
-
-nnoremap <C-w>s :botright split<CR>
-nnoremap <C-w>v :botright vsplit<CR>
+" If split in given direction exists - jump, else create new split
+function! JumpOrOpenNewSplit(key, cmd) " {{{
+  let current_window = winnr()
+  execute 'wincmd' a:key
+  if current_window == winnr()
+    execute a:cmd
+  endif
+endfunction " }}}
+nnoremap <silent> <Leader>hh :call JumpOrOpenNewSplit('h', ':leftabove vsplit')<CR>
+nnoremap <silent> <Leader>ll :call JumpOrOpenNewSplit('l', ':rightbelow vsplit')<CR>
+nnoremap <silent> <Leader>kk :call JumpOrOpenNewSplit('k', ':leftabove split')<CR>
+nnoremap <silent> <Leader>jj :call JumpOrOpenNewSplit('j', ':rightbelow split')<CR>
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
