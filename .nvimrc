@@ -314,6 +314,10 @@ Plug 'briancollins/vim-jst'
 Plug 'kchmck/vim-coffee-script'
 Plug 'othree/html5.vim'
 Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+" {{{
+  let g:used_javascript_libs = 'jquery'
+" }}}
 Plug 'ap/vim-css-color'
 Plug 'jimenezrick/vimerl'
 " {{{
@@ -571,11 +575,12 @@ highlight! link elixirAtom rubySymbol
 " }}}
 " Key Mappings " {{{
 nnoremap <leader>vi :tabedit $MYVIMRC<CR>
-nnoremap <leader><Enter> :terminal<CR>
 
 " Jump to beginning/end of the line
 nnoremap H ^
 nnoremap L $
+vnoremap H ^
+vnoremap L $
 
 " Quick way to save file
 nnoremap <leader>w :w<CR>
@@ -597,13 +602,20 @@ nmap g# g#zz
 " Select all text
 noremap vA ggVG
 
-" Creating splits in all directions
-nnoremap <Leader>sh :leftabove  vnew<CR>
-nnoremap <Leader>sl :rightbelow vnew<CR>
-nnoremap <Leader>sk :leftabove  new<CR>
-nnoremap <Leader>sj :rightbelow new<CR>
-nnoremap <C-w>s :split<CR> <C-w>j
-nnoremap <C-w>v :vsplit<CR> <C-w>l
+" Creating splits with empty buffers in all directions
+nnoremap <Leader>hn :leftabove  vnew<CR>
+nnoremap <Leader>ln :rightbelow vnew<CR>
+nnoremap <Leader>kn :leftabove  new<CR>
+nnoremap <Leader>jn :rightbelow new<CR>
+
+" Creating splits buffers in all directions
+nnoremap <Leader>hs :leftabove  vsplit<CR>
+nnoremap <Leader>ls :rightbelow vsplit<CR>
+nnoremap <Leader>ks :leftabove  split<CR>
+nnoremap <Leader>js :rightbelow split<CR>
+
+nnoremap <C-w>s :botright split<CR>
+nnoremap <C-w>v :botright vsplit<CR>
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
@@ -638,6 +650,14 @@ endfunction " }}}
 " }}}
 " Terminal {{{
 " ====================================================================
+nnoremap <leader><Enter> :terminal<CR>
+
+" Opening splits with terminal in all directions
+nnoremap <Leader>h<Enter> :leftabove  vnew<CR>:terminal<CR>
+nnoremap <Leader>l<Enter> :rightbelow vnew<CR>:terminal<CR>
+nnoremap <Leader>k<Enter> :leftabove  new<CR>:terminal<CR>
+nnoremap <Leader>j<Enter> :rightbelow new<CR>:terminal<CR>
+
 tnoremap <F1> <C-\><C-n>
 tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>
 
