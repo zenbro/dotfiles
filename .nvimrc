@@ -667,7 +667,7 @@ endfunction " }}}
 " }}}
 " Terminal {{{
 " ====================================================================
-nnoremap <leader><Enter> :terminal<CR>
+nnoremap <leader><Enter> :tabnew<CR>:terminal<CR>
 
 " Opening splits with terminal in all directions
 nnoremap <Leader>h<Enter> :leftabove  vnew<CR>:terminal<CR>
