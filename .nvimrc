@@ -170,7 +170,7 @@ Plug 'Shougo/unite.vim'
     imap <silent><buffer><expr> <C-s> unite#do_action('vsplit')
   endfunction
 
-  nnoremap <silent> <leader><space> :<C-u>Unite -toggle -smartcase -start-insert buffer file_rec/async:!<CR>
+  nnoremap <silent> <leader><space> :<C-u>Unite -toggle -smartcase -start-insert buffer file_rec/neovim:!<CR>
   nnoremap <silent> <leader>b :<C-u>Unite buffer -start-insert<cr>
   nnoremap <silent> <leader>o :<C-u>Unite outline -start-insert<cr>
   nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -keep-focus grep:.<cr>
@@ -493,9 +493,9 @@ Plug 'katono/rogue.vim', { 'on': 'Rogue' }
 " }}}
 call plug#end() " Plugins initialization finished {{{
 
-call unite#custom#source('buffer,file,file/new,file_rec/async',
+call unite#custom#source('buffer,file,file/new,file_rec/neovim',
       \ 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
-call unite#custom#source('buffer,file,file/new,file_rec/async,outline',
+call unite#custom#source('buffer,file,file/new,file_rec/neovim,outline',
       \ 'sorters', 'sorter_rank')
 call unite#custom#source('outline', 'matchers', ['matcher_fuzzy'])
 " }}}
@@ -667,7 +667,7 @@ endfunction " }}}
 " }}}
 " Terminal {{{
 " ====================================================================
-nnoremap <leader><Enter> :tabnew<CR>:terminal<CR>
+nnoremap <silent> <leader><Enter> :tabnew<CR>:terminal<CR>
 
 " Opening splits with terminal in all directions
 nnoremap <Leader>h<Enter> :leftabove  vnew<CR>:terminal<CR>
