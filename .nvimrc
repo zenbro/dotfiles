@@ -128,7 +128,7 @@ Plug 'Shougo/neosnippet'
   " jump to the next snippet trigger or move to the right split
   nmap <expr><C-l> neosnippet#jumpable() ?
         \ ":call feedkeys('i<C-l>')<CR>"
-        \ : "\<C-w>l"
+        \ : ":diffupdate<CR>:redraw!<CR>"
   " jump to the next snippet trigger or redraw a screen
   " (default <C-l> behaviour in normal mode)
   imap <expr><C-l> neosnippet#jumpable() ?
