@@ -156,8 +156,9 @@ Plug 'Shougo/unite.vim'
     let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup --smart-case'
     let g:unite_source_grep_recursive_opt = ''
     let g:unite_source_grep_search_word_highlight = 1
-    " Использовать ag для поиска файлов в проекте
-    let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+    " Using ag as recursive command.
+    let g:unite_source_rec_async_command =
+          \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
   endif
 
   autocmd FileType unite call s:UniteSettings()
