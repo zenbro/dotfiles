@@ -480,6 +480,11 @@ Plug 'mbbill/undotree'
 
   nnoremap <F11> :UndotreeToggle<CR>
 " }}}
+Plug 'mhinz/vim-sayonara'
+" {{{
+  nnoremap <silent> Q :Sayonara<CR>
+  nnoremap <silent> Й :Sayonara<CR>
+" }}}
 
 " Misc
 " ====================================================================
@@ -637,24 +642,6 @@ nnoremap <silent> <Leader>j<Space> :call JumpOrOpenNewSplit('j', ':rightbelow sp
 
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
-
-" Universal closing behavior
-nnoremap <silent> Q :call CloseSplitOrDeleteBuffer()<CR>
-nnoremap <silent> Й :call CloseSplitOrDeleteBuffer()<CR>
-function! CloseSplitOrDeleteBuffer() " {{{
-  let curNr = winnr()
-  let curBuf = bufnr('%')
-  wincmd w
-  if winnr() == curNr
-    exe 'bdelete'
-  elseif curBuf != bufnr('%')
-    wincmd W
-    exe 'bdelete'
-  else
-    wincmd W
-    wincmd c
-  endif
-endfunction " }}}
 
 " Delete all hidden buffers
 nnoremap <silent> <Leader><BS>b :call DeleteHiddenBuffers()<CR>
