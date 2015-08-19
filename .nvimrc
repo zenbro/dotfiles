@@ -311,7 +311,6 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-liquid'
-Plug 'briancollins/vim-jst'
 Plug 'kchmck/vim-coffee-script'
 Plug 'othree/html5.vim'
 Plug 'othree/yajs.vim'
@@ -480,11 +479,6 @@ Plug 'mbbill/undotree'
 
   nnoremap <F11> :UndotreeToggle<CR>
 " }}}
-Plug 'mhinz/vim-sayonara'
-" {{{
-  nnoremap <silent> Q :Sayonara<CR>
-  nnoremap <silent> Й :Sayonara<CR>
-" }}}
 
 " Misc
 " ====================================================================
@@ -643,6 +637,17 @@ nnoremap <silent> <Leader>j<Space> :call JumpOrOpenNewSplit('j', ':rightbelow sp
 " Remove trailing whitespaces in current buffer
 nnoremap <Leader><BS>s :1,$s/[ ]*$//<CR>:nohlsearch<CR>1G
 
+" Universal closing behavior
+nnoremap <silent> Q :call CloseSplitOrDeleteBuffer()<CR>
+nnoremap <silent> Й :call CloseSplitOrDeleteBuffer()<CR>
+function! CloseSplitOrDeleteBuffer() " {{{
+  if winnr('$') > 1
+    wincmd c
+  else
+    execute 'bdelete'
+  endif
+endfunction " }}}
+
 " Delete all hidden buffers
 nnoremap <silent> <Leader><BS>b :call DeleteHiddenBuffers()<CR>
 function! DeleteHiddenBuffers() " {{{
@@ -717,6 +722,13 @@ augroup fileTypeSpecific
   autocmd BufRead,BufNewFile *.rabl setfiletype ruby
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  " JST support
+  autocmd BufNewFile,BufRead *.ejs set filetype=jst
+  autocmd BufNewFile,BufRead *.jst set filetype=jst
+  autocmd BufNewFile,BufRead *.djs set filetype=jst
+  autocmd BufNewFile,BufRead *.hamljs set filetype=jst
+  autocmd BufNewFile,BufRead *.ect set filetype=jst
+  autocmd FileType jst set syntax=htmldjango
 augroup END
 "}}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
