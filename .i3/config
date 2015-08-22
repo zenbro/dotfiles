@@ -218,7 +218,3 @@ exec --no-startup-id parcellite
 exec --no-startup-id dropbox
 exec --no-startup-id udiskie --tray
 exec --no-startup-id xautolock -time 10 -locker ~/.i3/i3lock-wrapper
-exec --no-startup-id octopi-notifier
-exec --no-startup-id skype
-exec --no-startup-id pidgin
-exec --no-startup-id thunderbird
