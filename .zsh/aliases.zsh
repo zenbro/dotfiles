@@ -1,5 +1,6 @@
 alias vim='nvim'
 alias vi='nvim'
+alias :e='nvim'
 alias oldvim='/usr/bin/vim'
 alias sy='systemctl'
 alias ls='ls --color=auto'

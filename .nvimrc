@@ -152,8 +152,11 @@ Plug 'Shougo/unite.vim'
   let g:unite_source_grep_max_candidates = 200
 
   if executable('ag')
+
     let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup --smart-case'
+    let g:unite_source_grep_default_opts =
+          \ '-i --vimgrep --hidden --ignore ' .
+          \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
     let g:unite_source_grep_recursive_opt = ''
     let g:unite_source_grep_search_word_highlight = 1
     " Using ag as recursive command.
