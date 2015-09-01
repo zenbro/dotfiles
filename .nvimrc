@@ -538,9 +538,6 @@ set showcmd      " always show current command
 
 set nowrap        " disable wrap for long lines
 set textwidth=0   " disable auto break long lines
-
-set splitbelow
-set splitright
 " }}}
 " Indentation {{{
 " ====================================================================
