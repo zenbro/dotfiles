@@ -181,6 +181,7 @@ Plug 'Shougo/unite.vim'
   nnoremap <silent> <leader>? :<C-u>Unite -no-quit -keep-focus grep:$buffers<cr>
   nnoremap <silent> <leader>. :<C-u>Unite -no-quit -keep-focus grep:%<cr>
   nnoremap <silent> K :<C-u>UniteWithCursorWord -no-quit -keep-focus grep:.<cr>
+  vnoremap <silent> K :<C-u>UniteWithCursorWord -no-quit -keep-focus grep:.<cr>
 " }}}
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
@@ -218,7 +219,6 @@ Plug 'Raimondi/delimitMate'
   let delimitMate_expand_cr = 2
   let delimitMate_expand_space = 1 " {|} => { | }
 " }}}
-Plug 'tomtom/tcomment_vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 " {{{
@@ -327,6 +327,16 @@ Plug 'jimenezrick/vimerl'
   let erlang_show_errors = 0
 " }}}
 Plug 'elixir-lang/vim-elixir'
+Plug 'lervag/vimtex'
+" {{{
+  let g:vimtex_view_method = 'zathura'
+  augroup latex
+    autocmd!
+    autocmd FileType tex nnoremap <buffer><F4> :VimtexView<CR>
+    autocmd FileType tex nnoremap <buffer><F5> :VimtexCompile<CR>
+    autocmd FileType tex map <silent> <buffer><F8> :call vimtex#latexmk#errors_open(0)<CR>
+  augroup END
+" }}}
 
 " Git
 " ====================================================================
@@ -579,6 +589,9 @@ highlight! link elixirAtom rubySymbol
 " Key Mappings " {{{
 nnoremap <leader>vi :tabedit $MYVIMRC<CR>
 
+" Toggle quickfix
+map <silent> <F8> :copen<CR>
+
 " Jump to beginning/end of the line
 nnoremap H ^
 nnoremap L $
@@ -732,6 +745,12 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufRead *.hamljs set filetype=jst
   autocmd BufNewFile,BufRead *.ect set filetype=jst
   autocmd FileType jst set syntax=htmldjango
+augroup END
+
+augroup quickFixSettings
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <silent> q :cclose<CR> |
+        \ map <buffer> <silent> <F8> :cclose<CR>
 augroup END
 "}}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
