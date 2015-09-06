@@ -20,7 +20,7 @@ autoload colors; colors
 
 GIT_PROMPT_MODIFIED="%{$fg_bold[red]%}*%{$reset_color%}"
 GIT_PROMPT_STAGED="%{$fg_bold[green]%}+%{$reset_color%}"
-GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}⚡︎%{$reset_color%}"
+GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}!%{$reset_color%}"
 
 function parse_git_branch() {
   (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
