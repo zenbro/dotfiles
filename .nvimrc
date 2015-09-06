@@ -255,6 +255,7 @@ Plug 'scrooloose/syntastic'
   let g:syntastic_ignore_files          = ['\.py$']
   let g:syntastic_vim_checkers          = ['vint']
   let g:syntastic_elixir_checkers       = ['elixir']
+  let g:syntastic_javascript_checkers   = ['eslint']
   let g:syntastic_enable_elixir_checker = 0
 
 " Rubocop Settings {{{
@@ -321,6 +322,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " {{{
   let g:used_javascript_libs = 'jquery'
 " }}}
+Plug 'gavocanov/vim-js-indent'
 Plug 'ap/vim-css-color'
 Plug 'jimenezrick/vimerl'
 " {{{
