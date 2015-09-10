@@ -181,6 +181,7 @@ bindsym Mod4+s exec --no-startup-id urxvt -e mocp
 bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
 bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
 bindsym Mod4+F12 exec --no-startup-id ~/.i3/save_song
+bindsym Mod4+minus border toggle
 
 # duckduckgo search and jump to firefox
 bindsym $mod+g exec --no-startup-id ~/.i3/dmenu_search.sh

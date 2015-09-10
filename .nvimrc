@@ -152,7 +152,6 @@ Plug 'Shougo/unite.vim'
   let g:unite_source_grep_max_candidates = 200
 
   if executable('ag')
-
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
           \ '-i --vimgrep --hidden --ignore ' .
@@ -454,7 +453,7 @@ Plug 'Shougo/vimproc', { 'do' : 'make' }
 Plug 'janko-m/vim-test'
 " {{{
   function! TerminalSplitStrategy(cmd) abort
-    botright new | call termopen(a:cmd) | startinsert
+    tabnew | call termopen(a:cmd) | startinsert
   endfunction
   let g:test#custom_strategies = get(g:, 'test#custom_strategies', {})
   let g:test#custom_strategies.terminal_split = function('TerminalSplitStrategy')

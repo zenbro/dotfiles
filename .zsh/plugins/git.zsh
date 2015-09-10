@@ -59,7 +59,7 @@ alias gbd="git branch -D"
 
 alias gc="git commit -v -m"
 alias gca="git commit --amend"
-alias gcc="git commit"
+alias gcm="git commit"
 
 alias gcd='cd "`git rev-parse --show-toplevel`"'
 

@@ -31,6 +31,14 @@ function improve() {
   fi
 }
 
+function remove_orphans() {
+  if [[ ! -n $(pacman -Qdt) ]]; then
+    echo "No orphans to remove."
+  else
+    sudo pacman -Rscn $(pacman -Qdtq)
+  fi
+}
+
 function _set_title() {
   print -Pn '\e]1;%l@%m${1+*}\a'
   print -Pn '\e]2;%n@%m:%~'
