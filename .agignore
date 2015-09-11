@@ -1,6 +1,7 @@
 node_modules/
 core/node_modules
 tmp/
+tags
 vendor/
 bundle/
 .git/

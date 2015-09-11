@@ -201,3 +201,5 @@ stty -ixon # disable CTRL-S freeze
 xset -b # disable beeps
 
 # vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
