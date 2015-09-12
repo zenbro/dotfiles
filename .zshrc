@@ -191,6 +191,7 @@ autoload -U compinit compdef; compinit
 zmodload -i zsh/complist
 
 source ~/.zsh/aliases.zsh
+source ~/.zsh/abbreviations.zsh
 source ~/.zsh/functions.zsh
 
 for plugin in ~/.zsh/plugins/*.zsh; do

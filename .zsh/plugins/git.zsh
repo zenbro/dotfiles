@@ -13,36 +13,31 @@ function current_branch() {
   echo ${ref#refs/heads/}
 }
 
-# git pull --rebase origin $(current_branch)
-ggl() {
-  if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
-    git pull --rebase origin "${*}"
-  else
-    [[ "$#" == 0 ]] && local b="$(current_branch)"
-    git pull --rebase origin "${b:=$1}"
-  fi
-}
-compdef _git ggl=git-checkout
-
 # git push origin $(current_branch)
-ggp() {
+gpb() {
   if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
-    git push origin "${*}"
+    git push -u origin "${*}"
   else
     [[ "$#" == 0 ]] && local b="$(current_branch)"
-    git push origin "${b:=$1}"
+    git push -u origin "${b:=$1}"
   fi
 }
 compdef _git ggp=git-checkout
 
 # git reset --hard origin/$(current_branch)
-greh!() {
+gre!() {
   if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
     git reset --hard origin/"${*}"
   else
     [[ "$#" == 0 ]] && local b="$(current_branch)"
     git reset --hard origin/"${b:=$1}"
   fi
+}
+
+# list files from commit, separated by comma (for cap deploy:upload FILES=...)
+gfi() {
+  local commit_sha=`fcs`
+  git diff-tree --no-commit-id --name-only -r "$commit_sha" | paste -sd "," -
 }
 
 # Aliases
@@ -64,7 +59,9 @@ alias gcm="git commit"
 alias gcd='cd "`git rev-parse --show-toplevel`"'
 
 alias gco="git checkout"
+alias gcoc="fcoc"
 alias gcob="git checkout -b"
+alias gcof="git checkout -f"
 
 alias gcp="git cherry-pick"
 alias gcpa="git cherry-pick --abort"
@@ -99,7 +96,6 @@ alias grbc="git rebase --continue"
 alias grbs="git rebase --skip"
 
 alias gre="git reset HEAD"
-alias greh="git reset HEAD --hard"
 
 alias grmv="git remote rename"
 alias grrm="git remote remove"

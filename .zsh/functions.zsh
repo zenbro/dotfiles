@@ -47,7 +47,6 @@ function _set_title() {
   fi
   print -Pn "\a"
 }
-precmd_functions+=(omz_termsupport_preexec)
 
 precmd () { _set_title "$@" }
 preexec() { _set_title "$@" }

@@ -10,21 +10,6 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
-# search 'cap deploy' in history and run it with notify-send at the end
-deploy() {
-  cmd=$(ag --nonumbers --nocolor ';cap.*deploy' $HOME/.zsh_history |
-        ag -v 'deploy:' |
-        colrm 1 15 |
-        awk '!x[$0]++' |
-        fzf --query="$1" --select-1 --exit-0)
-  environment=$(echo $cmd | sed -e 's/cap \(.*\) deploy.*$/\1/')
-  project=$(basename $PWD)
-  if [ -n "$cmd" ]; then
-    echo "Deploying $project to $environment..."
-    eval $cmd && notify-send -u low "$project has been deployed to the $environment"
-  fi
-}
-
 # fea - search hidden files and open matching in vim
 fea() {
   local file
@@ -108,25 +93,8 @@ vd() {
         fzf --query="$1" --select-1 --exit-0) && cd "$dir"
 }
 
-# fbr - checkout git branch
-fbr() {
-  local branches branch
-  branches=$(git branch) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //")
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# fco - checkout git branch/tag
-fco() {
+# fbs - get branch/tag name
+fbs() {
   local tags branches target
   tags=$(
     git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
@@ -136,8 +104,13 @@ fco() {
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
     (echo "$tags"; echo "$branches") |
-    fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
-  git checkout $(echo "$target" | awk '{print $2}')
+    fzf --ansi +m -d "\t" -n 2) || return
+  echo "$target" | awk '{print $2}'
+}
+
+# fco - checkout git branch/tag
+fco() {
+  git checkout $(fbs)
 }
 
 # fcs - get git commit sha
@@ -170,12 +143,39 @@ fshow() {
   done
 }
 
+# fstash - easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+fstash() {
+  local out q k sha
+    while out=$(
+      git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+      fzf --ansi --no-sort --query="$q" --print-query \
+          --expect=ctrl-d,ctrl-b);
+    do
+      q=$(head -1 <<< "$out")
+      k=$(head -2 <<< "$out" | tail -1)
+      sha=$(tail -1 <<< "$out" | cut -d' ' -f1)
+      [ -z "$sha" ] && continue
+      if [ "$k" = 'ctrl-d' ]; then
+        git diff $sha
+      elif [ "$k" = 'ctrl-b' ]; then
+        git stash branch "stash-$sha" $sha
+        break;
+      else
+        git stash show -p $sha
+      fi
+    done
+}
+
 # RVM integration
 frb() {
   local rb
   rb=$((echo system; rvm list | grep ruby | cut -c 4-) |
        awk '{print $1}' |
-       fzf-tmux -l 30 +m --reverse) && rvm use $rb
+       fzf -l 30 +m --reverse) && rvm use $rb
 }
 
 # fh - repeat history

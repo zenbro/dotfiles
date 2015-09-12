@@ -146,13 +146,13 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 " {{{
   nnoremap <silent> <leader><space> :Files<CR>
-  nnoremap <silent> <leader>; :Buffers<CR>
+  nnoremap <silent> <leader>a :Buffers<CR>
+  nnoremap <silent> <leader>; :Lines<CR>
+  nnoremap <silent> <leader>. :BLines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
-  nnoremap <silent> <leader>. :BLines<CR>
   nnoremap <silent> <leader>: :Commands<CR>
-  nnoremap <silent> <leader>? :Helptags<CR>
-  nnoremap <silent> <leader>H :History<CR>
+  nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :Ag<CR>
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
