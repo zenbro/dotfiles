@@ -1,0 +1,9 @@
+snippet     refs
+abbr        (refs #...)
+options     word
+	(refs #${0:TARGET})
+
+snippet     refst
+abbr        (refs #...)
+options     word
+	(refs #`system('git rev-parse --abbrev-ref HEAD | grep -o -E "[0-9]+" | tr -d "\n"')`)
