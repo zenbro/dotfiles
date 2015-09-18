@@ -100,6 +100,12 @@ Plug 'junegunn/limelight.vim'
   nmap <silent> gl :Limelight!!<CR>
   xmap gl <Plug>(Limelight)
 " }}}
+Plug 't9md/vim-choosewin'
+" {{{
+  nmap <leader>' <Plug>(choosewin)
+  let g:choosewin_blink_on_land = 0
+  let g:choosewin_tabline_replace = 0
+" }}}
 
 " Completion
 " ====================================================================
@@ -147,8 +153,8 @@ Plug 'junegunn/fzf.vim'
 " {{{
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
-  nnoremap <silent> <leader>; :Lines<CR>
-  nnoremap <silent> <leader>. :BLines<CR>
+  nnoremap <silent> <leader>; :BLines<CR>
+  nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>: :Commands<CR>
@@ -413,6 +419,19 @@ Plug 'lyokha/vim-xkbswitch'
   nnoremap <silent> л :call RestoreKeyboardLayout('k')<CR>
   nnoremap <silent> д :call RestoreKeyboardLayout('l')<CR>
 " }}}
+Plug 'ludovicchabant/vim-gutentags'
+" {{{
+let g:gutentags_exclude = [
+      \ '*.min.js',
+      \ '*html*',
+      \ 'jquery*.js',
+      \ '*/vendor/*',
+      \ '*/node_modules/*',
+      \ '*/migrate/*.rb'
+      \ ]
+  let g:gutentags_generate_on_write = 0
+  let g:gutentags_generate_on_new = 0
+" }}}
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
@@ -444,7 +463,6 @@ Plug 'tpope/vim-projectionist'
       \ }
 " }}}
 Plug 'tpope/vim-dispatch'
-Plug 'Shougo/vimproc', { 'do' : 'make' }
 Plug 'janko-m/vim-test'
 " {{{
   function! TerminalSplitStrategy(cmd) abort
@@ -719,7 +737,7 @@ augroup vimGeneralCallbacks
   autocmd!
   autocmd VimEnter * call system('i3-msg border none')
   autocmd VimLeave * call system('i3-msg border normal')
-  autocmd BufWritePost .nvimrc source ~/.nvimrc | AirlineRefresh
+  autocmd BufWritePost .nvimrc nested source ~/.nvimrc
 augroup END
 
 augroup fileTypeSpecific
