@@ -421,7 +421,7 @@ Plug 'lyokha/vim-xkbswitch'
 " }}}
 Plug 'ludovicchabant/vim-gutentags'
 " {{{
-let g:gutentags_exclude = [
+  let g:gutentags_exclude = [
       \ '*.min.js',
       \ '*html*',
       \ 'jquery*.js',
@@ -429,6 +429,7 @@ let g:gutentags_exclude = [
       \ '*/node_modules/*',
       \ '*/migrate/*.rb'
       \ ]
+  let g:gutentags_generate_on_missing = 0
   let g:gutentags_generate_on_write = 0
   let g:gutentags_generate_on_new = 0
 " }}}
@@ -761,4 +762,13 @@ augroup quickFixSettings
         \ map <buffer> <silent> <F8> :cclose<CR>
 augroup END
 "}}}
+" Cursor configuration {{{
+" ====================================================================
+" Use a blinking upright bar cursor in Insert mode, a solid block in normal
+" and a blinking underline in replace mode
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let &t_SI = "\<Esc>[5 q"
+  let &t_SR = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[2 q"
+" }}}
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
