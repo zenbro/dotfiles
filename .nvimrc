@@ -162,6 +162,8 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>/ :Ag<CR>
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+  nnoremap <silent> <leader>gl :Commits<CR>
+  nnoremap <silent> <leader>ga :BCommits<CR>
 
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   imap <C-x><C-l> <plug>(fzf-complete-line)
@@ -353,7 +355,6 @@ Plug 'tpope/vim-fugitive'
   nnoremap <silent> <leader>gb :Gblame<CR>
   nnoremap <silent> <leader>ge :Gedit<CR>
   nnoremap <silent> <leader>gE :Gedit<space>
-  nnoremap <silent> <leader>gl :Glog<space>
   nnoremap <silent> <leader>gr :Gread<CR>
   nnoremap <silent> <leader>gR :Gread<space>
   nnoremap <silent> <leader>gw :Gwrite<CR>
@@ -390,8 +391,9 @@ Plug 'airblade/vim-gitgutter'
 " {{{
   let g:gitgutter_map_keys = 0
   let g:gitgutter_max_signs = 200
-  let g:gitgutter_realtime = 1
+  let g:gitgutter_realtime = 0
   let g:gitgutter_eager = 0
+  let g:gitgutter_diff_args = '--ignore-space-at-eol'
   nmap <silent> ]h :GitGutterNextHunk<CR>
   nmap <silent> [h :GitGutterPrevHunk<CR>
   nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
@@ -432,6 +434,7 @@ Plug 'ludovicchabant/vim-gutentags'
   let g:gutentags_generate_on_missing = 0
   let g:gutentags_generate_on_write = 0
   let g:gutentags_generate_on_new = 0
+  nnoremap <leader>gt :GutentagsUpdate!<CR>
 " }}}
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'

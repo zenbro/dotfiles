@@ -24,6 +24,17 @@ gpb() {
 }
 compdef _git ggp=git-checkout
 
+# git push origin :$(current_branch)
+gpd() {
+  if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
+    git push -u origin :"${*}"
+  else
+    [[ "$#" == 0 ]] && local b="$(current_branch)"
+    git push -u origin :"${b:=$1}"
+  fi
+}
+compdef _git ggd=git-checkout
+
 # git reset --hard origin/$(current_branch)
 gre!() {
   if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
@@ -84,7 +95,6 @@ alias gmt='git mergetool --no-prompt'
 
 alias gp="git push"
 alias gp!="git push --force"
-alias gpd="git push --dry-run"
 alias gpt="git push --tags"
 alias gpu="git push upstream"
 alias gpv="git push -v"
