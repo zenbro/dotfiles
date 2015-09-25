@@ -49,7 +49,7 @@ Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_default_mapping = 0
   let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_start_level = 2
-  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'unite', 'rogue']
+  let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
   autocmd! TermOpen * IndentGuidesDisable
 " }}}
 Plug 'kshenoy/vim-signature'
@@ -148,7 +148,7 @@ Plug 'Shougo/neosnippet'
 
 " File Navigation
 " ====================================================================
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 " {{{
   nnoremap <silent> <leader><space> :Files<CR>
