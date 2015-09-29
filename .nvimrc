@@ -159,7 +159,7 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>: :Commands<CR>
   nnoremap <silent> <leader>? :History<CR>
-  nnoremap <silent> <leader>/ :Ag<CR>
+  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
@@ -637,17 +637,17 @@ nnoremap <Leader>kn :leftabove  new<CR>
 nnoremap <Leader>jn :rightbelow new<CR>
 
 " If split in given direction exists - jump, else create new split
-function! JumpOrOpenNewSplit(key, cmd, unite) " {{{
+function! JumpOrOpenNewSplit(key, cmd, fzf) " {{{
   let current_window = winnr()
   execute 'wincmd' a:key
   if current_window == winnr()
     execute a:cmd
-    if a:unite
-      Unite -toggle -smartcase -start-insert buffer file_rec/async:!
+    if a:fzf
+      Files
     endif
   else
-    if a:unite
-      Unite -toggle -smartcase -start-insert buffer file_rec/async:!
+    if a:fzf
+      Files
     endif
   endif
 endfunction " }}}
@@ -739,8 +739,6 @@ augroup END
 " ====================================================================
 augroup vimGeneralCallbacks
   autocmd!
-  autocmd VimEnter * call system('i3-msg border none')
-  autocmd VimLeave * call system('i3-msg border normal')
   autocmd BufWritePost .nvimrc nested source ~/.nvimrc
 augroup END
 
