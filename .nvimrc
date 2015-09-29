@@ -292,6 +292,7 @@ Plug 'mattn/emmet-vim'
 " {{{
   let g:user_emmet_expandabbr_key = '<c-e>'
 " }}}
+Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-ragtag'
 " {{{
   let g:ragtag_global_maps = 1
@@ -484,7 +485,6 @@ Plug 'janko-m/vim-test'
 " }}}
 Plug 'tyru/open-browser.vim'
 " {{{
-  let g:openbrowser_default_search = 'duckduckgo'
   let g:netrw_nogx = 1
   vmap gx <Plug>(openbrowser-smart-search)
   nmap gx <Plug>(openbrowser-search)
