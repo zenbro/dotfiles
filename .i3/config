@@ -11,6 +11,8 @@ floating_modifier $mod
 
 focus_follows_mouse yes
 
+hide_edge_borders both
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -167,48 +169,46 @@ bindsym $mod+Control+l       exec --no-startup-id ~/.i3/i3lock-wrapper
 
 # hotkeys
 bindsym Print  exec --no-startup-id scrot -q 100 -e 'feh $f'
-bindsym Mod4+v exec --no-startup-id urxvt -name nvim -e nvim
+bindsym Mod4+v exec --no-startup-id urxvt -name nvim -e zsh -c nvim
 bindsym Mod4+c exec --no-startup-id chromium
 bindsym Mod4+f exec --no-startup-id firefox
 bindsym Mod4+g exec --no-startup-id google-chrome-stable
-bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
+bindsym Mod4+d exec --no-startup-id xkb-switch -s us && i3-dmenu-desktop
 bindsym Mod4+m exec --no-startup-id thunderbird
 bindsym Mod4+p exec --no-startup-id pidgin
 bindsym Mod4+n exec --no-startup-id liferea
 bindsym Mod4+r exec --no-startup-id urxvt -e ranger
-bindsym Mod4+t exec --no-startup-id urxvt -e vim note:todo
 bindsym Mod4+s exec --no-startup-id urxvt -e mocp
 bindsym Mod4+Prior exec --no-startup-id ~/.i3/worken start
 bindsym Mod4+Next exec --no-startup-id ~/.i3/worken stop
 bindsym Mod4+F12 exec --no-startup-id ~/.i3/save_song
-bindsym Mod4+minus border toggle
+bindsym Mod4+minus border none
+bindsym Mod4+equal border normal
 
 # duckduckgo search and jump to firefox
 bindsym $mod+g exec --no-startup-id ~/.i3/dmenu_search.sh
 
 # custom window settings (xprop can help)
-for_window [class="^Gvim$"]         border none
-for_window [class="^Dwb$"]          border none
-for_window [class="^Chromium$"]     border none
-for_window [class="^Google-chrome"] border none
-for_window [class="^Firefox$"]      border none
-for_window [class="^Thunderbird$"]  border none
-for_window [class="^Liferea"]       border none
-for_window [class="^Zathura"]       border none
-for_window [class="^Owa-devdocs"]   border none
+for_window [class="^URxvt$" instance="^nvim$"] border none
+for_window [class="^Chromium$"]                border none
+for_window [class="^Google-chrome"]            border none
+for_window [class="^Firefox$"]                 border none
+for_window [class="^Thunderbird$"]             border none
+for_window [class="^Liferea"]                  border none
+for_window [class="^Zathura"]                  border none
+for_window [class="^Owa-devdocs"]              border none
 
 # workspace assignment
-assign [class="^Gvim$"]            1: dev
-assign [class="^Google-chrome"]    2: www
-assign [class="^Thunderbird$"]     3: mail
-assign [class="^Pidgin$"]          4: im
-assign [class="^Skype$"]           4: im
-assign [class="^VirtualBox$"]      5: vbox
-assign [class="^Firefox$"]         F2: dev/www
-assign [class="^Chromium$"]        F2: dev/www
-assign [class="^Owa-devdocs"]      F4: dev/doc
-assign [class="^Transmission-gtk"] ...in process
 assign [class="^URxvt$" instance="^nvim$"] 1: dev
+assign [class="^Google-chrome"]            2: www
+assign [class="^Thunderbird$"]             3: mail
+assign [class="^Pidgin$"]                  4: im
+assign [class="^Skype$"]                   4: im
+assign [class="^VirtualBox$"]              5: vbox
+assign [class="^Firefox$"]                 F2: dev/www
+assign [class="^Chromium$"]                F2: dev/www
+assign [class="^Owa-devdocs"]              F4: dev/doc
+assign [class="^Transmission-gtk"]         ...in process
 
 # autorun
 exec --no-startup-id feh --bg-fill $HOME/.wallpaper
