@@ -50,7 +50,6 @@ Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_start_level = 2
   let g:indent_guides_exclude_filetypes = ['help', 'startify', 'man', 'rogue']
-  autocmd! TermOpen * IndentGuidesDisable
 " }}}
 Plug 'kshenoy/vim-signature'
 " {{{
@@ -151,6 +150,8 @@ Plug 'Shougo/neosnippet'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 " {{{
+  let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>; :BLines<CR>
@@ -240,53 +241,17 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Languages
 " ====================================================================
-Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 " {{{
-  let g:syntastic_enable_signs          = 1
-  let g:syntastic_enable_highlighting   = 1
-  let g:syntastic_cpp_check_header      = 1
-  let g:syntastic_enable_balloons       = 1
-  let g:syntastic_echo_current_error    = 1
-  let g:syntastic_check_on_wq           = 0
-  let g:syntastic_error_symbol          = '✘'
-  let g:syntastic_warning_symbol        = '!'
-  let g:syntastic_style_error_symbol    = ':('
-  let g:syntastic_style_warning_symbol  = ':('
-  let g:syntastic_ignore_files          = ['\.py$']
-  let g:syntastic_vim_checkers          = ['vint']
-  let g:syntastic_elixir_checkers       = ['elixir']
-  let g:syntastic_javascript_checkers   = ['eslint']
-  let g:syntastic_enable_elixir_checker = 0
+  autocmd! BufWritePost * Neomake
+  let g:neomake_airline = 0
+  let g:neomake_error_sign = { 'text': '✘', 'texthl': 'ErrorSign' }
+  let g:neomake_warning_sign = { 'text': ':(', 'texthl': 'WarningSign' }
 
-" Rubocop Settings {{{
-  let g:syntastic_ruby_rubocop_exec = '~/.rubocop.sh'
-  let g:syntastic_ruby_rubocop_args = '--display-cop-names --rails'
+  let g:neomake_ruby_enabled_makers = ['mri']
 
-  function! RubocopAutoCorrection()
-    echo 'Starting rubocop autocorrection...'
-    cexpr system('rubocop -D -R -f emacs -a ' . expand(@%))
-    edit
-    SyntasticCheck rubocop
-    copen
-  endfunction
-" }}}
-" Elixir Settings {{{
-  function! ElixirCheck()
-    let g:syntastic_enable_elixir_checker = 1
-    SyntasticCheck elixir
-    let g:syntastic_enable_elixir_checker = 0
-  endfunction
-" }}}
-
-  augroup syntasticCustomCheckers
-    autocmd!
-    autocmd FileType ruby nnoremap <leader>` :SyntasticCheck rubocop<CR>
-    autocmd FileType ruby nnoremap <leader>! :call RubocopAutoCorrection()<CR>
-    autocmd FileType sh nnoremap <leader>` :SyntasticCheck shellcheck<CR>
-    autocmd FileType elixir nnoremap <leader>` :call ElixirCheck()<CR>
-  augroup END
-
-  nnoremap <Leader>~ :SyntasticReset<CR>
+  map <F4> :lopen<CR>
+  map <F5> :Neomake<CR>
 " }}}
 Plug 'mattn/emmet-vim'
 " {{{
@@ -587,13 +552,9 @@ highlight! ColorColumn ctermbg=233 guibg=#131313
 highlight! SignColumn ctermbg=233 guibg=#0D0D0D
 highlight! FoldColumn ctermbg=233 guibg=#0D0D0D
 
-" Syntastic
-highlight! SyntasticErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
-highlight! SyntasticErrorLine guibg=#0D0D0D ctermbg=232
-highlight! SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
-highlight! SyntasticWargningLine guibg=#171717
-highlight! SyntasticStyleWarningSign guifg=black guibg=#bcbcbc ctermfg=16 ctermbg=250
-highlight! SyntasticStyleErrorSign guifg=black guibg=#ff8700 ctermfg=16 ctermbg=208
+" NeoMake
+highlight! ErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
+highlight! WarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
 
 " Language-specific
 highlight! link elixirAtom rubySymbol
@@ -754,13 +715,19 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufRead *.djs set filetype=jst
   autocmd BufNewFile,BufRead *.hamljs set filetype=jst
   autocmd BufNewFile,BufRead *.ect set filetype=jst
+
+  " Gnuplot support
+  autocmd BufNewFile,BufRead *.plt set filetype=gnuplot
+
   autocmd FileType jst set syntax=htmldjango
 augroup END
 
 augroup quickFixSettings
   autocmd!
-  autocmd FileType qf nnoremap <buffer> <silent> q :cclose<CR> |
-        \ map <buffer> <silent> <F8> :cclose<CR>
+  autocmd FileType qf
+        \ nnoremap <buffer> <silent> q :close<CR> |
+        \ map <buffer> <silent> <F4> :close<CR> |
+        \ map <buffer> <silent> <F8> :close<CR>
 augroup END
 "}}}
 " Cursor configuration {{{
