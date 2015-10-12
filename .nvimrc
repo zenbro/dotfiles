@@ -475,6 +475,20 @@ Plug 'mbbill/undotree'
 
   nnoremap <F11> :UndotreeToggle<CR>
 " }}}
+Plug '907th/vim-auto-save'
+" {{{
+  nnoremap coa :AutoSaveToggle<CR>
+  let g:auto_save_in_insert_mode = 0
+  let g:auto_save_events = ['CursorHold']
+" }}}
+Plug 'takac/vim-hardtime'
+" {{{
+  noremap <leader>F12 :HardTimeToggle<CR>
+
+  let g:hardtime_default_on = 1
+  let g:hardtime_ignore_quickfix = 1
+  let g:hardtime_ignore_buffer_patterns = ['netrw']
+" }}}
 
 " Misc
 " ====================================================================
@@ -495,11 +509,12 @@ call plug#end() " Plugins initialization finished {{{
 syntax on " syntax highlighting
 
 set clipboard=unnamed,unnamedplus
-set number     " show line numbers
-set noswapfile " disable creating of *.swp files
-set hidden     " hide buffers instead of closing
-set lazyredraw " speed up on large files
-set mouse=     " disable mouse
+set number         " show line numbers
+set relativenumber " use relative lines numbering by default
+set noswapfile     " disable creating of *.swp files
+set hidden         " hide buffers instead of closing
+set lazyredraw     " speed up on large files
+set mouse=         " disable mouse
 
 set scrolloff=999       " always keep cursor at the middle of screen
 set virtualedit=onemore " allow the cursor to move just past the end of the line
@@ -516,6 +531,7 @@ set diffopt=filler,vertical " default behavior for diff
 
 " ignore pattern for wildmenu
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
+set wildmode=list:longest,full
 
 set list " show hidden characters
 set listchars=tab:•·,trail:·,extends:❯,precedes:❮,nbsp:×
@@ -564,12 +580,6 @@ nnoremap <leader>vi :tabedit $MYVIMRC<CR>
 
 " Toggle quickfix
 map <silent> <F8> :copen<CR>
-
-" Jump to beginning/end of the line
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
 
 " Quick way to save file
 nnoremap <leader>w :w<CR>

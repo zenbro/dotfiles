@@ -1,5 +1,15 @@
 include html.snip
 
+snippet     -
+abbr        {% %}
+options     word
+	{% ${0:TARGET} %}
+
+snippet     =
+abbr        {%= %}
+options     word
+	{%= ${0:TARGET} %}
+
 snippet     if
 abbr        {% if (..) { %}
 options     head

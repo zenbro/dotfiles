@@ -5,7 +5,8 @@ abbreviations=(
   "wcldep" "bundle exec cap live deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "strpdep" "bundle exec cap production production2 deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "strsdep" "bundle exec cap staging deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
-  "ss" "ssh-add__CURSOR__"
+  "prdep" "bundle exec cap production deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
+  "ssa" "ssh-add__CURSOR__"
 )
 
 magic-abbrev-expand() {
