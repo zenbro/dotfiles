@@ -601,6 +601,15 @@ nmap g# g#zz
 " Select all text
 noremap vA ggVG
 
+" Same as normal H/L behavior, but preserves scrolloff
+nnoremap H :call JumpWithScrollOff('H')<CR>
+nnoremap L :call JumpWithScrollOff('L')<CR>
+function! JumpWithScrollOff(key) " {{{
+  set scrolloff=0
+  execute 'normal! ' . a:key
+  set scrolloff=999
+endfunction " }}}
+
 " Creating splits with empty buffers in all directions
 nnoremap <Leader>hn :leftabove  vnew<CR>
 nnoremap <Leader>ln :rightbelow vnew<CR>
