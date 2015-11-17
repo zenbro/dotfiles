@@ -1,6 +1,11 @@
 #!/usr/bin/zsh
 # https://github.com/junegunn/fzf/wiki/examples
 
+# utility function used to write the command in the shell
+writecmd() {
+  perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
+}
+
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
@@ -170,12 +175,11 @@ fstash() {
     done
 }
 
-# RVM integration
-frb() {
-  local rb
-  rb=$((echo system; rvm list | grep ruby | cut -c 4-) |
-       awk '{print $1}' |
-       fzf -l 30 +m --reverse) && rvm use $rb
+# Run single test from rails application
+ftest() {
+  local file
+  file=$(git ls-files test/ | fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && echo "ruby -I test $file" | writecmd -run
 }
 
 # fh - repeat history
