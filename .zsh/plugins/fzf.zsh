@@ -118,34 +118,28 @@ fco() {
   git checkout $(fbs)
 }
 
+# gbs - open selected branch in tig
+gbs() {
+  tig origin/$(fbs)
+}
+
 # fcs - get git commit sha
 # example usage: git rebase -i `fcs`
 fcs() {
   local commits commit
   commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m --ansi --reverse) &&
   echo -n $(echo "$commit" | sed "s/ .*//")
 }
 
 # fcoc - checkout git commit
 fcoc() {
-  local commits commit
-  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+  git checkout $(fcs)
 }
 
-# fshow - git commit browser
-fshow() {
-  local out sha q
-  while out=$(
-      git log --decorate=short --graph --oneline --color=always |
-      fzf --ansi --multi --no-sort --reverse --query="$q" --print-query); do
-    q=$(head -1 <<< "$out")
-    while read sha; do
-      [ -n "$sha" ] && git show --color=always $sha | less -R
-    done < <(sed '1d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-  done
+# gcs - open selected commit in tig
+gcs() {
+  tig show $(fcs)
 }
 
 # fstash - easier way to deal with stashes
