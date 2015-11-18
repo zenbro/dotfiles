@@ -158,7 +158,6 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
-  nnoremap <silent> <leader>: :Commands<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
   nnoremap <silent> K :call SearchWordWithAg()<CR>
@@ -244,7 +243,7 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'benekastah/neomake'
 " {{{
   autocmd! BufWritePost * Neomake
-  let g:neomake_airline = 0
+  let g:neomake_airline = 1
   let g:neomake_error_sign = { 'text': '✘', 'texthl': 'ErrorSign' }
   let g:neomake_warning_sign = { 'text': ':(', 'texthl': 'WarningSign' }
 
@@ -282,6 +281,7 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-jdaddy'
+Plug 'Shougo/context_filetype.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'othree/html5.vim'
 Plug 'othree/yajs.vim'
@@ -296,12 +296,12 @@ Plug 'jimenezrick/vimerl'
   let erlang_show_errors = 0
 " }}}
 Plug 'elixir-lang/vim-elixir'
+Plug 'jvirtanen/vim-octave'
 Plug 'lervag/vimtex'
 " {{{
   let g:vimtex_view_method = 'zathura'
   augroup latex
     autocmd!
-    autocmd FileType tex nnoremap <buffer><F4> :VimtexView<CR>
     autocmd FileType tex nnoremap <buffer><F5> :VimtexCompile<CR>
     autocmd FileType tex map <silent> <buffer><F8> :call vimtex#latexmk#errors_open(0)<CR>
   augroup END
@@ -343,11 +343,6 @@ Plug 'tpope/vim-fugitive'
     autocmd FileType gitcommit setlocal nolist
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
   augroup END
-" }}}
-Plug 'gregsexton/gitv'
-" {{{
-  let g:Gitv_OpenHorizontal = 1
-  nnoremap <silent> <leader>gv :Gitv<CR>
 " }}}
 Plug 'idanarye/vim-merginal'
 " {{{
@@ -483,12 +478,13 @@ Plug '907th/vim-auto-save'
 " }}}
 Plug 'takac/vim-hardtime'
 " {{{
-  noremap <leader>F12 :HardTimeToggle<CR>
+  map <leader>F12 :HardTimeToggle<CR>
 
   let g:hardtime_default_on = 1
   let g:hardtime_ignore_quickfix = 1
   let g:hardtime_ignore_buffer_patterns = ['netrw']
 " }}}
+"
 
 " Misc
 " ====================================================================
@@ -675,6 +671,10 @@ nnoremap <Leader>h<Enter> :leftabove  vnew<CR>:terminal<CR>
 nnoremap <Leader>l<Enter> :rightbelow vnew<CR>:terminal<CR>
 nnoremap <Leader>k<Enter> :leftabove  new<CR>:terminal<CR>
 nnoremap <Leader>j<Enter> :rightbelow new<CR>:terminal<CR>
+
+
+" Open tig
+nnoremap <Leader>gg :tabnew<CR>:terminal tig<CR>
 
 tnoremap <F1> <C-\><C-n>
 tnoremap <C-\><C-\> <C-\><C-n>:bd!<CR>

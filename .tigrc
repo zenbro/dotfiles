@@ -1,0 +1,128 @@
+# set default columns and line number interval
+set main-view = line-number:no,interval=1 id:yes date:default author:full commit-title:yes,graph,refs,overflow=no
+set blob-view = line-number:no,interval=1 text
+set diff-view = line-number:no,interval=1 text:yes,commit-title-overflow=no
+
+set tab-size = 4  # Number of spaces to use when expanding tabs
+
+# reload tigrc
+bind generic S :source ~/.tigrc
+
+# commit amend
+bind status A !git commit --amend
+
+# copy commit id to clipboard
+bind generic y !@sh -c "echo -n %(commit) | xclip -selection c"
+
+# copy branch name to clipboard
+bind refs y !@sh -c "echo -n %(branch) | xclip -selection c"
+
+# vim keybindings
+bind generic h view-close
+bind main h view-refs
+bind refs h view-main
+bind tree h back
+
+bind generic l enter
+bind main l view-diff
+bind diff l view-blob
+bind blob l view-blame
+
+bind generic g  none
+bind generic gg move-first-line
+bind generic gh view-main
+bind generic gf edit
+bind generic gt view-stash
+bind generic gl view-log
+bind generic gd view-diff
+bind generic g? view-help
+
+bind main    G  none
+bind generic G  move-last-line
+
+bind generic u move-page-up
+bind generic d move-page-down
+
+bind status <Space> status-update
+bind stage  <Space> status-update
+
+bind status l status-update
+bind stage  l status-update
+bind status s status-update
+bind stage  s status-update
+
+# custom colorscheme
+color default        188     233     normal
+color cursor         white   235     bold
+color status         10      default
+color delimiter      magenta default
+color date           110     default
+color mode           cyan    default
+color id             167     default
+color overflow       167     default
+color header         222     default
+color section        215     default
+color directory      222     default
+color file           default default
+color grep.file      222     default
+color file-size      default default
+color line-number    59      default
+color title-blur     188     233
+color title-focus    188     233     bold
+color main-commit    33      default
+color main-tag       33      default bold
+color main-local-tag 33      default
+color main-remote    196     default
+color main-replace   cyan    default
+color main-tracked   215     default bold
+color main-ref       222     default
+color main-head      222     default bold
+color stat-none      default default
+color stat-staged    107     default
+color stat-unstaged  167     default
+color stat-untracked red     default
+color help-group     blue    default
+color help-action    yellow  default
+color diff-stat      215     default
+color graph-commit   104     default
+
+color "diff --"            222 default
+color "--- "               222 default
+color "+++ "               222 default
+color "@@"                 104 default
+color "+"                  107 default
+color " +"                 107 default
+color "-"                  167 default
+color " -"                 167 default
+color "index "             222 default
+color "old file mode "     222 default
+color "new file mode "     222 default
+color "deleted file mode " 222 default
+color "copy from "         222 default
+color "copy to "           222 default
+color "rename from "       222 default
+color "rename to "         222 default
+color "similarity "        222 default
+color "dissimilarity "     222 default
+color "diff-tree "         110 default
+color "Author: "           250 default
+color "Commit: "           250 default
+color "Tagger: "           250 default
+color "Merge: "            250 default
+color "Date: "             250 default
+color "AuthorDate: "       250 default
+color "CommitDate: "       250 default
+color "TaggerDate: "       250 default
+color "Refs: "             250 default
+color "Reflog: "           250 default
+color "Reflog message: "   250 default
+color "stash@{"            30  default
+color "commit "            167 default
+color "parent "            110 default
+color "tree "              110 default
+color "author "            107 default
+color "committer "         107 default
+color "    Signed-off-by"  red default
+color "    Acked-by"       red default
+color "    Tested-by"      red default
+color "    Reviewed-by"    red default

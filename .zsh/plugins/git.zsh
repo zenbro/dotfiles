@@ -125,6 +125,6 @@ alias gstp="git stash pop"
 
 alias gcl="git clean -f"
 
-alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit"
+alias glg="tig"
 alias gls="git log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat"
 alias gwho="git shortlog -n -s --no-merges"
