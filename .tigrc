@@ -72,7 +72,7 @@ color title-focus    188     233     bold
 color main-commit    33      default
 color main-tag       33      default bold
 color main-local-tag 33      default
-color main-remote    196     default
+color main-remote    9       default
 color main-replace   cyan    default
 color main-tracked   215     default bold
 color main-ref       222     default

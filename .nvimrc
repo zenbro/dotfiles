@@ -748,6 +748,11 @@ augroup quickFixSettings
         \ map <buffer> <silent> <F4> :close<CR> |
         \ map <buffer> <silent> <F8> :close<CR>
 augroup END
+
+augroup terminalCallbacks
+  autocmd!
+  autocmd TermClose * call feedkeys('<cr>')
+augroup END
 "}}}
 " Cursor configuration {{{
 " ====================================================================
