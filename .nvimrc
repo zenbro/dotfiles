@@ -1,5 +1,6 @@
 filetype plugin indent on
 
+let g:python_host_prog='/usr/bin/python2'
 let g:mapleader = "\<Space>"
 
 " Autoinstall vim-plug {{{
@@ -108,42 +109,34 @@ Plug 't9md/vim-choosewin'
 
 " Completion
 " ====================================================================
-Plug 'Shougo/deoplete.nvim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " {{{
-  let g:deoplete#enable_at_startup = 1
+  let g:ycm_autoclose_preview_window_after_completion = 1
+  let g:ycm_seed_identifiers_with_syntax = 1
+  let g:ycm_key_invoke_completion = '<C-l>'
 " }}}
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neosnippet'
+Plug 'SirVer/ultisnips'
 " {{{
-  let g:neosnippet#snippets_directory = '~/.nvim/snippets'
-  let g:neosnippet#data_directory = $HOME . '/.nvim/cache/neosnippet'
-  let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
+  nnoremap <leader>se :UltiSnipsEdit<CR>
+  let g:UltiSnipsEditSplit = 'horizontal'
 
-  nnoremap <leader>se :NeoSnippetEdit -split<CR>
-  nnoremap <leader>sc :NeoSnippetClearMarkers<CR>
+  let g:UltiSnipsListSnippets = '<nop>'
+  let g:UltiSnipsExpandTrigger = '<nop>'
+  let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+  let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  let g:ulti_expand_or_jump_res = 0
 
-  imap <expr><TAB> neosnippet#expandable() ?
-        \ "\<Plug>(neosnippet_expand)"
-        \ : pumvisible() ? "\<C-n>" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable() ?
-        \ "\<Plug>(neosnippet_expand)"
-        \ : "\<TAB>"
-
-  " jump to the next snippet trigger or move to the right split
-  nmap <expr><C-l> neosnippet#jumpable() ?
-        \ ":call feedkeys('i<C-l>')<CR>"
-        \ : ":diffupdate<CR>:redraw!<CR>"
-  " jump to the next snippet trigger or redraw a screen
-  " (default <C-l> behaviour in normal mode)
-  imap <expr><C-l> neosnippet#jumpable() ?
-        \ "\<Plug>(neosnippet_jump)"
-        \ : "<ESC>:redraw!<CR>a"
-  smap <expr><C-l> neosnippet#jumpable() ?
-        \ "\<Plug>(neosnippet_jump)" :
-        \ "\<C-l>"
-  xmap <C-l> <Plug>(neosnippet_expand_target)
+  function! <SID>ExpandSnippetOrReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+      return snippet
+    else
+      return "\<C-Y>"
+    endif
+  endfunction
+  imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plug>delimitMateCR"
 " }}}
+Plug 'honza/vim-snippets'
 
 " File Navigation
 " ====================================================================
@@ -240,17 +233,27 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Languages
 " ====================================================================
-Plug 'benekastah/neomake'
+Plug 'scrooloose/syntastic'
 " {{{
-  autocmd! BufWritePost * Neomake
-  let g:neomake_airline = 1
-  let g:neomake_error_sign = { 'text': '✘', 'texthl': 'ErrorSign' }
-  let g:neomake_warning_sign = { 'text': ':(', 'texthl': 'WarningSign' }
-
-  let g:neomake_ruby_enabled_makers = ['mri']
-
-  map <F4> :lopen<CR>
-  map <F5> :Neomake<CR>
+  let g:syntastic_enable_signs          = 1
+  let g:syntastic_enable_highlighting   = 1
+  let g:syntastic_cpp_check_header      = 1
+  let g:syntastic_enable_balloons       = 1
+  let g:syntastic_echo_current_error    = 1
+  let g:syntastic_check_on_wq           = 0
+  let g:syntastic_error_symbol          = '✘'
+  let g:syntastic_warning_symbol        = '!'
+  let g:syntastic_style_error_symbol    = ':('
+  let g:syntastic_style_warning_symbol  = ':('
+  let g:syntastic_vim_checkers          = ['vint']
+  let g:syntastic_elixir_checkers       = ['elixir']
+  let g:syntastic_python_checkers       = ['flake8']
+  let g:syntastic_javascript_checkers   = ['eslint']
+  let g:syntastic_enable_elixir_checker = 0
+" }}}
+Plug 'xuhdev/SingleCompile'
+" {{{
+  map <F5> :SCCompileRun<CR>
 " }}}
 Plug 'mattn/emmet-vim'
 " {{{
@@ -296,6 +299,7 @@ Plug 'jimenezrick/vimerl'
   let erlang_show_errors = 0
 " }}}
 Plug 'elixir-lang/vim-elixir'
+Plug 'hynek/vim-python-pep8-indent'
 Plug 'jvirtanen/vim-octave'
 Plug 'lervag/vimtex'
 " {{{
@@ -478,11 +482,9 @@ Plug '907th/vim-auto-save'
 " }}}
 Plug 'takac/vim-hardtime'
 " {{{
-  map <leader>F12 :HardTimeToggle<CR>
-
   let g:hardtime_default_on = 1
   let g:hardtime_ignore_quickfix = 1
-  let g:hardtime_ignore_buffer_patterns = ['netrw']
+  let g:hardtime_ignore_buffer_patterns = ['netrw', 'help']
 " }}}
 "
 
@@ -564,9 +566,13 @@ highlight! ColorColumn ctermbg=233 guibg=#131313
 highlight! SignColumn ctermbg=233 guibg=#0D0D0D
 highlight! FoldColumn ctermbg=233 guibg=#0D0D0D
 
-" NeoMake
-highlight! ErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
-highlight! WarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
+" Syntastic
+highlight SyntasticErrorSign guifg=black guibg=#E01600 ctermfg=16 ctermbg=160
+highlight SyntasticErrorLine guibg=#0D0D0D ctermbg=232
+highlight SyntasticWarningSign guifg=black guibg=#FFED26 ctermfg=16 ctermbg=11
+highlight SyntasticWargningLine guibg=#171717
+highlight SyntasticStyleWarningSign guifg=black guibg=#bcbcbc ctermfg=16 ctermbg=250
+highlight SyntasticStyleErrorSign guifg=black guibg=#ff8700 ctermfg=16 ctermbg=208
 
 " Language-specific
 highlight! link elixirAtom rubySymbol
