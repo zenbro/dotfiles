@@ -113,7 +113,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " {{{
   let g:ycm_autoclose_preview_window_after_completion = 1
   let g:ycm_seed_identifiers_with_syntax = 1
-  let g:ycm_key_invoke_completion = '<C-l>'
+  let g:ycm_collect_identifiers_from_tags_files = 1
+  let g:ycm_key_invoke_completion = '<c-j>'
+  let g:ycm_complete_in_strings = 0
 " }}}
 Plug 'SirVer/ultisnips'
 " {{{
@@ -121,9 +123,9 @@ Plug 'SirVer/ultisnips'
   let g:UltiSnipsEditSplit = 'horizontal'
 
   let g:UltiSnipsListSnippets = '<nop>'
-  let g:UltiSnipsExpandTrigger = '<nop>'
-  let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-  let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  let g:UltiSnipsExpandTrigger = '<c-l>'
+  let g:UltiSnipsJumpForwardTrigger = '<c-l>'
+  let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
   let g:ulti_expand_or_jump_res = 0
 
   function! <SID>ExpandSnippetOrReturn()
@@ -394,12 +396,13 @@ Plug 'ludovicchabant/vim-gutentags'
       \ 'jquery*.js',
       \ '*/vendor/*',
       \ '*/node_modules/*',
+      \ '*/python2.7/*',
       \ '*/migrate/*.rb'
       \ ]
   let g:gutentags_generate_on_missing = 0
   let g:gutentags_generate_on_write = 0
   let g:gutentags_generate_on_new = 0
-  nnoremap <leader>gt :GutentagsUpdate!<CR>
+  nnoremap <leader>t! :GutentagsUpdate!<CR>
 " }}}
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'
