@@ -16,7 +16,7 @@ call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
 " Appearance
 " ====================================================================
 Plug 'nanotech/jellybeans.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 " {{{
   let g:airline_left_sep  = '▓▒░'
   let g:airline_right_sep = '░▒▓'
@@ -45,6 +45,7 @@ Plug 'bling/vim-airline'
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
 " }}}
+Plug 'vim-airline/vim-airline-themes'
 Plug 'nathanaelkane/vim-indent-guides'
 " {{{
   let g:indent_guides_default_mapping = 0
@@ -109,13 +110,13 @@ Plug 't9md/vim-choosewin'
 
 " Completion
 " ====================================================================
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer' }
 " {{{
   let g:ycm_autoclose_preview_window_after_completion = 1
   let g:ycm_seed_identifiers_with_syntax = 1
   let g:ycm_collect_identifiers_from_tags_files = 1
   let g:ycm_key_invoke_completion = '<c-j>'
-  let g:ycm_complete_in_strings = 0
+  let g:ycm_complete_in_strings = 1
 " }}}
 Plug 'SirVer/ultisnips'
 " {{{
@@ -284,6 +285,7 @@ Plug 'zenbro/vim-seeing-is-believing', { 'branch': 'great_update' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
+Plug 'yaymukund/vim-rabl'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-jdaddy'
 Plug 'Shougo/context_filetype.vim'
@@ -366,6 +368,7 @@ Plug 'airblade/vim-gitgutter'
   nnoremap <silent> <Leader>gu :GitGutterRevertHunk<CR>
   nnoremap <silent> <Leader>gp :GitGutterPreviewHunk<CR><c-w>j
   nnoremap cog :GitGutterToggle<CR>
+  nnoremap <Leader>gt :GitGutterAll<CR>
 " }}}
 Plug 'esneider/YUNOcommit.vim'
 
@@ -485,9 +488,9 @@ Plug '907th/vim-auto-save'
 " }}}
 Plug 'takac/vim-hardtime'
 " {{{
-  let g:hardtime_default_on = 1
+  let g:hardtime_default_on = 0
   let g:hardtime_ignore_quickfix = 1
-  let g:hardtime_ignore_buffer_patterns = ['netrw', 'help']
+  let g:hardtime_ignore_buffer_patterns = ['netrw', 'help', 'gitcommit']
 " }}}
 "
 
@@ -733,8 +736,6 @@ augroup END
 
 augroup fileTypeSpecific
   autocmd!
-  " Rabl support
-  autocmd BufRead,BufNewFile *.rabl setfiletype ruby
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
   " JST support
