@@ -12,10 +12,12 @@ endif
 " }}}
 call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
 " }}}
-
 " Appearance
 " ====================================================================
 Plug 'nanotech/jellybeans.vim'
+" {{
+  let g:jellybeans_use_term_background_color = 1
+" }}
 Plug 'vim-airline/vim-airline'
 " {{{
   let g:airline_left_sep  = '▓▒░'
