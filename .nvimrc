@@ -100,7 +100,7 @@ Plug 'itchyny/lightline.vim'
   let s:p.tabline.left    = [ [ s:base3, s:base02 ] ]
   let s:p.tabline.tabsel  = [ [ s:white, s:blue ] ]
   let s:p.tabline.middle  = [ [ s:base01, s:base03 ] ]
-  let s:p.tabline.right   = copy(s:p.normal.right)
+  let s:p.tabline.right   = [ [ s:base03, s:base03 ], [ s:base03, s:base03 ] ]
   let s:p.normal.error    = [ [ s:red, s:base02 ] ]
   let s:p.normal.warning  = [ [ s:yellow, s:base01 ] ]
   " }}}
