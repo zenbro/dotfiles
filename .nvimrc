@@ -139,19 +139,6 @@ Plug 'kshenoy/vim-signature'
     \ 'ListLocalMarkers'   :  "m?"
     \ }
 " }}}
-Plug 'mhinz/vim-startify'
-" {{{
-  let g:startify_session_dir = '~/.nvim/session'
-  let g:startify_list_order = ['sessions']
-  let g:startify_session_persistence = 1
-  let g:startify_session_delete_buffers = 1
-  let g:startify_change_to_dir = 1
-  let g:startify_change_to_vcs_root = 1
-  let g:startify_custom_footer =
-    \ map(split(system('fortune.rb'), '\n'), '"   ". v:val') + ['','']
-  nnoremap <F12> :Startify<CR>
-  autocmd! User Startified setlocal colorcolumn=0
-" }}}
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/limelight.vim'
 " {{{
@@ -202,6 +189,27 @@ Plug 'honza/vim-snippets'
 
 " File Navigation
 " ====================================================================
+Plug 'scrooloose/nerdtree'
+" {{{
+  let g:NERDTreeMinimalUI = 1
+  let g:NERDTreeHijackNetrw = 0
+  let g:NERDTreeWinSize = 31
+  let g:NERDTreeChDirMode = 2
+  let g:NERDTreeAutoDeleteBuffer = 1
+  let g:NERDTreeShowBookmarks = 1
+  let g:NERDTreeCascadeOpenSingleChildDir = 1
+
+  map <F1> :call NERDTreeToggleAndFind()<cr>
+  map <F2> :NERDTreeToggle<CR>
+
+  function! NERDTreeToggleAndFind()
+    if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
+      execute ':NERDTreeClose'
+    else
+      execute ':NERDTreeFind'
+    endif
+  endfunction
+" }}}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
 Plug 'junegunn/fzf.vim'
 " {{{
@@ -209,6 +217,7 @@ Plug 'junegunn/fzf.vim'
 
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
+  nnoremap <silent> <leader>A :Windows<CR>
   nnoremap <silent> <leader>; :BLines<CR>
   nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
@@ -759,30 +768,6 @@ nnoremap <leader><F2> :terminal ranger<CR>
 augroup terminalSettings
   autocmd!
   autocmd FileType ruby nnoremap <leader>\ :call TerminalInSplit('pry')<CR>
-augroup END
-" }}}
-" Netrw {{{
-" ====================================================================
-map <F1> :Explore<CR>
-map <F2> :edit .<CR>
-
-let g:netrw_banner = 0 " disable netrw banner with
-let g:netrw_hide   = 1 " show not-hidden files by default
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+' " hide dotfiles
-
-function! s:NetrwCustomSettings()
-  setlocal nolist
-  map <buffer> <F1> :Rexplore<CR>
-  map <buffer> <F2> :Rexplore<CR>
-  nmap <buffer> l <CR>
-  nmap <buffer> h -
-  nnoremap <buffer> ~ :edit ~/<CR>
-  nnoremap <buffer> <silent> q :Rexplore<CR>
-endfunction
-
-augroup enterNetrw
-  autocmd!
-  autocmd FileType netrw call s:NetrwCustomSettings()
 augroup END
 " }}}
 " Autocommands {{{
