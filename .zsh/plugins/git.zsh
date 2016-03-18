@@ -47,8 +47,12 @@ gre!() {
 
 # list files from commit, separated by comma (for cap deploy:upload FILES=...)
 gfi() {
-  local commit_sha=`fcs`
-  git diff-tree --no-commit-id --name-only -r "$commit_sha" | paste -sd "," -
+  local all_files
+  for commit in `fcs`; do
+    commit_files=$(git diff-tree --no-commit-id --name-only -r "$commit")
+    all_files="$all_files$commit_files\n"
+  done
+  echo $all_files | sort | uniq | grep '\S' | paste -sd "," -
 }
 
 # Aliases
