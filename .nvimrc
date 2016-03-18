@@ -1,5 +1,3 @@
-filetype plugin indent on
-
 let g:python_host_prog='/usr/bin/python2'
 let g:mapleader = "\<Space>"
 
@@ -15,39 +13,98 @@ call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
 " Appearance
 " ====================================================================
 Plug 'nanotech/jellybeans.vim'
-" {{
-  let g:jellybeans_use_term_background_color = 1
-" }}
-Plug 'vim-airline/vim-airline'
 " {{{
-  let g:airline_left_sep  = '▓▒░'
-  let g:airline_right_sep = '░▒▓'
-  let g:airline_section_z = '%2p%% %2l/%L:%2v'
-  let g:airline#extensions#syntastic#enabled = 0
-  let g:airline#extensions#whitespace#enabled = 0
-  let g:airline_exclude_preview = 1
-
-  " Tabline
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#show_buffers = 1
-  let g:airline#extensions#tabline#show_tabs = 0
-  let g:airline#extensions#tabline#buffer_idx_mode = 1
-  let g:airline#extensions#tabline#fnamecollapse = 1
-  let g:airline#extensions#tabline#show_close_button = 0
-  let g:airline#extensions#tabline#show_tab_type = 0
-  let g:airline#extensions#tabline#buffer_min_count = 2
-
-  nmap <leader>1 <Plug>AirlineSelectTab1
-  nmap <leader>2 <Plug>AirlineSelectTab2
-  nmap <leader>3 <Plug>AirlineSelectTab3
-  nmap <leader>4 <Plug>AirlineSelectTab4
-  nmap <leader>5 <Plug>AirlineSelectTab5
-  nmap <leader>6 <Plug>AirlineSelectTab6
-  nmap <leader>7 <Plug>AirlineSelectTab7
-  nmap <leader>8 <Plug>AirlineSelectTab8
-  nmap <leader>9 <Plug>AirlineSelectTab9
+  let g:jellybeans_use_term_background_color = 1
 " }}}
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+" {{{
+  let g:lightline = {
+        \ 'colorscheme': 'jellybeans_mod',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'filename' ] ],
+        \   'right': [ [ 'percent', 'lineinfo' ],
+        \              [ 'syntastic' ],
+        \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightLineFugitive',
+        \   'readonly': 'LightLineReadonly',
+        \   'modified': 'LightLineModified',
+        \   'syntastic': 'SyntasticStatuslineFlag',
+        \   'filename': 'LightLineFilename'
+        \ },
+        \ 'separator': { 'left': '▓▒░', 'right': '░▒▓' },
+        \ 'subseparator': { 'left': '>', 'right': '' }
+        \ }
+  function! LightLineModified()
+    if &filetype == "help"
+      return ""
+    elseif &modified
+      return "+"
+    elseif &modifiable
+      return ""
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineReadonly()
+    if &filetype == "help"
+      return ""
+    elseif &readonly
+      return "⭤"
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineFugitive()
+    return exists('*fugitive#head') ? fugitive#head() : ''
+  endfunction
+
+  function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  endfunction
+
+  " {{{ Modified jellybeans theme
+  let s:base03    = [ '#151513', 233 ]
+  let s:base02    = [ '#30302c', 236 ]
+  let s:base01    = [ '#4e4e43', 237 ]
+  let s:base00    = [ '#666656', 242 ]
+  let s:base0     = [ '#808070', 244 ]
+  let s:base1     = [ '#949484', 246 ]
+  let s:base2     = [ '#a8a897', 248 ]
+  let s:base3     = [ '#e8e8d3', 253 ]
+  let s:yellow    = [ '#ffb964', 215 ]
+  let s:red       = [ '#cf6a4c', 167 ]
+  let s:magenta   = [ '#f0a0c0', 217 ]
+  let s:blue      = [ '#7697D6', 4   ]
+  let s:orange    = [ '#ffb964', 215 ]
+  let s:green     = [ '#99ad6a', 107 ]
+  let s:white     = [ '#FCFCFC', 15  ]
+
+  let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}, 'terminal': {}}
+  let s:p.normal.left     = [ [ s:white, s:blue ], [ s:base3, s:base02 ] ]
+  let s:p.normal.right    = [ [ s:base02, s:base1 ], [ s:base3, s:base02 ] ]
+  let s:p.inactive.right  = [ [ s:base02, s:base00 ], [ s:base0, s:base02 ] ]
+  let s:p.inactive.left   = [ [ s:base0, s:base02 ], [ s:base00, s:base02 ] ]
+  let s:p.insert.left     = [ [ s:base02, s:orange ], [ s:base3, s:base01 ] ]
+  let s:p.replace.left    = [ [ s:base02, s:red ], [ s:base3, s:base01 ] ]
+  let s:p.visual.left     = [ [ s:base02, s:magenta ], [ s:base3, s:base01 ] ]
+  let s:p.terminal.left   = [ [ s:base02, s:green ], [ s:base3, s:base01 ] ]
+  let s:p.normal.middle   = [ [ s:base0, s:base03 ] ]
+  let s:p.inactive.middle = [ [ s:base00, s:base02 ] ]
+  let s:p.tabline.left    = [ [ s:base3, s:base02 ] ]
+  let s:p.tabline.tabsel  = [ [ s:white, s:blue ] ]
+  let s:p.tabline.middle  = [ [ s:base01, s:base03 ] ]
+  let s:p.tabline.right   = copy(s:p.normal.right)
+  let s:p.normal.error    = [ [ s:red, s:base02 ] ]
+  let s:p.normal.warning  = [ [ s:yellow, s:base01 ] ]
+  " }}}
+" }}}
 Plug 'nathanaelkane/vim-indent-guides'
 " {{{
   let g:indent_guides_default_mapping = 0
@@ -512,8 +569,6 @@ call plug#end() " Plugins initialization finished {{{
 
 " General settings {{{
 " ====================================================================
-syntax on " syntax highlighting
-
 set clipboard=unnamed,unnamedplus
 set number         " show line numbers
 set relativenumber " use relative lines numbering by default
@@ -565,6 +620,7 @@ set gdefault   " when on, the :substitute flag 'g' is default on
 " Colors and highlightings {{{
 " ====================================================================
 colorscheme jellybeans
+let g:lightline#colorscheme#jellybeans_mod#palette = lightline#colorscheme#flatten(s:p)
 
 set cursorline     " highlight current line
 set colorcolumn=80 " highlight column
