@@ -1,6 +1,11 @@
 setopt extendedglob
 typeset -Ag abbreviations
 abbreviations=(
+  "r1"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 1 minutes "
+  "r2"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 2 minutes "
+  "r3"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 3 minutes "
+  "r5"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 5 minutes "
+  "r7"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 7 minutes "
   "wclup"  "bundle exec cap live deploy:upload FILES=__CURSOR__"
   "wcldep" "bundle exec cap live deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "strpdep" "bundle exec cap production production2 deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
