@@ -22,13 +22,14 @@ Plug 'itchyny/lightline.vim'
         \ 'colorscheme': 'jellybeans_mod',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename' ] ],
+        \             [ 'fugitive', 'gitgutter', 'filename' ] ],
         \   'right': [ [ 'percent', 'lineinfo' ],
         \              [ 'syntastic' ],
         \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightLineFugitive',
+        \   'gitgutter': 'LightLineGitGutter',
         \   'readonly': 'LightLineReadonly',
         \   'modified': 'LightLineModified',
         \   'syntastic': 'SyntasticStatuslineFlag',
@@ -61,6 +62,27 @@ Plug 'itchyny/lightline.vim'
 
   function! LightLineFugitive()
     return exists('*fugitive#head') ? fugitive#head() : ''
+  endfunction
+
+  function! LightLineGitGutter()
+    if ! exists('*GitGutterGetHunkSummary')
+          \ || ! get(g:, 'gitgutter_enabled', 0)
+          \ || winwidth('.') <= 90
+      return ''
+    endif
+    let symbols = [
+          \ g:gitgutter_sign_added,
+          \ g:gitgutter_sign_modified,
+          \ g:gitgutter_sign_removed
+          \ ]
+    let hunks = GitGutterGetHunkSummary()
+    let ret = []
+    for i in [0, 1, 2]
+      if hunks[i] > 0
+        call add(ret, symbols[i] . hunks[i])
+      endif
+    endfor
+    return join(ret, ' ')
   endfunction
 
   function! LightLineFilename()
@@ -429,7 +451,8 @@ Plug 'airblade/vim-gitgutter'
   let g:gitgutter_map_keys = 0
   let g:gitgutter_max_signs = 200
   let g:gitgutter_realtime = 0
-  let g:gitgutter_eager = 0
+  let g:gitgutter_eager = 1
+  let g:gitgutter_sign_removed = '–'
   let g:gitgutter_diff_args = '--ignore-space-at-eol'
   nmap <silent> ]h :GitGutterNextHunk<CR>
   nmap <silent> [h :GitGutterPrevHunk<CR>
@@ -560,7 +583,6 @@ Plug 'takac/vim-hardtime'
   let g:hardtime_ignore_quickfix = 1
   let g:hardtime_ignore_buffer_patterns = ['netrw', 'help', 'gitcommit']
 " }}}
-"
 
 " Misc
 " ====================================================================
