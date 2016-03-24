@@ -751,6 +751,10 @@ function! DeleteHiddenBuffers() " {{{
     silent execute 'bwipeout' buf
   endfor
 endfunction " }}}
+
+let g:session_dir = '$HOME/.nvim/sessions/'
+nnoremap <Leader>sl :wall<Bar>execute "source " . g:session_dir . fnamemodify(getcwd(), ':t')<CR>
+nnoremap <Leader>ss :execute "mksession! " . g:session_dir . fnamemodify(getcwd(), ':t')<CR>
 " }}}
 " Terminal {{{
 " ====================================================================
