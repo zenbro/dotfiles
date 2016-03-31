@@ -8,6 +8,7 @@ abbreviations=(
   "r7"  "echo 'notify-send -u critical \"__CURSOR__\"' | at now + 7 minutes "
   "wclup"  "bundle exec cap live deploy:upload FILES=__CURSOR__"
   "wcldep" "bundle exec cap live deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
+  "wcsdep" "bundle exec cap staging deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "strpdep" "bundle exec cap production production2 deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "strsdep" "bundle exec cap staging deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "prdep" "bundle exec cap production deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"

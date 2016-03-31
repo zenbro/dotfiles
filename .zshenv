@@ -1,6 +1,9 @@
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 export EDITOR=nvim
 export LSCOLORS=Gxfxcxdxbxegedabagacad
 export FZF_DEFAULT_COMMAND='ag -l -g ""'

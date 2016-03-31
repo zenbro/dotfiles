@@ -120,7 +120,7 @@ fco() {
 
 # gbs - open selected branch in tig
 gbs() {
-  tig origin/$(fbs)
+  tig $(fbs)
 }
 
 # fcs - get git commit sha
