@@ -687,6 +687,14 @@ nnoremap Y y$
 " Disable search highlighting
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR><Esc>
 
+" Copy current file path to clipboard
+nnoremap <leader>% :call CopyCurrentFilePath()<CR>
+function! CopyCurrentFilePath() " {{{
+  let @+ = expand('%')
+  echo @+
+endfunction
+" }}}
+
 " Keep search results at the center of screen
 nmap n nzz
 nmap N Nzz
@@ -824,6 +832,8 @@ augroup fileTypeSpecific
   autocmd BufNewFile,BufRead *.djs set filetype=jst
   autocmd BufNewFile,BufRead *.hamljs set filetype=jst
   autocmd BufNewFile,BufRead *.ect set filetype=jst
+
+  autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 
   " Gnuplot support
   autocmd BufNewFile,BufRead *.plt set filetype=gnuplot
