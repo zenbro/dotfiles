@@ -54,7 +54,7 @@ Plug 'itchyny/lightline.vim'
     if &filetype == "help"
       return ""
     elseif &readonly
-      return "⭤"
+      return "RO"
     else
       return ""
     endif
@@ -250,6 +250,7 @@ Plug 'junegunn/fzf.vim'
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
   nnoremap <silent> <leader>ga :BCommits<CR>
+  nnoremap <silent> <leader>ft :Filetypes<CR>
 
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   imap <C-x><C-l> <plug>(fzf-complete-line)
