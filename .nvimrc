@@ -277,6 +277,16 @@ Plug 'Shougo/neomru.vim'
   let g:neomru#directory_mru_path = $HOME . '/.nvim/cache/neomru/directory'
 " }}}
 Plug 'zenbro/mirror.vim'
+" {{{
+  nnoremap <leader>mp :MirrorPush<CR>
+  nnoremap <leader>ml :MirrorPull<CR>
+  nnoremap <leader>md :MirrorDiff<CR>
+  nnoremap <leader>me :MirrorEdit<CR>
+  nnoremap <leader>mo :MirrorOpen<CR>
+  nnoremap <leader>ms :MirrorSSH<CR>
+  nnoremap <leader>mi :MirrorInfo<CR>
+  nnoremap <leader>mc :MirrorConfig<CR>
+" }}}
 
 " Text Navigation
 " ====================================================================
