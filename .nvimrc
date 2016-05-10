@@ -484,7 +484,7 @@ Plug 'lyokha/vim-xkbswitch'
   let g:XkbSwitchILayout = 'us'
 
   function! RestoreKeyboardLayout(key)
-    call system('xkb-switch -s us')
+    call system("xkb-switch -s 'us(rus)'")
     execute 'normal! ' . a:key
   endfunction
 
