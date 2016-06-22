@@ -172,7 +172,11 @@ fstash() {
 # Run single test from rails application
 ftest() {
   local file
-  file=$(git ls-files test/ | fzf --query="$1" --select-1 --exit-0)
+  file=$(
+    git ls-files test/ |
+    grep -v '\(factories\|fixtures\|test_helper\|gitkeep\)' |
+    fzf --query="$1" --select-1 --exit-0
+  )
   [ -n "$file" ] && echo "ruby -I test $file" | writecmd -run
 }
 

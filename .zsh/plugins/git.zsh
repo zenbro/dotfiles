@@ -99,6 +99,7 @@ alias gmt='git mergetool --no-prompt'
 
 alias gp="git push"
 alias gp!="git push --force"
+alias gpo="gpd && gpb"
 alias gpt="git push --tags"
 alias gpu="git push upstream"
 alias gpv="git push -v"
