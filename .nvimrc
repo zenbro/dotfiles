@@ -169,12 +169,6 @@ Plug 'junegunn/limelight.vim'
   nmap <silent> gl :Limelight!!<CR>
   xmap gl <Plug>(Limelight)
 " }}}
-Plug 't9md/vim-choosewin'
-" {{{
-  nmap <leader>' <Plug>(choosewin)
-  let g:choosewin_blink_on_land = 0
-  let g:choosewin_tabline_replace = 0
-" }}}
 
 " Completion
 " ====================================================================
@@ -196,16 +190,6 @@ Plug 'SirVer/ultisnips'
   let g:UltiSnipsJumpForwardTrigger = '<c-l>'
   let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
   let g:ulti_expand_or_jump_res = 0
-
-  function! <SID>ExpandSnippetOrReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-      return snippet
-    else
-      return "\<C-Y>"
-    endif
-  endfunction
-  imap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "<Plug>delimitMateCR"
 " }}}
 Plug 'honza/vim-snippets'
 
@@ -326,6 +310,7 @@ Plug 'AndrewRadev/sideways.vim'
   nnoremap <Leader>< :SidewaysLeft<CR>
   nnoremap <Leader>> :SidewaysRight<CR>
 " }}}
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
 
@@ -354,10 +339,23 @@ Plug 'scrooloose/syntastic'
   let g:syntastic_python_checkers       = ['flake8']
   let g:syntastic_javascript_checkers   = ['eslint']
   let g:syntastic_enable_elixir_checker = 0
-" }}}
-Plug 'xuhdev/SingleCompile'
-" {{{
-  map <F5> :SCCompileRun<CR>
+
+  let g:syntastic_ruby_rubocop_exec = '~/.rubocop.sh'
+  let g:syntastic_ruby_rubocop_args = '--display-cop-names --rails'
+
+  function! RubocopAutoCorrection()
+    echo 'Starting rubocop autocorrection...'
+    cexpr system('rubocop -D -R -f emacs -a ' . expand(@%))
+    edit
+    SyntasticCheck rubocop
+    copen
+  endfunction
+
+  augroup syntasticCustomCheckers
+    autocmd!
+    autocmd FileType ruby nnoremap <leader>` :SyntasticCheck rubocop<CR>
+    autocmd FileType ruby nnoremap <leader>! :call RubocopAutoCorrection()<CR>
+  augroup END
 " }}}
 Plug 'mattn/emmet-vim'
 " {{{
@@ -369,20 +367,6 @@ Plug 'tpope/vim-ragtag'
   let g:ragtag_global_maps = 1
 " }}}
 Plug 'vim-ruby/vim-ruby'
-Plug 'zenbro/vim-seeing-is-believing', { 'branch': 'great_update' }
-" {{{
-  augroup seeingIsBelievingSettings
-    autocmd!
-
-    autocmd FileType ruby nmap <buffer> <Enter> <Plug>(seeing-is-believing-mark-and-run)
-
-    autocmd FileType ruby nmap <buffer> gz <Plug>(seeing-is-believing-mark)
-    autocmd FileType ruby xmap <buffer> gz <Plug>(seeing-is-believing-mark)
-    autocmd FileType ruby imap <buffer> gz <Plug>(seeing-is-believing-mark)
-
-    autocmd FileType ruby nmap <buffer> gZ <Plug>(seeing-is-believing-run)
-  augroup END
-" }}}
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
@@ -390,7 +374,6 @@ Plug 'yaymukund/vim-rabl'
 Plug 'tpope/vim-liquid'
 Plug 'tpope/vim-jdaddy'
 Plug 'Shougo/context_filetype.vim'
-Plug 'kchmck/vim-coffee-script'
 Plug 'othree/html5.vim'
 Plug 'othree/yajs.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -415,6 +398,10 @@ Plug 'lervag/vimtex'
     autocmd FileType tex map <silent> <buffer><F8> :call vimtex#latexmk#errors_open(0)<CR>
   augroup END
 " }}}
+Plug 'StanAngeloff/php.vim'
+Plug 'qbbr/vim-twig'
+Plug 'mxw/vim-jsx'
+Plug 'ekalinin/Dockerfile.vim'
 
 " Git
 " ====================================================================
@@ -453,15 +440,11 @@ Plug 'tpope/vim-fugitive'
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
   augroup END
 " }}}
-Plug 'idanarye/vim-merginal'
-" {{{
-  nnoremap <leader>gm :MerginalToggle<CR>
-" }}}
 Plug 'airblade/vim-gitgutter'
 " {{{
   let g:gitgutter_map_keys = 0
   let g:gitgutter_max_signs = 200
-  let g:gitgutter_realtime = 0
+  let g:gitgutter_realtime = 1
   let g:gitgutter_eager = 1
   let g:gitgutter_sign_removed = '–'
   let g:gitgutter_diff_args = '--ignore-space-at-eol'
@@ -484,7 +467,7 @@ Plug 'lyokha/vim-xkbswitch'
   let g:XkbSwitchILayout = 'us'
 
   function! RestoreKeyboardLayout(key)
-    call system("xkb-switch -s 'us(rus)'")
+    call system("xkb-switch -s 'us'")
     execute 'normal! ' . a:key
   endfunction
 
@@ -580,19 +563,7 @@ Plug 'mbbill/undotree'
   endif
   let &undodir = undodir
 
-  nnoremap <F11> :UndotreeToggle<CR>
-" }}}
-Plug '907th/vim-auto-save'
-" {{{
-  nnoremap coa :AutoSaveToggle<CR>
-  let g:auto_save_in_insert_mode = 0
-  let g:auto_save_events = ['CursorHold']
-" }}}
-Plug 'takac/vim-hardtime'
-" {{{
-  let g:hardtime_default_on = 0
-  let g:hardtime_ignore_quickfix = 1
-  let g:hardtime_ignore_buffer_patterns = ['netrw', 'help', 'gitcommit']
+  nnoremap <leader>U :UndotreeToggle<CR>
 " }}}
 
 " Misc
@@ -600,11 +571,6 @@ Plug 'takac/vim-hardtime'
 Plug 'itchyny/calendar.vim', { 'on': 'Calendar' }
 " {{{
   let g:calendar_date_month_name = 1
-" }}}
-Plug 'katono/rogue.vim', { 'on': 'Rogue' }
-" {{{
-  let g:rogue#name = 'zenbro'
-  let g:rogue#directory = expand($HOME.'/.vim/rogue')
 " }}}
 call plug#end() " Plugins initialization finished {{{
 " }}}

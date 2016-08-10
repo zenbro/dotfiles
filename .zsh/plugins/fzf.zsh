@@ -15,6 +15,13 @@ fe() {
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
+# frm - remove selected file
+frm() {
+  local file
+  file=$(fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && rm "$file"
+}
+
 # fea - search hidden files and open matching in vim
 fea() {
   local file

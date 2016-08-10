@@ -15,3 +15,4 @@ export FZF_DEFAULT_OPTS='
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 eval $(keychain --eval --quiet --quick --noask --agents ssh id_rsa)
+eval $(thefuck --alias)

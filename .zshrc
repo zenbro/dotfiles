@@ -106,7 +106,6 @@ RPROMPT+='$(rvm_prompt_string)$(virtualenv_prompt_string)'
 unsetopt menu_complete # do not autoselect the first completion entry
 setopt always_to_end   # when completing from the middle of a word, move the cursor to the end of the word
 setopt auto_menu       # show completion menu on successive tab press. needs unsetop menu_complete to work
-setopt correct         # spelling correction for commands
 
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic

@@ -13,6 +13,7 @@ abbreviations=(
   "strsdep" "bundle exec cap staging deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "prdep" "bundle exec cap production deploy BRANCH=__CURSOR__ && notify-send 'deploy done'"
   "ssa" "ssh-add__CURSOR__"
+  "ssg" "ssh-add ~/.ssh/id_rsa_github__CURSOR__"
 )
 
 magic-abbrev-expand() {
