@@ -70,6 +70,7 @@ alias gbd="git branch -D"
 alias gc="git commit -v -m"
 alias gca="git commit --amend"
 alias gcm="git commit"
+alias gcu="git reset --soft @~ && git status"
 
 alias gcd='cd "`git rev-parse --show-toplevel`"'
 
@@ -110,7 +111,7 @@ alias grba="git rebase --abort"
 alias grbc="git rebase --continue"
 alias grbs="git rebase --skip"
 
-alias gre="git reset HEAD"
+alias grh="git reset HEAD"
 
 alias grmv="git remote rename"
 alias grrm="git remote remove"
@@ -118,6 +119,7 @@ alias grset="git remote set-url"
 
 alias gs="git status"
 alias gss="git status --short --branch"
+alias gsf="git status | fpp"
 
 alias gsi="git submodule init"
 alias gsu="git submodule update"

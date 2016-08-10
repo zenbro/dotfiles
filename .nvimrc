@@ -14,7 +14,7 @@ call plug#begin('~/.nvim/plugged') " Plugins initialization start {{{
 " ====================================================================
 Plug 'nanotech/jellybeans.vim'
 " {{{
-  let g:jellybeans_use_term_background_color = 1
+  let g:jellybeans_use_term_background_color = 0
 " }}}
 Plug 'itchyny/lightline.vim'
 " {{{
@@ -183,8 +183,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --tern-completer' }
 Plug 'SirVer/ultisnips'
 " {{{
   nnoremap <leader>se :UltiSnipsEdit<CR>
-  let g:UltiSnipsEditSplit = 'horizontal'
 
+  let g:UltiSnipsSnippetsDir = '~/.nvim/UltiSnips'
+  let g:UltiSnipsEditSplit = 'horizontal'
   let g:UltiSnipsListSnippets = '<nop>'
   let g:UltiSnipsExpandTrigger = '<c-l>'
   let g:UltiSnipsJumpForwardTrigger = '<c-l>'
@@ -216,7 +217,7 @@ Plug 'scrooloose/nerdtree'
     endif
   endfunction
 " }}}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " {{{
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
@@ -225,11 +226,12 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
   nnoremap <silent> <leader>; :BLines<CR>
-  nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+  nnoremap <silent> <leader>. :AgIn 
+
   nnoremap <silent> K :call SearchWordWithAg()<CR>
   vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
@@ -254,6 +256,11 @@ Plug 'junegunn/fzf.vim'
     let &clipboard = old_clipboard
     execute 'Ag' selection
   endfunction
+
+  function! SearchWithAgInDirectory(...)
+    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
+  endfunction
+  command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 " }}}
 Plug 'Shougo/neomru.vim'
 " {{{
@@ -494,6 +501,9 @@ Plug 'ludovicchabant/vim-gutentags'
 " }}}
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'
+" {{{
+  nnoremap coe :set <C-R>=&expandtab ? 'noexpandtab' : 'expandtab'<CR><CR>
+" }}}
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
 " {{{
@@ -801,8 +811,7 @@ augroup END
 
 augroup fileTypeSpecific
   autocmd!
-  " Make ?s part of words
-  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+
   " JST support
   autocmd BufNewFile,BufRead *.ejs set filetype=jst
   autocmd BufNewFile,BufRead *.jst set filetype=jst
